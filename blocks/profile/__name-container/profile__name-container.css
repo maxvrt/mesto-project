@@ -1,0 +1,21 @@
+.profile__name-container {
+  max-width: 336px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  column-gap: 18px;
+  row-gap: 6px;
+}
+
+@media (max-width: 711px) {
+  .profile__name-container {
+    max-width: 366px;
+  }
+}
+
+@media (max-width: 400px) {
+  .profile__name-container {
+    padding-left: 25px;
+    column-gap: 10px;
+  }
+}

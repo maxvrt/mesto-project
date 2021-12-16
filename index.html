@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Место</title>
+  <link rel="stylesheet" href="./pages/index.css">
+</head>
+<body class="page">
+  <header class="header"><img src="./images/logo-white.svg" alt="Место" class="logo"></header>
+
+<main class="content">
+
+  <section class="prof">
+    <div class="profile">
+      <img class="profile__photo" src="./images/kusto.jpg">
+      <div class="profile__name-container">
+        <h1 class="profile__name">Жак-Ив Кусто</h1>
+        <img class="profile__edit" src="./images/Edit Button.svg" alt="Редактировать">
+        <p class="profile__desc">Исследователь океана</p>
+      </div>
+      <div class="profile__add-button">
+        <img class="profile__add-button-img" src="./images/add-button.svg" alt="добавить">
+      </div>
+            
+    </div>
+  </section>
+
+  <section class="photos">
+    <div class="photos-grid">
+      <div class="photos-grid__item">
+        <img src="./images/kirill-pershin-1088404-unsplash-1.jpg" alt="Карач" class="photos-grid__img">
+        <div class="photos-grid__place">
+          <p class="photos-grid__city">Карачаевск</p>
+          <img src="./images/heart.png" alt="" class="photos-grid__heart">
+        </div>
+      </div>
+      <div class="photos-grid__item">
+        <img src="./images/kirill-pershin-1088404-unsplash-1.jpg" alt="Карач" class="photos-grid__img">
+        <div class="photos-grid__place">
+          <p class="photos-grid__city">Гора Эльбрус</p>
+          <img src="./images/heart.png" alt="" class="photos-grid__heart">
+        </div>
+      </div>
+      <div class="photos-grid__item">
+        <img src="./images/kirill-pershin-1088404-unsplash-1.jpg" alt="Карач" class="photos-grid__img">
+        <div class="photos-grid__place">
+          <p class="photos-grid__city">Домбай</p>
+          <img src="./images/heart.png" alt="" class="photos-grid__heart">
+        </div>
+      </div>
+      <div class="photos-grid__item">
+        <img src="./images/kirill-pershin-1088404-unsplash-1.jpg" alt="Карач" class="photos-grid__img">
+        <div class="photos-grid__place">
+          <p class="photos-grid__city">Гора Эльбрус</p>
+          <img src="./images/heart.png" alt="" class="photos-grid__heart">
+        </div>
+      </div>
+      <div class="photos-grid__item">
+        <img src="./images/kirill-pershin-1088404-unsplash-1.jpg" alt="Карач" class="photos-grid__img">
+        <div class="photos-grid__place">
+          <p class="photos-grid__city">Домбай</p>
+          <img src="./images/heart.png" alt="" class="photos-grid__heart">
+        </div>
+      </div>
+      <div class="photos-grid__item">
+        <img src="./images/kirill-pershin-1088404-unsplash-1.jpg" alt="Карач" class="photos-grid__img">
+        <div class="photos-grid__place">
+          <p class="photos-grid__city">Карачаево-Черкесия</p>
+          <img src="./images/heart.png" alt="" class="photos-grid__heart">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="popup popup_opened">
+    <img src="./images/Close Icon.svg" alt="Закрыть редактор" class="popup-box__close">
+    <div class="popup-box">            
+      <form action="/" class="form" method="POST" name="profile-info">
+        <h2 class="form__title">Редактировать профиль</h2>
+        <fieldset class="form__input">            
+          <input class="form__item form__item_el_name" type="text" name="name" value="Жак-Ив Кусто" required> 
+          <input class="form__item form__item_el_desc" type="text" name="desc" value="Исследователь океана" required> 
+        </fieldset>
+        <button type="submit" class="form__button">Сохранить</button>
+      </form>      
+    </div>
+  </section>
+
+  <footer class="footer">
+    <p class="copyright">© 2020 Mesto Russia</p>
+  </footer>
+
+</main>
+
+</body>
+</html>

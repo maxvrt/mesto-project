@@ -1,0 +1,9 @@
+.photos {
+  padding-top: 50px;
+}
+
+@media (max-width: 400px) {
+  .photos {
+    padding-top: 36px;
+  }
+}

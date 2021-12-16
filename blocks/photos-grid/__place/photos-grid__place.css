@@ -1,0 +1,12 @@
+.photos-grid__place {
+  margin: 0;
+  padding-bottom: 25px;
+  padding-left: 10px;
+  padding-right: 8px;
+  min-width: 244px;
+  position: relative;
+  display: flex;   
+  flex-direction: row; 
+  justify-content: space-between;  
+  font-size: 0px;
+}

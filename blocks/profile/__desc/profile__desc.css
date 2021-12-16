@@ -1,0 +1,19 @@
+.profile__desc {
+  margin: 0;
+  font-size: 18px;
+  line-height: 22px;
+}
+
+@media (max-width: 711px) {
+  .profile__desc {   
+    margin-left: 20%;
+  }
+}
+
+@media (max-width: 400px) {
+  .profile__desc {
+    margin-left: 35px;
+    font-size: 14px;
+    line-height: 17px;
+  }
+}

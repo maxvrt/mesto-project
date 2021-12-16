@@ -1,0 +1,14 @@
+.photos-grid__item {
+  position: relative;
+  border-radius: 3%;
+  background-color: #fff;
+  color: #000;
+  overflow: hidden;
+  max-width: 282px;
+  display: flex;
+  flex-direction: column;
+  row-gap: 25px;
+  justify-self: center;
+  align-items: center;
+  font-size: 0px;
+}

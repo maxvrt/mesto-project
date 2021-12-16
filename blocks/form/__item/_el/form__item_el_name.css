@@ -1,0 +1,11 @@
+.form__item_el_name {
+  margin-top: 46px;
+  padding-bottom: 10px;
+}
+
+@media (max-width: 400px) {
+  .form__item_el_name {
+    margin-top: 75px;
+    padding-bottom: 8px;
+  }
+}

@@ -1,0 +1,13 @@
+.form {
+  max-width: 358px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 34px 36px 37px 36px;
+}
+
+@media (max-width: 400px) {
+  .form {
+    padding: 25px 22px 25px 22px;
+  }
+}
