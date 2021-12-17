@@ -1,3 +1,7 @@
 .photos-grid__heart {
+  height: 19px;
+  width: 22px;
+  background-repeat: no-repeat;  
+  background-image: url(../../../images/heart.png);
   align-self: baseline;
 }

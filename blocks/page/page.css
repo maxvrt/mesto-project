@@ -1,4 +1,9 @@
 .page {
+  height: 100vh;
+  max-width: 880px;
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
   background-color: #000000;
   color: #fff;
   font-family: Inter, Arial, sans-serif;  

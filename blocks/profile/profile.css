@@ -8,16 +8,26 @@
   align-items: center;
   column-gap: 30px;
   justify-content: flex-start;
+  box-sizing: border-box;
+}
+
+@media (max-width: 881px) {
+  .profile {
+    padding-left: 20px;
+    padding-right: 20px;
+    
+  }
 }
 
 @media (max-width: 711px) {
   .profile {
-    flex-direction: column;
+    flex-direction: column;    
   }
 }
 
 @media (max-width: 400px) {
   .profile {
     padding-top: 41px;
+
   }
 }
