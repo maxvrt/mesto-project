@@ -347,24 +347,3 @@ template {
 [hidden] {
   display: none;
 }
-* {
-  font-weight: inherit;
-  font-style: inherit;
-  font-size: 100%;
-  margin-block-start: 0;
-  margin-block-end: 0;
-  margin-inline-start: 0;
-  margin-inline-end: 0;
-}
-a:active,
-a:hover,
-a {
-  text-decoration: none;
-}
-li {
-  list-style-type: none;
-}
- ul {
-  margin-left: 0;
-  padding-left: 0;
-}

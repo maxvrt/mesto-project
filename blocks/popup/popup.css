@@ -1,24 +1,23 @@
-.popup {  
+.popup {
   position: fixed;
-  top: 0;  left: 0; right:0; bottom: 0;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
   margin: 0 auto;
   display: none;
   align-items: center;
   justify-content: center;
 }
 
-.popup:before {  
+.popup:before {
   content: '';
-  opacity: .65;
-  top: 0;  left: 0; right:0; bottom: 0;
+  opacity: .5;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
   background-color: #000;
   position: fixed;
   z-index: 1;
-}
-
-@media (max-width: 400px) {
-  .popup {
-    top: 87px;
-    justify-content:start;
-  }
 }

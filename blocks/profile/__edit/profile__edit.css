@@ -1,6 +1,18 @@
 .profile__edit {
-  padding-top: 8px;
+  align-self: center;
+  background: url("../../../images/Edit_Button.svg") right bottom no-repeat;
+  background-size: contain;
+  border: none;
+  width: 24px;
+  height: 24px;
+  align-self: center;
+  padding-top: 25px; 
 }
+
+.profile__edit:hover {
+  opacity: .6;
+}
+
 
 @media (max-width: 711px) {
   .profile__edit {
@@ -10,7 +22,9 @@
 
 @media (max-width: 400px) {
   .profile__edit {
-    padding-top: 34px;
-    max-height: 18px;
+    width: 18px;
+    height: 18px;
+    align-self: center;   
+    padding-top: 45px; 
   }
 }

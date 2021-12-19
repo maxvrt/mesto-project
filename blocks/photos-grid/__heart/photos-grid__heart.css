@@ -1,7 +1,14 @@
 .photos-grid__heart {
   height: 19px;
   width: 22px;
+  background-size: contain;
+  border: none;
   background-repeat: no-repeat;  
-  background-image: url(../../../images/heart.png);
+  background-image: url(../../../images/heart.svg);
   align-self: baseline;
+  background-color: #fff;
+}
+
+.photos-grid__heart:hover {
+  opacity: .5;
 }

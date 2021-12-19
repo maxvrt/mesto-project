@@ -12,6 +12,7 @@
 
 @media (max-width: 905px) {
   .footer {
+    box-sizing: border-box;
     padding-left: 20px;
   }
 }
@@ -21,5 +22,6 @@
     font-size: 14px;
     line-height: 17px;
     padding-top: 48px;
+    padding-bottom: 36px;
   }
 }

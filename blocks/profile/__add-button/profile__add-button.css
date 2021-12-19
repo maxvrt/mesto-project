@@ -5,6 +5,9 @@
   border: 2px solid #FFFFFF;
   margin-left: auto;
   box-sizing: border-box;
+  background: url("../../../images/add-button.svg") center center no-repeat;
+  background-size: 20px 20px;
+  border-radius: 2px;
 }
 
 @media (max-width: 711px) {
@@ -14,4 +17,8 @@
     margin-left: 20px;
     margin-right: 20px;
   }
+}
+
+.profile__add-button:hover {
+  opacity: 0.6;
 }
