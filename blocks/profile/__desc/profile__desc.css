@@ -11,12 +11,13 @@
 @media (max-width: 711px) {
   .profile__desc {   
     margin-left: 20%;
-    max-width: 182px;
+    max-width: 252px;
   }
 }
 
 @media (max-width: 400px) {
   .profile__desc {
+    max-width: 182px;
     margin-left: 35px;
     font-size: 14px;
     line-height: 17px;

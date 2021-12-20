@@ -15,7 +15,6 @@
   .profile__name {
     padding-left: 20px;
     padding-top: 26px; 
-    max-width: 200px;
   }
 }
 
@@ -23,5 +22,6 @@
   .profile__name {
     font-size: 27px;
     line-height: 33px;
+    max-width: 200px;
   }
 }
