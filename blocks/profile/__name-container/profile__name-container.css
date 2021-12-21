@@ -17,5 +17,6 @@
   .profile__name-container {
     padding-left: 25px;
     column-gap: 10px;
+    row-gap: 8px;
   }
 }

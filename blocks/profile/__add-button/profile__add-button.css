@@ -6,13 +6,13 @@
   margin-left: auto;
   box-sizing: border-box;
   background: url("../../../images/add-button.svg") center center no-repeat;
-  background-size: 20px 20px;
+  background-size: 16px 16px;
   border-radius: 2px;
 }
 
 @media (max-width: 711px) {
   .profile__add-button {
-    margin-top: 36px;
+    margin-top: 34px;
     width: 100%;     
     margin-left: 20px;
     margin-right: 20px;

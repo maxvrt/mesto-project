@@ -22,13 +22,12 @@
 @import url(../blocks/photos-grid/__city/photos-grid__city.css);
 @import url(../blocks/photos-grid/__heart/_active/photos-grid__heart_active.css);
 @import url(../blocks/popup/popup.css);
-@import url(../blocks/popup-box/popup-box.css);
+@import url(../blocks/popup/__popup-box/popup__popup-box.css);
 @import url(../blocks/popup/__close/popup__close.css);
 @import url(../blocks/popup/_opened/popup_opened.css);
 @import url(../blocks/prof/prof.css);
 @import url(../blocks/profile/profile.css);
 @import url(../blocks/profile/__add-button/profile__add-button.css);
-@import url(../blocks/profile/__add-button-img/profile__add-button-img.css);
 @import url(../blocks/profile/__desc/profile__desc.css);
 @import url(../blocks/profile/__edit/profile__edit.css);
 @import url(../blocks/profile/__name-container/profile__name-container.css);
