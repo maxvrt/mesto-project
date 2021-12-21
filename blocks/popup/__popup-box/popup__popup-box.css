@@ -1,4 +1,4 @@
-.popup-box {
+.popup__popup-box {
   position: relative;
   justify-self: flex-start;
   display: flex;
@@ -11,7 +11,7 @@
 }
 
 @media (max-width: 439px) {
-  .popup-box {
+  .popup__popup-box {
     max-width: 282px;
   }
 }
