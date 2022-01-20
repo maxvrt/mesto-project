@@ -7,6 +7,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Место</title>
   <link rel="stylesheet" href="./pages/index.css">
+  <script src="./cards.js" defer></script>
+  <script src="./index.js" defer></script>
 </head>
 
 <body class="page">
@@ -33,7 +35,7 @@
           <img src="./images/kirill-pershin-1088404-unsplash-1.jpg" alt="Карачаевск" class="photos-grid__img">
           <div class="photos-grid__place">
             <h2 class="photos-grid__city">Карачаевск</h2>
-            <button type="button" class="photos-grid__heart photos-grid__heart_active"></button>
+            <button type="button" class="photos-grid__heart link"></button>
           </div>
         </div>
         <div class="photos-grid__item">
@@ -74,16 +76,30 @@
       </div>
     </section>
 
-    <section class="popup popup_opened">      
+    <section class="popup popup_profile">      
       <div class="popup__popup-box">
-        <button title="Закрыть редактор" class="popup__close"></button>
-        <form action="/" class="form" method="POST" name="profile-info">
+        <button title="Закрыть редактор" class="popup__close popup_profile"></button>
+        <form action="/" class="form form_profile" method="POST" name="profile-info">
           <h2 class="form__title">Редактировать профиль</h2>
           <fieldset class="form__add-data">
             <input class="form__item form__item_el_name" type="text" name="name" value="Жак-Ив Кусто" required>
             <input class="form__item form__item_el_desc" type="text" name="desc" value="Исследователь океана" required>
           </fieldset>
           <button type="submit" class="form__button link">Сохранить</button>
+        </form>
+      </div>
+    </section>
+
+    <section class="popup popup_place">      
+      <div class="popup__popup-box">
+        <button title="Закрыть редактор" class="popup__close popup_place"></button>
+        <form action="/" class="form form_place" method="POST" name="place-info">
+          <h2 class="form__title">Новое место</h2>
+          <fieldset class="form__add-data">
+            <input class="form__item form__item_el_place" type="text" name="place" placeholder="Название" required>
+            <input class="form__item form__item_el_img-place" type="text" name="img-place" placeholder="Ссылка на картинку" required>
+          </fieldset>
+          <button type="submit" class="form__button link">Создать</button>
         </form>
       </div>
     </section>
