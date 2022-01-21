@@ -1,14 +1,16 @@
-.photos-grid__heart {
+.photos-grid__delete {
+  position: absolute;
+  top: 20px;
+  right: 17px;
   height: 19px;
   width: 22px;
   background-size: contain;
   border: none;
   background-repeat: no-repeat;  
-  background-image: url(../../../images/heart.svg);
-  align-self: baseline;
+  background-image: url(../../../images/delete.svg);
   background-color:transparent;
 }
 
-.photos-grid__heart:hover {
+.photos-grid__delete:hover {
   opacity: .5;
 }

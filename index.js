@@ -73,8 +73,12 @@ function formCardSubmitHandler (evt) {
   likeButton.classList.add('photos-grid__heart');
   likeButton.classList.add('link');
   
+  const delButton = document.createElement('button');
+  delButton.classList.add('photos-grid__delete');
+  delButton.classList.add('link');
+
   photosGridPlace.append(photosGridCity, likeButton);
-  photosGridItem.append(imgElement, photosGridPlace); 
+  photosGridItem.append(imgElement, photosGridPlace, delButton); 
   photosGrid.prepend(photosGridItem); 
 
   closeOpenModal(placePopup);
@@ -82,10 +86,38 @@ function formCardSubmitHandler (evt) {
 placeFormElement.addEventListener('submit', formCardSubmitHandler);
 
 // Лайк карточки
-const photosGridHeart = document.querySelector('.photos-grid');
-photosGridHeart.addEventListener('click',  evt => {
+photosGrid.addEventListener('click',  evt => {
   const heartButton = evt.target;
   if (heartButton.className.includes('photos-grid__heart link')){
     heartButton.classList.toggle('photos-grid__heart_active');
+  }  
+}); 
+// Удаление карточки
+photosGrid.addEventListener('click',  evt => {
+  const delButton = evt.target;
+  if (delButton.className.includes('photos-grid__delete link')){
+    const listItem = delButton.closest("div");
+    listItem.remove(); 
+  }  
+}); 
+
+//Модальное окно картинки
+function closeOpenModalImg(imgValue, altValue) { 
+  const imgPopup = document.querySelector('.popup_img');
+  imgPopup.classList.toggle('popup_opened');
+  const popupBox = imgPopup.firstElementChild;
+  console.log(popupBox);
+  const imgElement = document.createElement('img');
+  imgElement.classList.add('popup__photo');
+  imgElement.setAttribute('src', imgValue);
+  imgElement.setAttribute('alt', altValue);
+  popupBox.append(imgElement);
+}
+photosGrid.addEventListener('click',  evt => {
+  const imgGrid = evt.target;
+  if (imgGrid.className.includes('photos-grid__img')){
+    const imgSrc = imgGrid.getAttribute('src');
+    const imgAlt = imgGrid.getAttribute('alt');
+    closeOpenModalImg(imgSrc, imgAlt);
   }  
 }); 
