@@ -1,0 +1,16 @@
+.popup__img-box {
+  position: relative;
+  justify-self: flex-start;
+  display: flex;
+  row-gap: 10px;
+  flex-direction: column;
+  z-index: 2;
+  max-width: 430px;
+  box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.15);
+}
+
+@media (max-width: 439px) {
+  .popup__img-box {
+    max-width: 282px;
+  }
+}

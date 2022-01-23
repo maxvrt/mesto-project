@@ -101,23 +101,26 @@ photosGrid.addEventListener('click',  evt => {
   }  
 }); 
 
-//Модальное окно картинки
-function closeOpenModalImg(imgValue, altValue) { 
-  const imgPopup = document.querySelector('.popup_img');
-  imgPopup.classList.toggle('popup_opened');
-  const popupBox = imgPopup.firstElementChild;
-  console.log(popupBox);
-  const imgElement = document.createElement('img');
-  imgElement.classList.add('popup__photo');
+// Модальное окно картинки
+const imgModalButtonClose = document.querySelector('.popup__close.popup_img');
+const imgPopup = document.querySelector('.popup_img');
+// Функция заполнения модального окна
+function fillModalImg(imgValue, altValue, popup) {     
+  const popupBox = popup.firstElementChild;
+  const imgElement = popupBox.querySelector('.popup__photo');
+  const descElement = popupBox.querySelector('.popup__desc');
   imgElement.setAttribute('src', imgValue);
   imgElement.setAttribute('alt', altValue);
-  popupBox.append(imgElement);
+  descElement.textContent = altValue;
 }
+// Открытие-закрытие модального окна
+imgModalButtonClose.addEventListener('click', () => { closeOpenModal(imgPopup) }); 
 photosGrid.addEventListener('click',  evt => {
   const imgGrid = evt.target;
   if (imgGrid.className.includes('photos-grid__img')){
     const imgSrc = imgGrid.getAttribute('src');
     const imgAlt = imgGrid.getAttribute('alt');
-    closeOpenModalImg(imgSrc, imgAlt);
+    fillModalImg(imgSrc, imgAlt, imgPopup);
+    closeOpenModal(imgPopup);
   }  
 }); 

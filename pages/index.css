@@ -28,8 +28,11 @@
 @import url(../blocks/photos-grid/__heart/_active/photos-grid__heart_active.css);
 @import url(../blocks/popup/popup.css);
 @import url(../blocks/popup/__popup-box/popup__popup-box.css);
+@import url(../blocks/popup/__img-box/popup__img-box.css);
 @import url(../blocks/popup/__close/popup__close.css);
 @import url(../blocks/popup/_opened/popup_opened.css);
+@import url(../blocks/popup/__photo/popup__photo.css);
+@import url(../blocks/popup/__desc/popup__desc.css);
 @import url(../blocks/prof/prof.css);
 @import url(../blocks/profile/profile.css);
 @import url(../blocks/profile/__add-button/profile__add-button.css);
