@@ -31,54 +31,6 @@
 
     <section class="photos">
       <div class="photos-grid">
-        <div class="photos-grid__item">
-          <button type="button" class="photos-grid__delete link"></button>
-          <img src="./images/kirill-pershin-1088404-unsplash-1.jpg" alt="Карачаевск" class="photos-grid__img">
-          <div class="photos-grid__place">
-            <h2 class="photos-grid__city">Карачаевск</h2>
-            <button type="button" class="photos-grid__heart link"></button>
-          </div>
-        </div>
-        <div class="photos-grid__item">
-          <button type="button" class="photos-grid__delete link"></button>
-          <img src="./images/kirill-pershin-1404681-unsplash-1.jpg" alt="Гора Эльбрус" class="photos-grid__img">
-          <div class="photos-grid__place">
-            <h2 class="photos-grid__city">Гора Эльбрус</h2>
-            <button type="button" class="photos-grid__heart link"></button>
-          </div>
-        </div>
-        <div class="photos-grid__item">
-          <button type="button" class="photos-grid__delete link"></button>
-          <img src="./images/kirill-pershin-1556355-unsplash-1.jpg" alt="Домбай" class="photos-grid__img">
-          <div class="photos-grid__place">
-            <h2 class="photos-grid__city">Домбай</h2>
-            <button type="button" class="photos-grid__heart link"></button>
-          </div>
-        </div>
-        <div class="photos-grid__item">
-          <button type="button" class="photos-grid__delete link"></button>
-          <img src="./images/kirill-pershin-1404681-unsplash-1.jpg" alt="Гора Эльбрус" class="photos-grid__img">
-          <div class="photos-grid__place">
-            <h2 class="photos-grid__city">Гора Эльбрус</h2>
-            <button type="button" class="photos-grid__heart link"></button>
-          </div>
-        </div>
-        <div class="photos-grid__item">
-          <button type="button" class="photos-grid__delete link"></button>
-          <img src="./images/kirill-pershin-1556355-unsplash-1.jpg" alt="Домбай" class="photos-grid__img">
-          <div class="photos-grid__place">
-            <h2 class="photos-grid__city">Домбай</h2>
-            <button type="button" class="photos-grid__heart link"></button>
-          </div>
-        </div>
-        <div class="photos-grid__item">
-          <button type="button" class="photos-grid__delete link"></button>
-          <img src="./images/kirill-pershin-1088404-unsplash-1.jpg" alt="Карачаево-Черкесия" class="photos-grid__img">
-          <div class="photos-grid__place">
-            <h2 class="photos-grid__city">Карачаево-Черкесия</h2>
-            <button type="button" class="photos-grid__heart link"></button>
-          </div>
-        </div>
       </div>
     </section>
 
@@ -122,6 +74,18 @@
   <footer class="footer">
     <p class="footer__copyright">© 2020 Mesto Russia</p>
   </footer>
+
+  <template id="card-template">
+    <div class="photos-grid__item">
+      <button type="button" class="photos-grid__delete link"></button>
+      <img src="/" alt="" class="photos-grid__img">
+      <div class="photos-grid__place">
+        <h2 class="photos-grid__city"></h2>
+        <button type="button" class="photos-grid__heart link"></button>
+      </div>
+    </div>
+  </template> 
+  
 </body>
 
 </html>

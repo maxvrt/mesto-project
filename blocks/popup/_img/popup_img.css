@@ -1,0 +1,7 @@
+.popup_img {
+}
+
+.popup_img:before { 
+  content: '';
+  opacity: .9;
+}

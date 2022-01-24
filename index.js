@@ -1,33 +1,49 @@
-// Вывод карточек
-const names = document.querySelectorAll('.photos-grid__city');
-names.forEach((item, index) => {
-  item.textContent = initialCards[index]['name'];
-});
-const imgs = document.querySelectorAll('.photos-grid__img');
-imgs.forEach((item, index) => {
-  item.setAttribute('src', initialCards[index]['link']);
-  item.setAttribute('alt', initialCards[index]['name']);
-});
-
-
-// Функция открытия-закрытия модального окна
-function closeOpenModal(popup) { 
-  popup.classList.toggle('popup_opened');
-}
-
-// Профиль
-const closeProfileModalButton = document.querySelector('.popup__close.popup_profile');
-const openProfileModalButton = document.querySelector('.profile__edit');
+// Создание и вывод карточек
+const photosGrid = document.querySelector('.photos-grid');
+const template = document.querySelector('#card-template').content;
+// Профиль 
+const profileModalCloseButton = document.querySelector('.popup__close.popup_profile');
+const profileModalOpenButton = document.querySelector('.profile__edit');
 const profilePopup = document.querySelector('.popup_profile');
-closeProfileModalButton.addEventListener('click', () => {closeOpenModal(profilePopup)}); 
-openProfileModalButton.addEventListener('click', () => {closeOpenModal(profilePopup)});
-
 const profileName = document.querySelector('.profile__name');
 const profileDesc = document.querySelector('.profile__desc');
 const profileFormElement = document.querySelector('.form_profile');
 const nameInput = document.querySelector('.form__item_el_name');
 const jobInput = document.querySelector('.form__item_el_desc');
-function formProfileSubmitHandler (evt) {
+// Окно добавления карточки
+const placeModalCloseButton = document.querySelector('.popup__close.popup_place');
+const placeModalOpenButton = document.querySelector('.profile__add-button');
+const placePopup = document.querySelector('.popup_place');
+const placeFormElement = document.querySelector('.form_place');
+const placeInput = document.querySelector('.form__item_el_place');
+const imgInput = document.querySelector('.form__item_el_img-place');
+// Модальное окно картинки
+const imgModalButtonClose = document.querySelector('.popup__close.popup_img');
+const imgPopup = document.querySelector('.popup_img');
+
+function createCard(imgCard, nameCard) { 
+  const newCard = template.querySelector('.photos-grid__item').cloneNode(true);
+  newCard.querySelector('.photos-grid__img').setAttribute('src', imgCard);
+  newCard.querySelector('.photos-grid__img').setAttribute('alt', nameCard);
+  newCard.querySelector('.photos-grid__city').textContent = nameCard;
+  return newCard;
+}
+initialCards.forEach((item) => {
+  photosGrid.append(createCard(item['link'],item['name']));
+});
+
+// Функции открытия-закрытия модального окна
+function openModal(popup) { 
+  popup.classList.add('popup_opened');
+}
+function closeModal(popup) { 
+  popup.classList.remove('popup_opened');
+}
+
+// Профиль
+profileModalCloseButton.addEventListener('click', () => {closeModal(profilePopup)}); 
+profileModalOpenButton.addEventListener('click', () => {openModal(profilePopup)});
+function handleFormProfileSubmit(evt) {
   evt.preventDefault();   
   const nameValue = nameInput.value;
   const jobValue = jobInput.value;  
@@ -35,55 +51,19 @@ function formProfileSubmitHandler (evt) {
   profileDesc.textContent = jobValue;
   document.querySelector('.form__item_el_name').value = profileName.textContent;
   document.querySelector('.form__item_el_desc').value = profileDesc.textContent;
-  closeOpenModal(profilePopup);
+  closeModal(profilePopup);
 }
-profileFormElement.addEventListener('submit', formProfileSubmitHandler);
+profileFormElement.addEventListener('submit', handleFormProfileSubmit);
 
-// Карточка
-const closePlaceModalButton = document.querySelector('.popup__close.popup_place');
-const openPlaceModalButton = document.querySelector('.profile__add-button');
-const placePopup = document.querySelector('.popup_place');
-closePlaceModalButton.addEventListener('click', () => {closeOpenModal(placePopup)}); 
-openPlaceModalButton.addEventListener('click', () => {closeOpenModal(placePopup)});
-
-const placeFormElement = document.querySelector('.form_place');
-const placeInput = document.querySelector('.form__item_el_place');
-const imgInput = document.querySelector('.form__item_el_img-place');
-const photosGrid = document.querySelector('.photos-grid');
-// Форма добавления карточки
-function formCardSubmitHandler (evt) {
+// Окно добавления карточки
+placeModalCloseButton.addEventListener('click', () => {closeModal(placePopup)}); 
+placeModalOpenButton.addEventListener('click', () => {openModal(placePopup)});
+function addCardFromForm(evt) {
   evt.preventDefault();   
-  const placeValue = placeInput.value;
-  const imgValue = imgInput.value;    
-  const photosGridItem = document.createElement('div');
-  photosGridItem.classList.add('photos-grid__item');
-  
-  const imgElement = document.createElement('img');
-  imgElement.classList.add('photos-grid__img');
-  imgElement.setAttribute('src', imgValue);
-
-  const photosGridPlace = document.createElement('div');
-  photosGridPlace.classList.add('photos-grid__place');
-  
-  const photosGridCity = document.createElement('h2');
-  photosGridCity.classList.add('photos-grid__city');
-  photosGridCity.textContent = placeValue; 
- 
-  const likeButton = document.createElement('button');
-  likeButton.classList.add('photos-grid__heart');
-  likeButton.classList.add('link');
-  
-  const delButton = document.createElement('button');
-  delButton.classList.add('photos-grid__delete');
-  delButton.classList.add('link');
-
-  photosGridPlace.append(photosGridCity, likeButton);
-  photosGridItem.append(imgElement, photosGridPlace, delButton); 
-  photosGrid.prepend(photosGridItem); 
-
-  closeOpenModal(placePopup);
+  photosGrid.prepend(createCard(imgInput.value, placeInput.value)); 
+  closeModal(placePopup);
 }
-placeFormElement.addEventListener('submit', formCardSubmitHandler);
+placeFormElement.addEventListener('submit', addCardFromForm);
 
 // Лайк карточки
 photosGrid.addEventListener('click',  evt => {
@@ -101,10 +81,7 @@ photosGrid.addEventListener('click',  evt => {
   }  
 }); 
 
-// Модальное окно картинки
-const imgModalButtonClose = document.querySelector('.popup__close.popup_img');
-const imgPopup = document.querySelector('.popup_img');
-// Функция заполнения модального окна
+// Функция заполнения модального окна картинки
 function fillModalImg(imgValue, altValue, popup) {     
   const popupBox = popup.firstElementChild;
   const imgElement = popupBox.querySelector('.popup__photo');
@@ -113,14 +90,14 @@ function fillModalImg(imgValue, altValue, popup) {
   imgElement.setAttribute('alt', altValue);
   descElement.textContent = altValue;
 }
-// Открытие-закрытие модального окна
-imgModalButtonClose.addEventListener('click', () => { closeOpenModal(imgPopup) }); 
+// Открытие-закрытие картинки
+imgModalButtonClose.addEventListener('click', () => { closeModal(imgPopup) }); 
 photosGrid.addEventListener('click',  evt => {
   const imgGrid = evt.target;
   if (imgGrid.className.includes('photos-grid__img')){
     const imgSrc = imgGrid.getAttribute('src');
     const imgAlt = imgGrid.getAttribute('alt');
     fillModalImg(imgSrc, imgAlt, imgPopup);
-    closeOpenModal(imgPopup);
+    openModal(imgPopup);
   }  
 }); 
