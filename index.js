@@ -20,12 +20,35 @@ const imgInput = document.querySelector('.form__item_el_img-place');
 // Модальное окно картинки
 const imgModalButtonClose = document.querySelector('.popup__close.popup_img');
 const imgPopup = document.querySelector('.popup_img');
+const imgPopupBox = imgPopup.querySelector('.popup__img-box');
+const imgElement = imgPopup.querySelector('.popup__photo');
+const imgDescElement = imgPopup.querySelector('.popup__desc');
+
 
 function createCard(imgCard, nameCard) { 
   const newCard = template.querySelector('.photos-grid__item').cloneNode(true);
-  newCard.querySelector('.photos-grid__img').setAttribute('src', imgCard);
-  newCard.querySelector('.photos-grid__img').setAttribute('alt', nameCard);
-  newCard.querySelector('.photos-grid__city').textContent = nameCard;
+  const heartButton = newCard.querySelector('.photos-grid__heart');
+  const delButton = newCard.querySelector('.photos-grid__delete');
+  const cardImg = newCard.querySelector('.photos-grid__img');
+  cardImg.setAttribute('src', imgCard);
+  cardImg.setAttribute('alt', nameCard);
+  newCard.querySelector('.photos-grid__city').textContent = nameCard;  
+  // Лайк
+  heartButton.addEventListener('click',  () => {    
+    heartButton.classList.toggle('photos-grid__heart_active');    
+  }); 
+  // Удаление
+  delButton.addEventListener('click',  () => {    
+    const listItem = delButton.closest("div");
+    listItem.remove();   
+  }); 
+  // Модальное окно
+  cardImg.addEventListener('click', () => {
+      const imgSrc = cardImg.getAttribute('src');
+      const imgAlt = cardImg.getAttribute('alt');
+      fillModalImg(imgSrc, imgAlt);
+      openModal(imgPopup);
+  }); 
   return newCard;
 }
 initialCards.forEach((item) => {
@@ -44,13 +67,13 @@ function closeModal(popup) {
 profileModalCloseButton.addEventListener('click', () => {closeModal(profilePopup)}); 
 profileModalOpenButton.addEventListener('click', () => {openModal(profilePopup)});
 function handleFormProfileSubmit(evt) {
-  evt.preventDefault();   
+  evt.preventDefault();
   const nameValue = nameInput.value;
   const jobValue = jobInput.value;  
   profileName.textContent = nameValue;
   profileDesc.textContent = jobValue;
-  document.querySelector('.form__item_el_name').value = profileName.textContent;
-  document.querySelector('.form__item_el_desc').value = profileDesc.textContent;
+  nameInput.value = profileName.textContent;
+  jobInput.value = profileDesc.textContent;
   closeModal(profilePopup);
 }
 profileFormElement.addEventListener('submit', handleFormProfileSubmit);
@@ -65,39 +88,11 @@ function addCardFromForm(evt) {
 }
 placeFormElement.addEventListener('submit', addCardFromForm);
 
-// Лайк карточки
-photosGrid.addEventListener('click',  evt => {
-  const heartButton = evt.target;
-  if (heartButton.className.includes('photos-grid__heart link')){
-    heartButton.classList.toggle('photos-grid__heart_active');
-  }  
-}); 
-// Удаление карточки
-photosGrid.addEventListener('click',  evt => {
-  const delButton = evt.target;
-  if (delButton.className.includes('photos-grid__delete link')){
-    const listItem = delButton.closest("div");
-    listItem.remove(); 
-  }  
-}); 
-
 // Функция заполнения модального окна картинки
-function fillModalImg(imgValue, altValue, popup) {     
-  const popupBox = popup.firstElementChild;
-  const imgElement = popupBox.querySelector('.popup__photo');
-  const descElement = popupBox.querySelector('.popup__desc');
+function fillModalImg(imgValue, altValue) {     
   imgElement.setAttribute('src', imgValue);
   imgElement.setAttribute('alt', altValue);
-  descElement.textContent = altValue;
+  imgDescElement.textContent = altValue;
 }
-// Открытие-закрытие картинки
+// Открытие-закрытие модального окна картинки
 imgModalButtonClose.addEventListener('click', () => { closeModal(imgPopup) }); 
-photosGrid.addEventListener('click',  evt => {
-  const imgGrid = evt.target;
-  if (imgGrid.className.includes('photos-grid__img')){
-    const imgSrc = imgGrid.getAttribute('src');
-    const imgAlt = imgGrid.getAttribute('alt');
-    fillModalImg(imgSrc, imgAlt, imgPopup);
-    openModal(imgPopup);
-  }  
-}); 
