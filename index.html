@@ -34,21 +34,24 @@
       </div>
     </section>
 
-    <section class="popup popup_profile">      
+    <section class="popup popup_profile">
       <div class="popup__popup-box">
         <button title="Закрыть редактор" class="popup__close popup_profile"></button>
-        <form action="" class="form form_profile" method="POST" name="profile-info">
+        <form action="" class="form form_profile" method="POST" name="profile-info" novalidate>
           <h2 class="form__title">Редактировать профиль</h2>
           <fieldset class="form__add-data">
-            <input class="form__item form__item_el_name" type="text" name="name" value="Жак-Ив Кусто" required>
-            <input class="form__item form__item_el_desc" type="text" name="desc" value="Исследователь океана" required>
+            <input id="name-item" class="form__item form__item_el_name" type="text" name="name" value="Жак-Ив Кусто" required>
+            <span class="name-item-error form__item-error"></span>
+
+            <input id="desc-item" class="form__item form__item_el_desc" type="text" name="desc" value="Исследователь океана" required>
+            <span class="desc-item-error form__item-error"></span>
           </fieldset>
           <button type="submit" class="form__button link">Сохранить</button>
         </form>
       </div>
     </section>
 
-    <section class="popup popup_place">      
+    <section class="popup popup_place">
       <div class="popup__popup-box">
         <button title="Закрыть редактор" class="popup__close popup_place"></button>
         <form action="" class="form form_place" method="POST" name="place-info">
@@ -62,11 +65,11 @@
       </div>
     </section>
 
-    <section class="popup popup_img">      
+    <section class="popup popup_img">
       <div class="popup__img-box">
         <button title="Закрыть редактор" class="popup__close popup_img"></button>
-        <img class="popup__photo" src="">        
-        <p class="popup__desc"></p>       
+        <img class="popup__photo" src="">
+        <p class="popup__desc"></p>
       </div>
     </section>
   </main>
@@ -84,8 +87,8 @@
         <button type="button" class="photos-grid__heart link"></button>
       </div>
     </div>
-  </template> 
-  
+  </template>
+
 </body>
 
 </html>
