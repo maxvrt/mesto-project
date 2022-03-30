@@ -51,6 +51,7 @@ function createCard(imgCard, nameCard) {
   }); 
   return newCard;
 }
+
 initialCards.forEach((item) => {
   photosGrid.append(createCard(item['link'],item['name']));
 });
