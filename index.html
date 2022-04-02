@@ -40,11 +40,11 @@
         <form action="" class="form form_profile" method="POST" name="profile-info" novalidate>
           <h2 class="form__title">Редактировать профиль</h2>
           <fieldset class="form__add-data">
-            <input id="name-item" class="form__item form__item_el_name" type="text" name="name" value="Жак-Ив Кусто" required>
-            <span class="name-item-error form__item-error"></span>
+            <input id="name-item" class="form__item form__item_el_name" type="text" name="name" value="Жак-Ив Кусто" minlength="2" maxlength="40" required>
+            <span class="form__item-error form__item-error_item_name-item"></span>
 
-            <input id="desc-item" class="form__item form__item_el_desc" type="text" name="desc" value="Исследователь океана" required>
-            <span class="desc-item-error form__item-error"></span>
+            <input id="desc-item" class="form__item form__item_el_desc" type="text" name="desc" value="Исследователь океана" minlength="2" maxlength="200" required>
+            <span class="form__item-error form__item-error_item_desc-item"></span>
           </fieldset>
           <button type="submit" class="form__button link">Сохранить</button>
         </form>
@@ -57,8 +57,11 @@
         <form action="" class="form form_place" method="POST" name="place-info">
           <h2 class="form__title">Новое место</h2>
           <fieldset class="form__add-data">
-            <input class="form__item form__item_el_place" type="text" name="place" placeholder="Название" required>
-            <input class="form__item form__item_el_img-place" type="text" name="img-place" placeholder="Ссылка на картинку" required>
+            <input id="place-item" class="form__item form__item_el_place" type="text" name="place" placeholder="Название" minlength="2" maxlength="30" required>
+            <span class="form__item-error form__item-error_item_place-item"></span>
+
+            <input id="img-item" class="form__item form__item_el_img-place" type="url" name="img-place" placeholder="Ссылка на картинку" required>
+            <span class="form__item-error form__item-error_item_img-item"></span>
           </fieldset>
           <button type="submit" class="form__button link">Создать</button>
         </form>

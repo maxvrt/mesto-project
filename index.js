@@ -23,6 +23,7 @@ const imgPopup = document.querySelector('.popup_img');
 const imgPopupBox = imgPopup.querySelector('.popup__img-box');
 const imgElement = imgPopup.querySelector('.popup__photo');
 const imgDescElement = imgPopup.querySelector('.popup__desc');
+//После валидации
 
 
 function createCard(imgCard, nameCard) {
@@ -59,9 +60,21 @@ initialCards.forEach((item) => {
 // Функции открытия-закрытия модального окна
 function openModal(popup) {
   popup.classList.add('popup_opened');
+  popupOverlay = popup.querySelector('.popup_opened');
 }
 function closeModal(popup) {
   popup.classList.remove('popup_opened');
+}
+function closeModalOverlay(evt, popup) {
+  if (evt.target.classList.contains('popup_opened') && !evt.target.classList.contains('popup__popup-box')){
+    closeModal(popup);
+  }
+}
+function closeModalEsc(evt) {
+  const popup = document.querySelector('.popup_opened');
+  if (evt.key === 'Escape' && popup){
+    closeModal(popup);
+  }
 }
 
 // Профиль
@@ -120,20 +133,22 @@ const hasInvalidInput = (inputList) => {
 const toggleButtonState = (inputList, buttonElement) => {
   if (hasInvalidInput(inputList)) {
     buttonElement.classList.add('form__button_inactive');
+    buttonElement.classList.remove('link');
   } else {
     buttonElement.classList.remove('form__button_inactive');
+    buttonElement.classList.add('link');
   }
 };
 
 const showInputError = (formElement, inputElement, errorMessage) => {
-  const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
+  const errorElement = formElement.querySelector(`.form__item-error_item_${inputElement.id}`);
   inputElement.classList.add('form__item_type_error');
   errorElement.textContent = errorMessage;
   errorElement.classList.add('form__item-error_active');
 };
 
 const hideInputError = (formElement, inputElement) => {
-  const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
+  const errorElement = formElement.querySelector(`.form__item-error_item_${inputElement.id}`);
   inputElement.classList.remove('form__item_type_error');
   errorElement.classList.remove('form__item-error_active');
   errorElement.textContent = '';
@@ -165,3 +180,10 @@ const enableValidation = () => {
 };
 
 enableValidation();
+
+// Закрытие модальных окон
+profilePopup.addEventListener('click', evt => {closeModalOverlay(evt, profilePopup)});
+placePopup.addEventListener('click', evt => {closeModalOverlay(evt, placePopup)});
+document.addEventListener('keydown', evt => {
+  if (document.querySelector('.popup_opened')) closeModalEsc(evt);
+});
