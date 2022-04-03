@@ -1,3 +1,5 @@
+import './pages/index.css';
+
 // Создание и вывод карточек
 const photosGrid = document.querySelector('.photos-grid');
 const template = document.querySelector('#card-template').content;
@@ -56,7 +58,7 @@ initialCards.forEach((item) => {
   photosGrid.append(createCard(item['link'],item['name']));
 });
 
-// Функции открытия-закрытия модального окна
+// Функции открытия и закрытия модального окна
 function openModal(popup) {
   popup.classList.add('popup_opened');
   popupOverlay = popup.querySelector('.popup_opened');
