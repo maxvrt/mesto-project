@@ -25,7 +25,6 @@ const imgElement = imgPopup.querySelector('.popup__photo');
 const imgDescElement = imgPopup.querySelector('.popup__desc');
 //После валидации
 
-
 function createCard(imgCard, nameCard) {
   const newCard = template.querySelector('.photos-grid__item').cloneNode(true);
   const heartButton = newCard.querySelector('.photos-grid__heart');
