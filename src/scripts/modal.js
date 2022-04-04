@@ -1,5 +1,5 @@
 import {imgDescElement, imgElement, profileName, profileDesc, nameInput, jobInput, profilePopup, imgInput, placeInput, placePopup, photosGrid} from './constants.js';
-import { createCard } from './scripts/card.js';
+import { createCard } from './card.js';
 
 // Функции открытия и закрытия модального окна
 function openModal(popup) {
