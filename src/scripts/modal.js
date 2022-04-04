@@ -4,18 +4,22 @@ import {imgDescElement, imgElement, profileName, profileDesc, nameInput, jobInpu
 function openModal(popup) {
   popup.classList.add('popup_opened');
   popupOverlay = popup.querySelector('.popup_opened');
+  document.addEventListener('keydown', evt => {closeModalEsc(evt);});
 }
 function closeModal(popup) {
   popup.classList.remove('popup_opened');
+
 }
 function closeModalOverlay(evt, popup) {
   if (evt.target.classList.contains('popup_opened') && !evt.target.classList.contains('popup__popup-box')){
     closeModal(popup);
   }
 }
+
 function closeModalEsc(evt) {
   const popup = document.querySelector('.popup_opened');
   if (evt.key === 'Escape' && popup){
+    document.removeEventListener('keydown', evt => {closeModalEsc(evt)});
     closeModal(popup);
   }
 }

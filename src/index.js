@@ -29,6 +29,3 @@ imgModalButtonClose.addEventListener('click', () => { closeModal(imgPopup) });
 profilePopup.addEventListener('click', evt => {closeModalOverlay(evt, profilePopup)});
 placePopup.addEventListener('click', evt => {closeModalOverlay(evt, placePopup)});
 imgPopup.addEventListener('click', evt => {closeModalOverlay(evt, imgPopup)});
-document.addEventListener('keydown', evt => {
-  if (document.querySelector('.popup_opened')) closeModalEsc(evt);
-});
