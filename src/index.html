@@ -6,19 +6,17 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Место</title>
-  <link rel="stylesheet" href="./pages/index.css">
-  <script src="./cards.js" defer></script>
-  <script src="./index.js" defer></script>
+
 </head>
 
 <body class="page">
-  <header class="header"><img src="./images/logo-white.svg" alt="Место" class="logo"></header>
+  <header class="header"><img src="<%=require('./images/logo-white.svg')%>" alt="Место" class="logo"></header>
 
   <main class="content">
 
     <section class="prof">
       <div class="profile">
-        <img class="profile__photo" alt="Аватар пользователя" src="./images/kusto.jpg">
+        <img class="profile__photo" alt="Аватар пользователя" src="<%=require('./images/kusto.jpg')%>">
         <div class="profile__name-container">
           <h1 class="profile__name">Жак-Ив Кусто</h1>
           <button type="button" class="profile__edit link" title="Редактировать"></button>
@@ -70,7 +68,7 @@
 
     <section class="popup popup_img">
       <div class="popup__img-box">
-        <button title="Закрыть редактор" class="popup__close popup_img"></button>
+        <button title="Закрыть картинку" class="popup__close popup_img"></button>
         <img class="popup__photo" src="">
         <p class="popup__desc"></p>
       </div>

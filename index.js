@@ -60,7 +60,6 @@ initialCards.forEach((item) => {
 // Функции открытия-закрытия модального окна
 function openModal(popup) {
   popup.classList.add('popup_opened');
-  popupOverlay = popup.querySelector('.popup_opened');
 }
 function closeModal(popup) {
   popup.classList.remove('popup_opened');
