@@ -3,7 +3,6 @@ import {imgDescElement, imgElement, profileName, profileDesc, nameInput, jobInpu
 // Функции открытия и закрытия модального окна
 function openModal(popup) {
   popup.classList.add('popup_opened');
-  popupOverlay = popup.querySelector('.popup_opened');
   document.addEventListener('keydown', evt => {closeModalEsc(evt);});
 }
 function closeModal(popup) {
