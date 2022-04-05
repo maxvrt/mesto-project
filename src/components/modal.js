@@ -1,5 +1,6 @@
 import {imgDescElement, imgElement, profileName, profileDesc, nameInput, jobInput, profilePopup, imgInput, placeInput, placePopup, photosGrid} from './constants.js';
 import { createCard } from './card.js';
+import { validConfig } from './components/validConfig.js';
 
 // Функции открытия и закрытия модального окна
 function openModal(popup) {
@@ -8,8 +9,8 @@ function openModal(popup) {
 }
 function closeModal(popup) {
   popup.classList.remove('popup_opened');
-
 }
+
 function closeModalOverlay(evt, popup) {
   if (evt.target.classList.contains('popup_opened') && !evt.target.classList.contains('popup__popup-box')){
     closeModal(popup);
@@ -23,9 +24,8 @@ function closeModalEsc(evt) {
     closeModal(popup);
   }
 }
-function disableButton(buttonElement) {
-  console.log(buttonElement+" - 1111111111111");
-  buttonElement.classList.add('form__button_inactive');
+function disableButton(buttonElement, inactiveButtonClass) {
+  buttonElement.classList.add(inactiveButtonClass);
   buttonElement.classList.remove('link');
   buttonElement.setAttribute('disabled', '');
 }
@@ -35,7 +35,7 @@ function addCardFromForm(evt) {
   evt.preventDefault();
   const buttonElement = evt.target.querySelector('.form__button');
   photosGrid.prepend(createCard(imgInput.value, placeInput.value));
-  disableButton(buttonElement);
+  disableButton(buttonElement, validConfig.inactiveButtonClass);
   imgInput.value = '';
   placeInput.value = '';
   closeModal(placePopup);
@@ -60,4 +60,4 @@ function handleFormProfileSubmit(evt) {
   closeModal(profilePopup);
 }
 
-export {fillModalImg, openModal, closeModal, closeModalEsc, closeModalOverlay, handleFormProfileSubmit, addCardFromForm};
+export {fillModalImg, openModal, closeModal, closeModalEsc, closeModalOverlay, handleFormProfileSubmit, addCardFromForm, disableButton};

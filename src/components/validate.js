@@ -1,3 +1,5 @@
+import { disableButton } from './modal.js';
+
 const isValid = (formElement, inputElement, config) => {
   if (!inputElement.validity.valid) {
     showInputError(formElement, inputElement, inputElement.validationMessage, config);
@@ -16,8 +18,7 @@ const hasInvalidInput = (inputList) => {
 // Изменение кнопки сабмита
 const toggleButtonState = (inputList, buttonElement, config) => {
   if (hasInvalidInput(inputList)) {
-    buttonElement.classList.add(config.inactiveButtonClass);
-    buttonElement.classList.remove('link');
+    disableButton(buttonElement, config.inactiveButtonClass);
   } else {
     buttonElement.classList.remove(config.inactiveButtonClass);
     buttonElement.classList.add('link');
