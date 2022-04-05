@@ -24,6 +24,7 @@ function closeModalEsc(evt) {
   }
 }
 function disableButton(buttonElement) {
+  console.log(buttonElement+" - 1111111111111");
   buttonElement.classList.add('form__button_inactive');
   buttonElement.classList.remove('link');
   buttonElement.setAttribute('disabled', '');
@@ -56,7 +57,6 @@ function handleFormProfileSubmit(evt) {
   profileDesc.textContent = jobValue;
   nameInput.value = profileName.textContent;
   jobInput.value = profileDesc.textContent;
-  const buttonElement = evt.target.querySelector('.form__button');
   closeModal(profilePopup);
 }
 
