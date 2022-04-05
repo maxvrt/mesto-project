@@ -7,6 +7,7 @@ function openModal(popup) {
   popup.classList.add('popup_opened');
   document.addEventListener('keydown', evt => {closeModalEsc(evt);});
   if (popup.classList.contains('popup_profile')){
+    console.log('Смена инпутов');
     nameInput.value = profileName.textContent;
     jobInput.value = profileDesc.textContent;
   }
