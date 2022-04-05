@@ -1,4 +1,4 @@
-import { disableButton } from './modal.js';
+import { disableButton, enableButton } from './modal.js';
 
 const isValid = (formElement, inputElement, config) => {
   if (!inputElement.validity.valid) {
@@ -20,8 +20,7 @@ const toggleButtonState = (inputList, buttonElement, config) => {
   if (hasInvalidInput(inputList)) {
     disableButton(buttonElement, config.inactiveButtonClass);
   } else {
-    buttonElement.classList.remove(config.inactiveButtonClass);
-    buttonElement.classList.add('link');
+    enableButton(buttonElement, config.inactiveButtonClass);
   }
 };
 

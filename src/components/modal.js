@@ -30,6 +30,12 @@ function disableButton(buttonElement, inactiveButtonClass) {
   buttonElement.setAttribute('disabled', '');
 }
 
+function enableButton(buttonElement, inactiveButtonClass) {
+  buttonElement.classList.remove(inactiveButtonClass);
+  buttonElement.classList.add('link');
+  buttonElement.removeAttribute('disabled');
+}
+
 // Добавление карточки
 function addCardFromForm(evt) {
   evt.preventDefault();
@@ -60,4 +66,4 @@ function handleFormProfileSubmit(evt) {
   closeModal(profilePopup);
 }
 
-export {fillModalImg, openModal, closeModal, closeModalEsc, closeModalOverlay, handleFormProfileSubmit, addCardFromForm, disableButton};
+export {fillModalImg, openModal, closeModal, closeModalEsc, closeModalOverlay, handleFormProfileSubmit, addCardFromForm, disableButton, enableButton};
