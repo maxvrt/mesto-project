@@ -6,6 +6,10 @@ import { validConfig } from './validConfig.js';
 function openModal(popup) {
   popup.classList.add('popup_opened');
   document.addEventListener('keydown', evt => {closeModalEsc(evt);});
+  if (popup.classList.contains('popup_profile')){
+    nameInput.value = profileName.textContent;
+    jobInput.value = profileDesc.textContent;
+  }
 }
 function closeModal(popup) {
   popup.classList.remove('popup_opened');
@@ -41,10 +45,10 @@ function addCardFromForm(evt) {
   evt.preventDefault();
   const buttonElement = evt.target.querySelector('.form__button');
   photosGrid.prepend(createCard(imgInput.value, placeInput.value));
+  closeModal(placePopup);
   disableButton(buttonElement, validConfig.inactiveButtonClass);
   imgInput.value = '';
   placeInput.value = '';
-  closeModal(placePopup);
 }
 
 // Функция заполнения модального окна картинки
@@ -56,13 +60,12 @@ function fillModalImg(imgValue, altValue) {
 
 function handleFormProfileSubmit(evt) {
   evt.preventDefault();
-  console.log();
   const nameValue = nameInput.value;
   const jobValue = jobInput.value;
   profileName.textContent = nameValue;
   profileDesc.textContent = jobValue;
-  nameInput.value = profileName.textContent;
-  jobInput.value = profileDesc.textContent;
+  // nameInput.value = profileName.textContent;
+  // jobInput.value = profileDesc.textContent;
   closeModal(profilePopup);
 }
 
