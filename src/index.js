@@ -1,10 +1,10 @@
 import './pages/index.css';
-import { enableValidation } from './scripts/validate.js';
-import { initialCards } from './scripts/cards.js';
-import { createCard } from './scripts/card.js';
-import { validConfig } from './scripts/validConfig.js';
-import { closeModal, openModal, addCardFromForm, handleFormProfileSubmit, closeModalOverlay, closeModalEsc } from './scripts/modal.js';
-import { imgPopup, profileFormElement, profilePopup, photosGrid, imgModalButtonClose, profileModalCloseButton, profileModalOpenButton, placeFormElement, placePopup, placeModalOpenButton, placeModalCloseButton} from './scripts/constants.js'
+import { enableValidation } from './components/validate.js';
+import { initialCards } from './components/cards.js';
+import { createCard } from './components/card.js';
+import { validConfig } from './components/validConfig.js';
+import { closeModal, openModal, addCardFromForm, handleFormProfileSubmit, closeModalOverlay, closeModalEsc } from './components/modal.js';
+import { imgPopup, profileFormElement, profilePopup, photosGrid, imgModalButtonClose, profileModalCloseButton, profileModalOpenButton, placeFormElement, placePopup, placeModalOpenButton, placeModalCloseButton} from './components/constants.js'
 
 // Инициализация карточек
 initialCards.forEach((item) => {
