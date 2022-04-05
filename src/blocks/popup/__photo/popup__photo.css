@@ -1,4 +1,19 @@
 .popup__photo {
-  max-height: 75vh;
+  min-height: 75vh;
+  min-width: 75vh;
   max-width: 75vw;
+  max-height: 75vh;
+  object-fit: cover;
+}
+
+@media (max-width: 630px) {
+  .popup__photo {
+    min-width: 25vh;
+  }
+}
+
+@media (max-width: 439px) {
+  .popup__photo {
+    min-width: 25vh;
+  }
 }

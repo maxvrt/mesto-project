@@ -26,6 +26,7 @@ function closeModalEsc(evt) {
     if (popup){
       closeModal(popup);
       document.removeEventListener('keydown', closeModalEsc);
+      console.log('удалили обработчик');
     }
   }
 }
