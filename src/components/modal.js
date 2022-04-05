@@ -23,16 +23,20 @@ function closeModalEsc(evt) {
     closeModal(popup);
   }
 }
+function disableButton(buttonElement) {
+  buttonElement.classList.add('form__button_inactive');
+  buttonElement.classList.remove('link');
+  buttonElement.setAttribute('disabled', '');
+}
 
 // Добавление карточки
 function addCardFromForm(evt) {
   evt.preventDefault();
   const buttonElement = evt.target.querySelector('.form__button');
   photosGrid.prepend(createCard(imgInput.value, placeInput.value));
+  disableButton(buttonElement);
   imgInput.value = '';
   placeInput.value = '';
-  buttonElement.classList.add('form__button_inactive');
-  buttonElement.classList.remove('link');
   closeModal(placePopup);
 }
 
@@ -45,12 +49,14 @@ function fillModalImg(imgValue, altValue) {
 
 function handleFormProfileSubmit(evt) {
   evt.preventDefault();
+  console.log();
   const nameValue = nameInput.value;
   const jobValue = jobInput.value;
   profileName.textContent = nameValue;
   profileDesc.textContent = jobValue;
   nameInput.value = profileName.textContent;
   jobInput.value = profileDesc.textContent;
+  const buttonElement = evt.target.querySelector('.form__button');
   closeModal(profilePopup);
 }
 
