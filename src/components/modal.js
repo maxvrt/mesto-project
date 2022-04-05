@@ -5,9 +5,8 @@ import { validConfig } from './validConfig.js';
 // Функции открытия и закрытия модального окна
 function openModal(popup) {
   popup.classList.add('popup_opened');
-  document.addEventListener('keydown', evt => {closeModalEsc(evt);});
+  document.addEventListener('keydown', closeModalEsc);
   if (popup.classList.contains('popup_profile')){
-    console.log('Смена инпутов');
     nameInput.value = profileName.textContent;
     jobInput.value = profileDesc.textContent;
   }
@@ -15,7 +14,6 @@ function openModal(popup) {
 function closeModal(popup) {
   popup.classList.remove('popup_opened');
 }
-
 function closeModalOverlay(evt, popup) {
   if (evt.target.classList.contains('popup_opened') && !evt.target.classList.contains('popup__popup-box')){
     closeModal(popup);
@@ -23,18 +21,28 @@ function closeModalOverlay(evt, popup) {
 }
 
 function closeModalEsc(evt) {
-  const popup = document.querySelector('.popup_opened');
-  if (evt.key === 'Escape' && popup){
-    document.removeEventListener('keydown', evt => {closeModalEsc(evt)});
-    closeModal(popup);
+  if (evt.key === 'Escape'){
+    const popup = document.querySelector('.popup_opened');
+    if (popup){
+      closeModal(popup);
+      document.removeEventListener('keydown', closeModalEsc);
+    }
   }
 }
+
+// function closeModalEsc(evt) {
+//   const popup = document.querySelector('.popup_opened');
+//   if (evt.key === 'Escape' && popup){
+//     document.removeEventListener('keydown', evt => {closeModalEsc(evt)});
+//     closeModal(popup);
+//   }
+// }
+
 function disableButton(buttonElement, inactiveButtonClass) {
   buttonElement.classList.add(inactiveButtonClass);
   buttonElement.classList.remove('link');
   buttonElement.setAttribute('disabled', '');
 }
-
 function enableButton(buttonElement, inactiveButtonClass) {
   buttonElement.classList.remove(inactiveButtonClass);
   buttonElement.classList.add('link');
@@ -65,8 +73,6 @@ function handleFormProfileSubmit(evt) {
   const jobValue = jobInput.value;
   profileName.textContent = nameValue;
   profileDesc.textContent = jobValue;
-  // nameInput.value = profileName.textContent;
-  // jobInput.value = profileDesc.textContent;
   closeModal(profilePopup);
 }
 
