@@ -27,7 +27,12 @@ function closeModalEsc(evt) {
 // Добавление карточки
 function addCardFromForm(evt) {
   evt.preventDefault();
+  const buttonElement = evt.target.querySelector('.form__button');
   photosGrid.prepend(createCard(imgInput.value, placeInput.value));
+  imgInput.value = '';
+  placeInput.value = '';
+  buttonElement.classList.add('form__button_inactive');
+  buttonElement.classList.remove('link');
   closeModal(placePopup);
 }
 
