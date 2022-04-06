@@ -3,7 +3,7 @@ import { enableValidation } from './components/validate.js';
 import { initialCards } from './components/cards.js';
 import { createCard } from './components/card.js';
 import { validConfig } from './components/validConfig.js';
-import { closeModal, openModal, addCardFromForm, handleFormProfileSubmit, closeModalOverlay, closeModalEsc } from './components/modal.js';
+import { closeModal, openModal, openModalProfile, addCardFromForm, handleFormProfileSubmit, closeModalOverlay } from './components/modal.js';
 import { imgPopup, profileFormElement, profilePopup, photosGrid, imgModalButtonClose, profileModalCloseButton, profileModalOpenButton, placeFormElement, placePopup, placeModalOpenButton, placeModalCloseButton} from './components/constants.js'
 
 // Инициализация карточек
@@ -17,7 +17,7 @@ enableValidation(validConfig);
 // Слушатели
 // Профиль
 profileModalCloseButton.addEventListener('click', () => {closeModal(profilePopup)});
-profileModalOpenButton.addEventListener('click', () => {openModal(profilePopup)});
+profileModalOpenButton.addEventListener('click', () => {openModalProfile(profilePopup)});
 profileFormElement.addEventListener('submit', handleFormProfileSubmit);
 // Окно добавления карточки
 placeModalCloseButton.addEventListener('click', () => {closeModal(placePopup)});
