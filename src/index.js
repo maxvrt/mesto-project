@@ -5,7 +5,9 @@ import { createCard } from './components/card.js';
 import { validConfig } from './components/validConfig.js';
 import { closeModal, openModal, openModalProfile, addCardFromForm, handleFormProfileSubmit, closeModalOverlay } from './components/modal.js';
 import { imgPopup, profileFormElement, profilePopup, photosGrid, imgModalButtonClose, profileModalCloseButton, profileModalOpenButton, placeFormElement, placePopup, placeModalOpenButton, placeModalCloseButton} from './components/constants.js'
+import { getUser } from './components/api.js';
 
+getUser();
 // Инициализация карточек
 initialCards.forEach((item) => {
   photosGrid.append(createCard(item['link'],item['name']));

@@ -2,6 +2,16 @@ import {imgDescElement, imgElement, profileName, profileDesc, nameInput, jobInpu
 import { createCard } from './card.js';
 import { validConfig } from './validConfig.js';
 import { disableButton } from './validate.js';
+// !!!!!!!!!
+import { getInitialCards } from './api.js'
+// !!!!!!!!!
+getInitialCards()
+  .then((result) => {
+    // обрабатываем результат
+  })
+  .catch((err) => {
+    console.log(err); // выводим ошибку в консоль
+  });
 
 // Функции открытия и закрытия модального окна
 function openModal(popup) {
