@@ -1,5 +1,3 @@
-import { disableButton, enableButton } from './modal.js';
-
 const isValid = (formElement, inputElement, config) => {
   if (!inputElement.validity.valid) {
     showInputError(formElement, inputElement, inputElement.validationMessage, config);
@@ -14,7 +12,17 @@ const hasInvalidInput = (inputList) => {
 	  return !inputElement.validity.valid;
   })
 };
-
+// Активация и деактивация кнопки
+function disableButton(buttonElement, inactiveButtonClass) {
+  buttonElement.classList.add(inactiveButtonClass);
+  buttonElement.classList.remove('link');
+  buttonElement.setAttribute('disabled', '');
+}
+function enableButton(buttonElement, inactiveButtonClass) {
+  buttonElement.classList.remove(inactiveButtonClass);
+  buttonElement.classList.add('link');
+  buttonElement.removeAttribute('disabled');
+}
 // Изменение кнопки сабмита
 const toggleButtonState = (inputList, buttonElement, config) => {
   if (hasInvalidInput(inputList)) {
@@ -63,4 +71,4 @@ const enableValidation = (config) => {
   });
 };
 
-export {enableValidation};
+export {enableValidation, disableButton, enableButton};
