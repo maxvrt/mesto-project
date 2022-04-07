@@ -6,39 +6,44 @@ const config = {
   }
 }
 
-// GET user
+// Получение данных user
 export function getUser() {
-  return fetch(`${config.baseUrl}/users/me`, {
-    headers: config.headers,
+  return fetch(`${config.baseUrl}/users/me`, {headers: config.headers})
+}
+// Получение данных cards
+export function getCards() {
+  return fetch(`${config.baseUrl}/cards`, {headers: config.headers})
+}
+// Редактирование профиля
+export function patchUser(userName, userDesc) {
+  return fetch(`${config.baseUrl}/users/me`, {method: 'PATCH', headers: config.headers,
+    body: JSON.stringify({
+      name: userName,
+      about: userDesc
+    })
   })
-    .then(res => {
-      if (res.ok) {
-        return res.json();
-      }
-      return Promise.reject(`Ошибка: ${res.status}`);
+}
+// Добавление карточки
+export function postCard(cardImg, cardName) {
+  return fetch(`${config.baseUrl}/cards`, {method: 'POST', headers: config.headers,
+    body: JSON.stringify({
+      name: cardName,
+      link: cardImg
     })
-    .then((data) => {
-      return data;
-    })
-    .catch((err) => {
-      console.log('Ошибка. Запрос не выполнен: ', err);
-    });
+  })
+}
+// Добавление карточки
+export function delCardById(id) {
+  return fetch(`${config.baseUrl}/cards/${id}`, {method: 'DELETE', headers: config.headers})
 }
 
-export function getCards() {
-  return fetch(`${config.baseUrl}/cards`, {
-    headers: config.headers,
-  })
-    .then(res => {
-      if (res.ok) {
-        return res.json();
-      }
-      return Promise.reject(`Ошибка: ${res.status}`);
-    })
-    .then((data) => {
-      return data;
-    })
-    .catch((err) => {
-      console.log('Ошибка. Запрос не выполнен: ', err);
-    });
+// ответ и ошибка
+export function getResponse(res) {
+  if (res.ok) {
+    return res.json();
+  }
+  return Promise.reject(`Ошибка: ${res.status}`);
+}
+export function catchError(err) {
+  console.log('Ошибка. Запрос не выполнен: ', err);
 }

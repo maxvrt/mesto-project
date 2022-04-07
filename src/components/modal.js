@@ -1,8 +1,8 @@
-import {imgDescElement, imgElement, profileName, profileDesc, nameInput, jobInput, profilePopup, imgInput, placeInput, placePopup, photosGrid} from './constants.js';
+import {imgDescElement, imgElement, profileName, profileDesc, avatar, nameInput, jobInput, profilePopup, imgInput, placeInput, placePopup, photosGrid} from './constants.js';
 import { createCard } from './card.js';
 import { validConfig } from './validConfig.js';
 import { disableButton } from './validate.js';
-import { getUser } from './api.js';
+import { getUser, getResponse, catchError, patchUser, postCard } from './api.js';
 
 // Функции открытия и закрытия модального окна
 function openModal(popup) {
@@ -11,11 +11,12 @@ function openModal(popup) {
 }
 function openModalProfile(popup) {
   openModal(popup);
-  const user = getUser();
-
-  nameInput.value = user.name; //profileName.textContent;
-  jobInput.value = user.about;//profileDesc.textContent;
+  getUser().then(res => getResponse(res)).then((user) => {
+    nameInput.value = user.name;
+    jobInput.value = user.about;
+  }).catch(err => catchError(err));
 }
+
 function closeModal(popup) {
   popup.classList.remove('popup_opened');
   document.removeEventListener('keydown', closeModalEsc);
@@ -40,7 +41,10 @@ function closeModalEsc(evt) {
 function addCardFromForm(evt) {
   evt.preventDefault();
   const buttonElement = evt.target.querySelector('.form__button');
-  photosGrid.prepend(createCard(imgInput.value, placeInput.value));
+  //! api
+  postCard(imgInput.value, placeInput.value).then(res => getResponse(res)).then((data) => {
+    photosGrid.prepend(createCard(data.link, data.name));
+  }).catch(err => catchError(err));
   closeModal(placePopup);
   disableButton(buttonElement, validConfig.inactiveButtonClass);
   imgInput.value = '';
@@ -58,8 +62,12 @@ function handleFormProfileSubmit(evt) {
   evt.preventDefault();
   const nameValue = nameInput.value;
   const jobValue = jobInput.value;
-  profileName.textContent = nameValue;
-  profileDesc.textContent = jobValue;
+  //! api
+  patchUser(nameValue, jobValue).then(res => getResponse(res)).then((data) => {
+    profileName.textContent = data.name;
+    profileDesc.textContent = data.about;
+  }).catch(err => catchError(err));
+
   closeModal(profilePopup);
 }
 

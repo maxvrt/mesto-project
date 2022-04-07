@@ -1,26 +1,25 @@
 import './pages/index.css';
 import { enableValidation } from './components/validate.js';
-import { initialCards } from './components/cards.js';
-import { createCard } from './components/card.js';
+import { renderCard } from './components/cards.js';
 import { validConfig } from './components/validConfig.js';
 import { closeModal, openModal, openModalProfile, addCardFromForm, handleFormProfileSubmit, closeModalOverlay } from './components/modal.js';
-import { imgPopup, profileFormElement, profilePopup, photosGrid, imgModalButtonClose, profileModalCloseButton, profileModalOpenButton, placeFormElement, placePopup, placeModalOpenButton, placeModalCloseButton, avatar, profileName, profileDesc} from './components/constants.js'
-import { getUser } from './components/api.js';
+import { imgPopup, profileFormElement, profilePopup, photosGrid, imgModalButtonClose, profileModalCloseButton, profileModalOpenButton, placeFormElement, placePopup, placeModalOpenButton, placeModalCloseButton, profileName, avatar, profileDesc} from './components/constants.js'
+import { getUser, getCards, getResponse, catchError } from './components/api.js';
 
-// Инициализация карточек
-initialCards.forEach((item) => {
-  photosGrid.append(createCard(item['link'],item['name']));
-});
+export let userId = '0';
 
-const user = getUser();
-avatar.src = user.avatar;
-console.log(getUser());
-profileName.textContent = user.name;
-profileDesc.textContent = user.about;
+getUser().then(res => getResponse(res)).then((user) => {
+  profileName.textContent = user.name;
+  profileDesc.textContent = user.about;
+  avatar.setAttribute("src", user.avatar);
+  userId = user._id;
+}).catch(err => catchError(err));
+
+// todo открыть карточки
+getCards().then(res => getResponse(res)).then((data) => renderCard(data, userId)).catch(err => catchError(err));
 
 // Инициализация валидации
 enableValidation(validConfig);
-
 
 // Слушатели
 // Профиль

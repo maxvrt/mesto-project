@@ -25,7 +25,10 @@
 @import url(../blocks/photos/photos.css);
 @import url(../blocks/photos-grid/photos-grid.css);
 @import url(../blocks/photos-grid/__heart/photos-grid__heart.css);
+@import url(../blocks/photos-grid/__heart-container/photos-grid__heart-container.css);
+@import url(../blocks/photos-grid/__heart-counter/photos-grid__heart-counter.css);
 @import url(../blocks/photos-grid/__delete/photos-grid__delete.css);
+@import url(../blocks/photos-grid/__delete/_hide/photos-grid__delete_hide.css);
 @import url(../blocks/photos-grid/__place/photos-grid__place.css);
 @import url(../blocks/photos-grid/__img/photos-grid__img.css);
 @import url(../blocks/photos-grid/__item/photos-grid__item.css);
