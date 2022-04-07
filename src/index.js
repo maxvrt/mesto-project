@@ -14,6 +14,7 @@ initialCards.forEach((item) => {
 
 const user = getUser();
 avatar.src = user.avatar;
+console.log(getUser());
 profileName.textContent = user.name;
 profileDesc.textContent = user.about;
 
