@@ -4,17 +4,22 @@ import { initialCards } from './components/cards.js';
 import { createCard } from './components/card.js';
 import { validConfig } from './components/validConfig.js';
 import { closeModal, openModal, openModalProfile, addCardFromForm, handleFormProfileSubmit, closeModalOverlay } from './components/modal.js';
-import { imgPopup, profileFormElement, profilePopup, photosGrid, imgModalButtonClose, profileModalCloseButton, profileModalOpenButton, placeFormElement, placePopup, placeModalOpenButton, placeModalCloseButton} from './components/constants.js'
+import { imgPopup, profileFormElement, profilePopup, photosGrid, imgModalButtonClose, profileModalCloseButton, profileModalOpenButton, placeFormElement, placePopup, placeModalOpenButton, placeModalCloseButton, avatar, profileName, profileDesc} from './components/constants.js'
 import { getUser } from './components/api.js';
 
-getUser();
 // Инициализация карточек
 initialCards.forEach((item) => {
   photosGrid.append(createCard(item['link'],item['name']));
 });
 
+const user = getUser();
+avatar.src = user.avatar;
+profileName.textContent = user.name;
+profileDesc.textContent = user.about;
+
 // Инициализация валидации
 enableValidation(validConfig);
+
 
 // Слушатели
 // Профиль

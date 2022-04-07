@@ -7,20 +7,38 @@ const config = {
 }
 
 // GET user
-export const getUser = () => {
+export function getUser() {
   return fetch(`${config.baseUrl}/users/me`, {
     headers: config.headers,
   })
-  .then(res => {
-    if (res.ok) {
-      return res.json();
-    }
-    return Promise.reject(`Ошибка: ${res.status}`);
+    .then(res => {
+      if (res.ok) {
+        return res.json();
+      }
+      return Promise.reject(`Ошибка: ${res.status}`);
+    })
+    .then((data) => {
+      return data;
+    })
+    .catch((err) => {
+      console.log('Ошибка. Запрос не выполнен: ', err);
+    });
+}
+
+export function getCards() {
+  return fetch(`${config.baseUrl}/cards`, {
+    headers: config.headers,
   })
-  .then((data) => {
-    console.log(data.name + "Пользователь111111111");
-  })
-  .catch((err) => {
-    console.log('Ошибка. Запрос не выполнен: ', err);
-  });
+    .then(res => {
+      if (res.ok) {
+        return res.json();
+      }
+      return Promise.reject(`Ошибка: ${res.status}`);
+    })
+    .then((data) => {
+      return data;
+    })
+    .catch((err) => {
+      console.log('Ошибка. Запрос не выполнен: ', err);
+    });
 }

@@ -2,6 +2,7 @@ import {imgDescElement, imgElement, profileName, profileDesc, nameInput, jobInpu
 import { createCard } from './card.js';
 import { validConfig } from './validConfig.js';
 import { disableButton } from './validate.js';
+import { getUser } from './api.js';
 
 // Функции открытия и закрытия модального окна
 function openModal(popup) {
@@ -10,8 +11,10 @@ function openModal(popup) {
 }
 function openModalProfile(popup) {
   openModal(popup);
-  nameInput.value = profileName.textContent;
-  jobInput.value = profileDesc.textContent;
+  const user = getUser();
+
+  nameInput.value = user.name; //profileName.textContent;
+  jobInput.value = user.about;//profileDesc.textContent;
 }
 function closeModal(popup) {
   popup.classList.remove('popup_opened');
