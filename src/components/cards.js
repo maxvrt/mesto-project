@@ -1,6 +1,6 @@
 import { getCards } from './api.js';
 
-export const initialCards = getCards();
+export const initialCards = JSON.parse(getCards());
 
 
 // [
