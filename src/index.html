@@ -16,7 +16,9 @@
 
     <section class="prof">
       <div class="profile">
-        <img class="profile__photo" alt="Аватар пользователя" src="">
+        <button class="profile__photo-button">
+          <img class="profile__photo" alt="Аватар пользователя" src="">
+        </button>
         <div class="profile__name-container">
           <h1 class="profile__name"></h1>
           <button type="button" class="profile__edit link" title="Редактировать"></button>
@@ -62,6 +64,20 @@
             <span class="form__item-error form__item-error_item_img-item"></span>
           </fieldset>
           <button type="submit" class="form__button link">Создать</button>
+        </form>
+      </div>
+    </section>
+
+    <section class="popup popup_avatar">
+      <div class="popup__popup-box">
+        <button title="Закрыть редактор" class="popup__close popup_avatar"></button>
+        <form action="" class="form form_avatar" method="POST" name="avatar-info">
+          <h2 class="form__title">Обновить аватар</h2>
+          <fieldset class="form__add-data form__add-data_avatar">
+            <input id="avatar-item" class="form__item form__item_el_avatar" type="url" name="avatar" placeholder="Ссылка на картинку" required>
+            <span class="form__item-error form__item-error_item_avatar-item"></span>
+          </fieldset>
+          <button type="submit" class="form__button link">Сохранить</button>
         </form>
       </div>
     </section>

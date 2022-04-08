@@ -32,9 +32,23 @@ export function postCard(cardImg, cardName) {
     })
   })
 }
-// Добавление карточки
+// Удаление карточки
 export function delCardById(id) {
   return fetch(`${config.baseUrl}/cards/${id}`, {method: 'DELETE', headers: config.headers})
+}
+// Лайк карточки
+export function likeCardById(id) {
+  return fetch(`${config.baseUrl}/cards/likes/${id}`, {method: 'PUT', headers: config.headers})
+}
+// Снятие лайка
+export function delLikeCardById(id) {
+  return fetch(`${config.baseUrl}/cards/likes/${id}`, {method: 'DELETE', headers: config.headers})
+}
+// Аватар
+export function patchAvatar(userAvatar) {
+  return fetch(`${config.baseUrl}/users/me/avatar`, {method: 'PATCH', headers: config.headers,
+  body: JSON.stringify({avatar: userAvatar})
+})
 }
 
 // ответ и ошибка
@@ -42,7 +56,7 @@ export function getResponse(res) {
   if (res.ok) {
     return res.json();
   }
-  return Promise.reject(`Ошибка: ${res.status}`);
+  return Promise.reject(`Ошибка: ${res.status}: ${res}`);
 }
 export function catchError(err) {
   console.log('Ошибка. Запрос не выполнен: ', err);

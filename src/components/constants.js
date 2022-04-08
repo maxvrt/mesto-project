@@ -7,11 +7,17 @@ export const profileModalCloseButton = document.querySelector('.popup__close.pop
 export const profileModalOpenButton = document.querySelector('.profile__edit');
 export const profilePopup = document.querySelector('.popup_profile');
 export const profileName = document.querySelector('.profile__name');
-export const avatar = document.querySelector('.profile__photo');
 export const profileDesc = document.querySelector('.profile__desc');
 export const profileFormElement = document.querySelector('.form_profile');
 export const nameInput = document.querySelector('.form__item_el_name');
 export const jobInput = document.querySelector('.form__item_el_desc');
+//Аватар
+export const avatar = document.querySelector('.profile__photo');
+export const avatarModalCloseButton = document.querySelector('.popup__close.popup_avatar');
+export const avatarModalOpenButton = document.querySelector('.profile__photo-button');
+export const avatarFormElement = document.querySelector('.form_avatar');
+export const avatarInput = document.querySelector('.form__item_el_avatar');
+export const avatarPopup = document.querySelector('.popup_avatar');
 
 export const photosGrid = document.querySelector('.photos-grid');
 export const imgModalButtonClose = document.querySelector('.popup__close.popup_img');
@@ -22,3 +28,5 @@ export const placePopup = document.querySelector('.popup_place');
 export const placeFormElement = document.querySelector('.form_place');
 export const placeInput = document.querySelector('.form__item_el_place');
 export const imgInput = document.querySelector('.form__item_el_img-place');
+
+

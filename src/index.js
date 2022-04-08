@@ -2,8 +2,8 @@ import './pages/index.css';
 import { enableValidation } from './components/validate.js';
 import { renderCard } from './components/cards.js';
 import { validConfig } from './components/validConfig.js';
-import { closeModal, openModal, openModalProfile, addCardFromForm, handleFormProfileSubmit, closeModalOverlay } from './components/modal.js';
-import { imgPopup, profileFormElement, profilePopup, photosGrid, imgModalButtonClose, profileModalCloseButton, profileModalOpenButton, placeFormElement, placePopup, placeModalOpenButton, placeModalCloseButton, profileName, avatar, profileDesc} from './components/constants.js'
+import { closeModal, openModal, openModalProfile, addCardFromForm, handleFormProfileSubmit, closeModalOverlay, avatarSubmit } from './components/modal.js';
+import { imgPopup, profileFormElement, profilePopup, photosGrid, imgModalButtonClose, profileModalCloseButton, profileModalOpenButton, placeFormElement, placePopup, placeModalOpenButton, placeModalCloseButton, profileName, avatar, profileDesc, avatarFormElement, avatarModalOpenButton, avatarModalCloseButton, avatarPopup} from './components/constants.js'
 import { getUser, getCards, getResponse, catchError } from './components/api.js';
 
 export let userId = '0';
@@ -15,7 +15,7 @@ getUser().then(res => getResponse(res)).then((user) => {
   userId = user._id;
 }).catch(err => catchError(err));
 
-// todo открыть карточки
+// Вывод карточек
 getCards().then(res => getResponse(res)).then((data) => renderCard(data, userId)).catch(err => catchError(err));
 
 // Инициализация валидации
@@ -26,6 +26,10 @@ enableValidation(validConfig);
 profileModalCloseButton.addEventListener('click', () => {closeModal(profilePopup)});
 profileModalOpenButton.addEventListener('click', () => {openModalProfile(profilePopup)});
 profileFormElement.addEventListener('submit', handleFormProfileSubmit);
+// Окно добавления аватара
+avatarModalCloseButton.addEventListener('click', () => {closeModal(avatarPopup)});
+avatarModalOpenButton.addEventListener('click', () => {openModal(avatarPopup)});
+avatarFormElement.addEventListener('submit', avatarSubmit);
 // Окно добавления карточки
 placeModalCloseButton.addEventListener('click', () => {closeModal(placePopup)});
 placeModalOpenButton.addEventListener('click', () => {openModal(placePopup)});
