@@ -1,15 +1,29 @@
-import {openModal, fillModalImg} from './modal.js'
-import {imgPopup, template} from './constants.js'
+import { openModal, fillModalImg } from './modal.js'
+import { imgPopup, template } from './constants.js'
+import { delCardById, getResponse, catchError, delLikeCardById, likeCardById } from './api.js';
+import { userId } from '../index.js';
 
 // Лайк
-function addLike(heartButton) {
+function addLike(heartButton, cardId) {
+  const likeElement = heartButton.parentNode.querySelector('.photos-grid__heart-counter');
   heartButton.addEventListener('click',  () => {
     heartButton.classList.toggle('photos-grid__heart_active');
+    if (heartButton.classList.contains('photos-grid__heart_active')){
+      console.log('номер карточки - ' + cardId);
+      likeCardById(cardId).then(res => getResponse(res)).then((data) => {
+        likeElement.textContent = data.likes.length;
+      }).catch(err => catchError(err));
+    } else {
+      delLikeCardById(cardId).then(res => getResponse(res)).then((data) => {
+        likeElement.textContent = data.likes.length;
+      }).catch(err => catchError(err));
+    }
   });
 }
 // Удаление карточки
-function delCard(delButton) {
+function delCard(delButton, cardId) {
   delButton.addEventListener('click',  () => {
+    delCardById(cardId).then(res => getResponse(res)).then((data) => console.log(data+" ОТВЕТ ФУНКЦИИ УДАЛЕНИЯ")).catch(err => catchError(err));
     const listItem = delButton.closest("div");
     listItem.remove();
   });
@@ -24,21 +38,37 @@ function openImg(cardImg) {
 });
 }
 // Создание карточки
-function createCard(imgCard, nameCard) {
+function createCard(imgCard, nameCard, likes = [], cardId, ownerId = 1, userId = 1) {
   const newCard = template.querySelector('.photos-grid__item').cloneNode(true);
   const heartButton = newCard.querySelector('.photos-grid__heart');
   const delButton = newCard.querySelector('.photos-grid__delete');
   const cardImg = newCard.querySelector('.photos-grid__img');
+  if (userId !== '0' && userId === ownerId) {
+    delButton.classList.remove('photos-grid__delete_hide');
+  }
   cardImg.setAttribute('src', imgCard);
   cardImg.setAttribute('alt', nameCard);
   newCard.querySelector('.photos-grid__city').textContent = nameCard;
+  // количество лайков
+  newCard.querySelector('.photos-grid__heart-counter').textContent = likes.length;
+  // окрашивание лайка
+  if (checkLikes(likes, userId)) {
+    console.log('Есть лайк');
+    newCard.querySelector('.photos-grid__heart').classList.add('photos-grid__heart_active');
+  }
   // Лайк
-  addLike(heartButton);
+  addLike(heartButton, cardId);
   // Удаление
-  delCard(delButton);
+  delCard(delButton, cardId);
   // Открытие картинки
   openImg(cardImg)
   return newCard;
+}
+
+function checkLikes(likes, userId) {
+  if (userId !== 1 && likes.length > 0){
+    return likes.some(element => { return element._id === userId; });
+  }
 }
 
 export {createCard};

@@ -16,11 +16,13 @@
 
     <section class="prof">
       <div class="profile">
-        <img class="profile__photo" alt="Аватар пользователя" src="<%=require('./images/kusto.jpg')%>">
+        <button class="profile__photo-button">
+          <img class="profile__photo" alt="Аватар пользователя" src="">
+        </button>
         <div class="profile__name-container">
-          <h1 class="profile__name">Жак-Ив Кусто</h1>
+          <h1 class="profile__name"></h1>
           <button type="button" class="profile__edit link" title="Редактировать"></button>
-          <p class="profile__desc">Исследователь океана</p>
+          <p class="profile__desc"></p>
         </div>
         <button type="button" class="profile__add-button link" title="Добавить"></button>
 
@@ -66,6 +68,20 @@
       </div>
     </section>
 
+    <section class="popup popup_avatar">
+      <div class="popup__popup-box">
+        <button title="Закрыть редактор" class="popup__close popup_avatar"></button>
+        <form action="" class="form form_avatar" method="POST" name="avatar-info">
+          <h2 class="form__title">Обновить аватар</h2>
+          <fieldset class="form__add-data form__add-data_avatar">
+            <input id="avatar-item" class="form__item form__item_el_avatar" type="url" name="avatar" placeholder="Ссылка на картинку" required>
+            <span class="form__item-error form__item-error_item_avatar-item"></span>
+          </fieldset>
+          <button type="submit" class="form__button link">Сохранить</button>
+        </form>
+      </div>
+    </section>
+
     <section class="popup popup_img">
       <div class="popup__img-box">
         <button title="Закрыть картинку" class="popup__close popup_img"></button>
@@ -81,11 +97,15 @@
 
   <template id="card-template">
     <div class="photos-grid__item">
-      <button type="button" class="photos-grid__delete link"></button>
+      <button type="button" class="photos-grid__delete link photos-grid__delete_hide"></button>
       <img src="" alt="" class="photos-grid__img">
       <div class="photos-grid__place">
         <h2 class="photos-grid__city"></h2>
-        <button type="button" class="photos-grid__heart link"></button>
+        <div class="photos-grid__heart-container">
+          <button type="button" class="photos-grid__heart link"></button>
+          <p class="photos-grid__heart-counter"></p>
+        </div>
+
       </div>
     </div>
   </template>

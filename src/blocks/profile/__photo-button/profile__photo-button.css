@@ -1,0 +1,38 @@
+.profile__photo-button {
+  display: block;
+  position: relative;
+  border: none;
+  margin: 0;
+  padding: 0;
+  height: 120px;
+  width: 120px;
+  border-radius: 50%;
+}
+
+.profile__photo-button::after {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: url("../../../images/edit.svg") center center no-repeat;
+  opacity: 0;
+  height: 120px;
+  width: 120px;
+  border-radius: 50%;
+}
+.profile__photo-button::before {
+  content: '';
+  position: absolute;
+  background-color: rgba(0,0,0,.8);
+  top: 0; left: 0; right: 0; bottom: 0;
+  opacity: 0;
+  height: 120px;
+  width: 120px;
+  border-radius: 50%;
+  transition: .3s ease;
+}
+.profile__photo-button:hover:before,
+.profile__photo-button:hover:after {
+  opacity: 1;
+  cursor: pointer;
+}
+
