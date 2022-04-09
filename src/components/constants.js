@@ -3,6 +3,7 @@ export const template = document.querySelector('#card-template').content;
 export const imgDescElement = imgPopup.querySelector('.popup__desc');
 export const imgElement = imgPopup.querySelector('.popup__photo');
 // Профиль
+export let userId = '0';
 export const profileModalCloseButton = document.querySelector('.popup__close.popup_profile');
 export const profileModalOpenButton = document.querySelector('.profile__edit');
 export const profilePopup = document.querySelector('.popup_profile');

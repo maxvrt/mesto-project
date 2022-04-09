@@ -2,7 +2,7 @@ import {imgDescElement, imgElement, profileName, profileDesc, avatarInput, avata
 import { createCard } from './card.js';
 import { validConfig } from './validConfig.js';
 import { disableButton } from './validate.js';
-import { getUser, getResponse, catchError, patchUser, postCard, patchAvatar } from './api.js';
+import { getUser, getResponse, catchError, patchUser, postCard, patchAvatar, delCardById } from './api.js';
 
 // Функции открытия и закрытия модального окна
 function openModal(popup) {
@@ -11,11 +11,8 @@ function openModal(popup) {
 }
 function openModalProfile(popup) {
   openModal(popup);
-  //! api
-  getUser().then(res => getResponse(res)).then((user) => {
-    nameInput.value = user.name;
-    jobInput.value = user.about;
-  }).catch(err => catchError(err));
+  nameInput.value = profileName.textContent;
+  jobInput.value = profileDesc.textContent;
 }
 
 function closeModal(popup) {
@@ -45,10 +42,10 @@ function addCardFromForm(evt) {
   const buttonElement = evt.target.querySelector('.form__button');
   //! api
   postCard(imgInput.value, placeInput.value).then(res => getResponse(res)).then((data) => {
-    photosGrid.prepend(createCard(data.link, data.name, [], data._id));
-  }).catch(err => catchError(err)).finally(() => {
+    //передать delCardById как параметр
+    photosGrid.prepend(createCard(data.link, data.name, [], data._id, 1, 1, delCardById));
     renderButtonLoading(false, placePopup);
-  });
+  }).catch(err => catchError(err));
   closeModal(placePopup);
   disableButton(buttonElement, validConfig.inactiveButtonClass);
   imgInput.value = '';
@@ -72,11 +69,9 @@ function handleFormProfileSubmit(evt) {
   patchUser(nameValue, jobValue).then(res => getResponse(res)).then((data) => {
     profileName.textContent = data.name;
     profileDesc.textContent = data.about;
-  }).catch(err => catchError(err)).finally(() => {
     renderButtonLoading(false, profilePopup);
-  });;
-
-  closeModal(profilePopup);
+    closeModal(profilePopup);
+  }).catch(err => catchError(err));
 }
 
 // Обновление аватара
@@ -88,10 +83,9 @@ function avatarSubmit(evt) {
   patchAvatar(avatarInput.value).then(res => getResponse(res)).then((data) => {
     avatar.setAttribute("src", avatarInput.value);
     console.log(data + " автар добавлен");
-  }).catch(err => catchError(err)).finally(() => {
     renderButtonLoading(false, avatarPopup);
-  });
-  closeModal(avatarPopup);
+    closeModal(avatarPopup);
+  }).catch(err => catchError(err));
   //disableButton(buttonElement, validConfig.inactiveButtonClass);
 }
 
