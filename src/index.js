@@ -10,11 +10,16 @@ getUser().then(res => getResponse(res)).then((user) => {
   profileName.textContent = user.name;
   profileDesc.textContent = user.about;
   avatar.setAttribute("src", user.avatar);
-  userId = user._id;
-}).catch(err => catchError(err));
+  console.log(user._id + ' - user._id');
+  const userId = user._id;
+  return userId
+}).then((userId)=>{
+  console.log(userId+ ' - userId после назначения');
+  // Вывод карточек
+  getCards().then(res => getResponse(res)).then((data) => renderCard(data, userId)).catch(err => catchError(err));
+})
+.catch(err => catchError(err));
 
-// Вывод карточек
-getCards().then(res => getResponse(res)).then((data) => renderCard(data, userId)).catch(err => catchError(err));
 
 // Инициализация валидации
 enableValidation(validConfig);

@@ -33,12 +33,13 @@ function openImg(cardImg) {
     openModal(imgPopup);
 });
 }
-// Создание карточки
+//todo Создание карточки - передача функции delCardById по параметру, надо её передать в месте вызова
 function createCard(imgCard, nameCard, likes = [], cardId, ownerId = 1, userId = 1, delCardById) {
   const newCard = template.querySelector('.photos-grid__item').cloneNode(true);
   const heartButton = newCard.querySelector('.photos-grid__heart');
   const delButton = newCard.querySelector('.photos-grid__delete');
   const cardImg = newCard.querySelector('.photos-grid__img');
+  console.log(userId);
   if (userId !== '0' && userId === ownerId) {
     delButton.classList.remove('photos-grid__delete_hide');
   }

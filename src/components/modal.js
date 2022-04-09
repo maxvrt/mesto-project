@@ -45,6 +45,7 @@ function addCardFromForm(evt) {
   const buttonElement = evt.target.querySelector('.form__button');
   //! api
   postCard(imgInput.value, placeInput.value).then(res => getResponse(res)).then((data) => {
+    //todo передать delCardById как параметр
     photosGrid.prepend(createCard(data.link, data.name, [], data._id));
   }).catch(err => catchError(err)).finally(() => {
     renderButtonLoading(false, placePopup);
