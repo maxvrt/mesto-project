@@ -45,8 +45,8 @@ function addCardFromForm(evt) {
     //передать delCardById как параметр
     photosGrid.prepend(createCard(data.link, data.name, [], data._id, 1, 1, delCardById));
     renderButtonLoading(false, placePopup);
+    closeModal(placePopup);
   }).catch(err => catchError(err));
-  closeModal(placePopup);
   disableButton(buttonElement, validConfig.inactiveButtonClass);
   imgInput.value = '';
   placeInput.value = '';
@@ -82,7 +82,6 @@ function avatarSubmit(evt) {
   //! api
   patchAvatar(avatarInput.value).then(res => getResponse(res)).then((data) => {
     avatar.setAttribute("src", avatarInput.value);
-    console.log(data + " автар добавлен");
     renderButtonLoading(false, avatarPopup);
     closeModal(avatarPopup);
   }).catch(err => catchError(err));
