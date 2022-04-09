@@ -31,7 +31,7 @@
 .photos-grid__delete{background-color:transparent;background-image:url(ce3b64935accf9b8212e.svg);background-repeat:no-repeat;background-size:contain;border:none;height:19px;position:absolute;right:17px;top:20px;width:22px}.photos-grid__delete:hover{opacity:.5}
 .photos-grid__delete_hide{display:none}
 .photos-grid__place{display:flex;flex-direction:row;font-size:0;justify-content:space-between;margin:0;min-width:244px;padding-bottom:20px;padding-left:10px;padding-right:8px;position:relative}
-.photos-grid__img{height:282px;-o-object-fit:cover;object-fit:cover;width:282px}
+.photos-grid__img{height:282px;-o-object-fit:cover;object-fit:cover;width:282px}.photos-grid__img:hover{cursor:pointer}
 .photos-grid__item{align-items:center;background-color:#fff;border-radius:3%;color:#000;display:flex;flex-direction:column;font-size:0;justify-self:center;max-width:282px;overflow:hidden;position:relative;row-gap:23px}
 .photos-grid__city{align-self:baseline;font-size:24px;font-weight:900;line-height:29px;margin:0;max-width:190px;min-width:114px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .photos-grid__heart_active{background-image:url(35948469632d0421d697.svg)}.photos-grid__heart_active:hover{opacity:1}
