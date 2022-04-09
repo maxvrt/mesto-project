@@ -44,9 +44,12 @@ function addCardFromForm(evt) {
   postCard(imgInput.value, placeInput.value).then(res => getResponse(res)).then((data) => {
     //передать delCardById как параметр
     photosGrid.prepend(createCard(data.link, data.name, [], data._id, 1, 1, delCardById));
-    renderButtonLoading(false, placePopup);
     closeModal(placePopup);
-  }).catch(err => catchError(err));
+  })
+  .catch(err => catchError(err))
+  .finally(() => {
+    renderButtonLoading(false, placePopup);
+  });
   disableButton(buttonElement, validConfig.inactiveButtonClass);
   imgInput.value = '';
   placeInput.value = '';
@@ -69,9 +72,12 @@ function handleFormProfileSubmit(evt) {
   patchUser(nameValue, jobValue).then(res => getResponse(res)).then((data) => {
     profileName.textContent = data.name;
     profileDesc.textContent = data.about;
-    renderButtonLoading(false, profilePopup);
     closeModal(profilePopup);
-  }).catch(err => catchError(err));
+  })
+  .catch(err => catchError(err))
+  .finally(() => {
+    renderButtonLoading(false, profilePopup);
+  });
 }
 
 // Обновление аватара
@@ -82,9 +88,12 @@ function avatarSubmit(evt) {
   //! api
   patchAvatar(avatarInput.value).then(res => getResponse(res)).then((data) => {
     avatar.setAttribute("src", avatarInput.value);
-    renderButtonLoading(false, avatarPopup);
     closeModal(avatarPopup);
-  }).catch(err => catchError(err));
+  })
+  .catch(err => catchError(err))
+  .finally(() => {
+    renderButtonLoading(false, avatarPopup);
+  });
   //disableButton(buttonElement, validConfig.inactiveButtonClass);
 }
 
