@@ -1,7 +1,6 @@
 import { openModal, fillModalImg } from './modal.js'
 import { imgPopup, template } from './constants.js'
 import { delCardById, getResponse, catchError, delLikeCardById, likeCardById } from './api.js';
-import { userId } from '../index.js';
 
 // Лайк
 function addLike(heartButton, cardId) {
@@ -21,12 +20,9 @@ function addLike(heartButton, cardId) {
   });
 }
 // Удаление карточки
-function delCard(delButton, cardId) {
-  delButton.addEventListener('click',  () => {
-    delCardById(cardId).then(res => getResponse(res)).then((data) => console.log(data+" ОТВЕТ ФУНКЦИИ УДАЛЕНИЯ")).catch(err => catchError(err));
-    const listItem = delButton.closest("div");
-    listItem.remove();
-  });
+function delCard(delButton) {
+  const listItem = delButton.closest("div");
+  listItem.remove();
 }
 // Открытие картинки
 function openImg(cardImg) {
@@ -38,7 +34,7 @@ function openImg(cardImg) {
 });
 }
 // Создание карточки
-function createCard(imgCard, nameCard, likes = [], cardId, ownerId = 1, userId = 1) {
+function createCard(imgCard, nameCard, likes = [], cardId, ownerId = 1, userId = 1, delCardById) {
   const newCard = template.querySelector('.photos-grid__item').cloneNode(true);
   const heartButton = newCard.querySelector('.photos-grid__heart');
   const delButton = newCard.querySelector('.photos-grid__delete');
@@ -58,8 +54,12 @@ function createCard(imgCard, nameCard, likes = [], cardId, ownerId = 1, userId =
   }
   // Лайк
   addLike(heartButton, cardId);
-  // Удаление
-  delCard(delButton, cardId);
+  // Удаление карточки
+  delButton.addEventListener('click',  () => {
+    delCardById(cardId).then(res => getResponse(res)).then(() => {
+      delCard(delButton);
+    }).catch(err => catchError(err));
+  });
   // Открытие картинки
   openImg(cardImg)
   return newCard;
