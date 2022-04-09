@@ -11,11 +11,8 @@ function openModal(popup) {
 }
 function openModalProfile(popup) {
   openModal(popup);
-  //! api
-  getUser().then(res => getResponse(res)).then((user) => {
-    nameInput.value = user.name;
-    jobInput.value = user.about;
-  }).catch(err => catchError(err));
+  nameInput.value = profileName.textContent;
+  jobInput.value = profileDesc.textContent;
 }
 
 function closeModal(popup) {
@@ -47,9 +44,8 @@ function addCardFromForm(evt) {
   postCard(imgInput.value, placeInput.value).then(res => getResponse(res)).then((data) => {
     //передать delCardById как параметр
     photosGrid.prepend(createCard(data.link, data.name, [], data._id, 1, 1, delCardById));
-  }).catch(err => catchError(err)).finally(() => {
     renderButtonLoading(false, placePopup);
-  });
+  }).catch(err => catchError(err));
   closeModal(placePopup);
   disableButton(buttonElement, validConfig.inactiveButtonClass);
   imgInput.value = '';
@@ -73,11 +69,9 @@ function handleFormProfileSubmit(evt) {
   patchUser(nameValue, jobValue).then(res => getResponse(res)).then((data) => {
     profileName.textContent = data.name;
     profileDesc.textContent = data.about;
-  }).catch(err => catchError(err)).finally(() => {
     renderButtonLoading(false, profilePopup);
-  });;
-
-  closeModal(profilePopup);
+    closeModal(profilePopup);
+  }).catch(err => catchError(err));
 }
 
 // Обновление аватара
@@ -89,10 +83,9 @@ function avatarSubmit(evt) {
   patchAvatar(avatarInput.value).then(res => getResponse(res)).then((data) => {
     avatar.setAttribute("src", avatarInput.value);
     console.log(data + " автар добавлен");
-  }).catch(err => catchError(err)).finally(() => {
     renderButtonLoading(false, avatarPopup);
-  });
-  closeModal(avatarPopup);
+    closeModal(avatarPopup);
+  }).catch(err => catchError(err));
   //disableButton(buttonElement, validConfig.inactiveButtonClass);
 }
 

@@ -11,11 +11,11 @@ getUser().then(res => getResponse(res)).then((user) => {
   profileName.textContent = user.name;
   profileDesc.textContent = user.about;
   avatar.setAttribute("src", user.avatar);
-  console.log(user._id + ' - user._id');
+  //console.log(user._id + ' - user._id');
   const userId = user._id;
   return userId
 }).then((userId)=>{
-  console.log(userId+ ' - userId после назначения');
+  //console.log(userId+ ' - userId после назначения');
   // Вывод карточек
   getCards().then(res => getResponse(res)).then((data) => renderCard(data, userId, delCardById)).catch(err => catchError(err));
 }).catch(err => catchError(err));

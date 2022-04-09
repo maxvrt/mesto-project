@@ -26,7 +26,6 @@ function createCard(imgCard, nameCard, likes = [], cardId, ownerId = 1, userId =
   const heartButton = newCard.querySelector('.photos-grid__heart');
   const delButton = newCard.querySelector('.photos-grid__delete');
   const cardImg = newCard.querySelector('.photos-grid__img');
-  console.log(userId);
   if (userId !== '0' && userId === ownerId) {
     delButton.classList.remove('photos-grid__delete_hide');
   }
@@ -37,7 +36,6 @@ function createCard(imgCard, nameCard, likes = [], cardId, ownerId = 1, userId =
   newCard.querySelector('.photos-grid__heart-counter').textContent = likes.length;
   // окрашивание лайка
   if (checkLikes(likes, userId)) {
-    console.log('Есть лайк');
     newCard.querySelector('.photos-grid__heart').classList.add('photos-grid__heart_active');
   }
   // Лайк
