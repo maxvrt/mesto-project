@@ -2,7 +2,7 @@ import {imgDescElement, imgElement, profileName, profileDesc, avatarInput, avata
 import { createCard } from './card.js';
 import { validConfig } from './validConfig.js';
 import { disableButton } from './validate.js';
-import { getUser, getResponse, catchError, patchUser, postCard, patchAvatar } from './api.js';
+import { getUser, getResponse, catchError, patchUser, postCard, patchAvatar, delCardById } from './api.js';
 
 // Функции открытия и закрытия модального окна
 function openModal(popup) {
@@ -45,8 +45,8 @@ function addCardFromForm(evt) {
   const buttonElement = evt.target.querySelector('.form__button');
   //! api
   postCard(imgInput.value, placeInput.value).then(res => getResponse(res)).then((data) => {
-    //todo передать delCardById как параметр
-    photosGrid.prepend(createCard(data.link, data.name, [], data._id));
+    //передать delCardById как параметр
+    photosGrid.prepend(createCard(data.link, data.name, [], data._id, 1, 1, delCardById));
   }).catch(err => catchError(err)).finally(() => {
     renderButtonLoading(false, placePopup);
   });

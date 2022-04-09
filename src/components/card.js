@@ -1,6 +1,6 @@
 import { openModal, fillModalImg } from './modal.js'
 import { imgPopup, template } from './constants.js'
-import { delCardById, getResponse, catchError, delLikeCardById, likeCardById } from './api.js';
+import { getResponse, catchError, delLikeCardById, likeCardById } from './api.js';
 
 // Лайк
 function addLike(heartButton, cardId) {
@@ -33,7 +33,7 @@ function openImg(cardImg) {
     openModal(imgPopup);
 });
 }
-//todo Создание карточки - передача функции delCardById по параметру, надо её передать в месте вызова
+//Создание карточки - передача функции delCardById по параметру _в месте вызова_
 function createCard(imgCard, nameCard, likes = [], cardId, ownerId = 1, userId = 1, delCardById) {
   const newCard = template.querySelector('.photos-grid__item').cloneNode(true);
   const heartButton = newCard.querySelector('.photos-grid__heart');

@@ -3,9 +3,10 @@ import { enableValidation } from './components/validate.js';
 import { renderCard } from './components/cards.js';
 import { validConfig } from './components/validConfig.js';
 import { closeModal, openModal, openModalProfile, addCardFromForm, handleFormProfileSubmit, closeModalOverlay, avatarSubmit } from './components/modal.js';
-import { userId, imgPopup, profileFormElement, profilePopup, photosGrid, imgModalButtonClose, profileModalCloseButton, profileModalOpenButton, placeFormElement, placePopup, placeModalOpenButton, placeModalCloseButton, profileName, avatar, profileDesc, avatarFormElement, avatarModalOpenButton, avatarModalCloseButton, avatarPopup} from './components/constants.js'
-import { getUser, getCards, getResponse, catchError } from './components/api.js';
+import { imgPopup, profileFormElement, profilePopup, photosGrid, imgModalButtonClose, profileModalCloseButton, profileModalOpenButton, placeFormElement, placePopup, placeModalOpenButton, placeModalCloseButton, profileName, avatar, profileDesc, avatarFormElement, avatarModalOpenButton, avatarModalCloseButton, avatarPopup} from './components/constants.js'
+import { getUser, getCards, getResponse, catchError, delCardById } from './components/api.js';
 
+// Пользователь
 getUser().then(res => getResponse(res)).then((user) => {
   profileName.textContent = user.name;
   profileDesc.textContent = user.about;
@@ -16,10 +17,8 @@ getUser().then(res => getResponse(res)).then((user) => {
 }).then((userId)=>{
   console.log(userId+ ' - userId после назначения');
   // Вывод карточек
-  getCards().then(res => getResponse(res)).then((data) => renderCard(data, userId)).catch(err => catchError(err));
-})
-.catch(err => catchError(err));
-
+  getCards().then(res => getResponse(res)).then((data) => renderCard(data, userId, delCardById)).catch(err => catchError(err));
+}).catch(err => catchError(err));
 
 // Инициализация валидации
 enableValidation(validConfig);
