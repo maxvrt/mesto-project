@@ -13,6 +13,7 @@ export default class Section{
   renderItems() {
     this._renderedItems.forEach(item => this._renderer(item))
   }
+  // вставка карточки в сетку
   setItem(element) {
     this._container.append(element);
   }

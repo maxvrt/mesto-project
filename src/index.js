@@ -1,10 +1,11 @@
 import './pages/index.css';
 import { enableValidation } from './components/validate.js';
-import { Section } from './components/section.js'; //import { renderCard } from './components/cards.js';
 import { validConfig } from './components/validConfig.js';
 import { closeModal, openModal, openModalProfile, addCardFromForm, handleFormProfileSubmit, closeModalOverlay, avatarSubmit } from './components/modal.js';
 import { imgPopup, profileFormElement, profilePopup, photosGrid, imgModalButtonClose, profileModalCloseButton, profileModalOpenButton, placeFormElement, placePopup, placeModalOpenButton, placeModalCloseButton, profileName, avatar, profileDesc, avatarFormElement, avatarModalOpenButton, avatarModalCloseButton, avatarPopup, apiConfig} from './components/constants.js'
+import { Section } from './components/section.js'; //import { renderCard } from './components/cards.js';
 import { Api } from './components/api.js';
+import { Card } from './components/card.js';
 
 const api = new Api(apiConfig);
 // Пользователь
@@ -23,15 +24,16 @@ api.getUser().then((user) => {
     const cardsList = new Section({
       data: data,
       renderer: (item) => {
-        //const message = new DefaultMessage(item, '.message-template_type_default');
-        createCard(item['link'], item['name'], item['likes'], item['_id'], item['owner']._id, userId, delCardById);
-        //todo разобраться с generate
-        const messageElement = message.generate();
-        cardsList.setItem(messageElement);
-      },
-    });
+        const card = new Card({item}, userId, delCardById, '#card-template');
 
-  }  //renderCard(data, userId, delCardById)
+        const cardElement = card.generate();
+        cardsList.setItem(cardElement);
+
+      },
+      // Селектор контейнера всех карточек нужен для метода Section - setItem
+      cardListSection
+    });
+  }
   ).catch(err => api.catchError(err));
 
 }).catch(err => api.catchError(err));
