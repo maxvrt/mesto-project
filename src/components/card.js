@@ -13,6 +13,7 @@ export default class Card{
     this._ownerId = data.owner._id;
     this._userId = userId;
     this._selector = selector;
+    this._isUserLike = false;
     // кнопка лайка
     //this._likeElement = heartButton.parentNode.querySelector('.photos-grid__heart-counter');
   }
@@ -52,13 +53,11 @@ export default class Card{
 
   // окрашивание лайка
   // isUserLike = checkLikes(likes, userId)
-  setColorLike(isUserLike){
-    if (isUserLike) {
-      newCard.querySelector('.photos-grid__heart').classList.add('photos-grid__heart_active');
-    }
-  }
+  // setColorLike(isUserLike){
+  //   newCard.querySelector('.photos-grid__heart').classList.add('photos-grid__heart_active');
+  // }
   // проверка лайкал ли юзер
-  checkLikes() {
+  checkUserLike() {
     if (this._userId !== 1 && this._likes.length > 0){
       return this._likes.some(element => { return element._id === this._userId; });
     }

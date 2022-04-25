@@ -27,6 +27,9 @@ api.getUser().then((user) => {
         const card = new Card({item}, userId, '#card-template');
         const cardElement = card.generate();
         cardsList.setItem(cardElement);
+        // Есть ли лайк пользователя
+        const isLike = card.checkUserLike();
+        if(isLike) card.querySelector('.photos-grid__heart').classList.add('photos-grid__heart_active');
 
         // Слушатели удаления, лайка и открытия картинки у карточки
         const cardId = card.getId();
