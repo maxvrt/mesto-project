@@ -1,13 +1,14 @@
 import './pages/index.css';
 import { enableValidation } from './components/validate.js';
-import { renderCard } from './components/cards.js';
+import { Section } from './components/section.js'; //import { renderCard } from './components/cards.js';
 import { validConfig } from './components/validConfig.js';
 import { closeModal, openModal, openModalProfile, addCardFromForm, handleFormProfileSubmit, closeModalOverlay, avatarSubmit } from './components/modal.js';
-import { imgPopup, profileFormElement, profilePopup, photosGrid, imgModalButtonClose, profileModalCloseButton, profileModalOpenButton, placeFormElement, placePopup, placeModalOpenButton, placeModalCloseButton, profileName, avatar, profileDesc, avatarFormElement, avatarModalOpenButton, avatarModalCloseButton, avatarPopup} from './components/constants.js'
-import { getUser, getCards, getResponse, catchError, delCardById } from './components/api.js';
+import { imgPopup, profileFormElement, profilePopup, photosGrid, imgModalButtonClose, profileModalCloseButton, profileModalOpenButton, placeFormElement, placePopup, placeModalOpenButton, placeModalCloseButton, profileName, avatar, profileDesc, avatarFormElement, avatarModalOpenButton, avatarModalCloseButton, avatarPopup, apiConfig} from './components/constants.js'
+import { Api } from './components/api.js';
 
+const api = new Api(apiConfig);
 // Пользователь
-getUser().then(res => getResponse(res)).then((user) => {
+api.getUser().then((user) => {
   profileName.textContent = user.name;
   profileDesc.textContent = user.about;
   avatar.setAttribute("src", user.avatar);
@@ -17,8 +18,23 @@ getUser().then(res => getResponse(res)).then((user) => {
 }).then((userId)=>{
   //console.log(userId+ ' - userId после назначения');
   // Вывод карточек
-  getCards().then(res => getResponse(res)).then((data) => renderCard(data, userId, delCardById)).catch(err => catchError(err));
-}).catch(err => catchError(err));
+  api.getCards().then((data) => {
+
+    const cardsList = new Section({
+      data: data,
+      renderer: (item) => {
+        //const message = new DefaultMessage(item, '.message-template_type_default');
+        createCard(item['link'], item['name'], item['likes'], item['_id'], item['owner']._id, userId, delCardById);
+        //todo разобраться с generate
+        const messageElement = message.generate();
+        cardsList.setItem(messageElement);
+      },
+    });
+
+  }  //renderCard(data, userId, delCardById)
+  ).catch(err => api.catchError(err));
+
+}).catch(err => api.catchError(err));
 
 // Инициализация валидации
 enableValidation(validConfig);

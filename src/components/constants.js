@@ -29,5 +29,12 @@ export const placePopup = document.querySelector('.popup_place');
 export const placeFormElement = document.querySelector('.form_place');
 export const placeInput = document.querySelector('.form__item_el_place');
 export const imgInput = document.querySelector('.form__item_el_img-place');
-
+// настройки api
+export const apiConfig = {
+  baseUrl: 'https://nomoreparties.co/v1/plus-cohort-8',
+  headers: {
+    authorization: '22ea861c-3f58-49dd-8e52-eb0909a1b5c2',
+    'Content-Type': 'application/json'
+  }
+}
 
