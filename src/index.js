@@ -1,11 +1,11 @@
 import './pages/index.css';
 import { enableValidation } from './components/validate.js';
 import { validConfig } from './components/validConfig.js';
-import { closeModal, openModal, openModalProfile, addCardFromForm, handleFormProfileSubmit, closeModalOverlay, avatarSubmit } from './components/modal.js';
+import { closeModal, openModal, fillModalImg, openModalProfile, addCardFromForm, handleFormProfileSubmit, closeModalOverlay, avatarSubmit } from './components/modal.js';
 import { imgPopup, profileFormElement, profilePopup, photosGrid, imgModalButtonClose, profileModalCloseButton, profileModalOpenButton, placeFormElement, placePopup, placeModalOpenButton, placeModalCloseButton, profileName, avatar, profileDesc, avatarFormElement, avatarModalOpenButton, avatarModalCloseButton, avatarPopup, apiConfig} from './components/constants.js'
 import { Section } from './components/section.js'; //import { renderCard } from './components/cards.js';
-import { Api } from './components/api.js';
 import { Card } from './components/card.js';
+import { Api } from './components/api.js';
 
 const api = new Api(apiConfig);
 // Пользователь
@@ -20,14 +20,43 @@ api.getUser().then((user) => {
   //console.log(userId+ ' - userId после назначения');
   // Вывод карточек
   api.getCards().then((data) => {
-
     const cardsList = new Section({
       data: data,
       renderer: (item) => {
-        const card = new Card({item}, userId, delCardById, '#card-template');
 
+        const card = new Card({item}, userId, '#card-template');
         const cardElement = card.generate();
         cardsList.setItem(cardElement);
+
+        // Слушатели удаления, лайка и открытия картинки у карточки
+        const cardId = card.getId();
+        const cardImg = card.getImg();
+        const heartButton = cardElement.querySelector('.photos-grid__heart');
+        const delButton = cardElement.querySelector('.photos-grid__delete');
+        const likeElement = heartButton.parentNode.querySelector('.photos-grid__heart-counter');
+        delButton.addEventListener('click',  () => {
+          api.delCardById(cardId).then(() => {
+            card.delCard(delButton);
+          }).catch(err => catchError(err));
+        });
+        heartButton.addEventListener('click',  () => {
+          heartButton.classList.toggle('photos-grid__heart_active');
+          if (heartButton.classList.contains('photos-grid__heart_active')){
+            api.likeCardById(cardId).then((data) => {
+              card.addLike(likeElement, data.likes.length);
+            }).catch(err => catchError(err));
+          } else {
+            api.delLikeCardById(cardId).then((data) => {
+              card.addLike(likeElement, data.likes.length);
+            }).catch(err => catchError(err));
+          }
+        });
+        cardImg.addEventListener('click', () => {
+          const imgSrc = cardImg.getAttribute('src');
+          const imgAlt = cardImg.getAttribute('alt');
+          fillModalImg(imgSrc, imgAlt);
+          openModal(imgPopup);
+        });
 
       },
       // Селектор контейнера всех карточек нужен для метода Section - setItem
