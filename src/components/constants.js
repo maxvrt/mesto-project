@@ -20,7 +20,7 @@ export const avatarFormElement = document.querySelector('.form_avatar');
 export const avatarInput = document.querySelector('.form__item_el_avatar');
 export const avatarPopup = document.querySelector('.popup_avatar');
 
-export const photosGrid = document.querySelector('.photos-grid');
+export const photosGrid = '.photos-grid';
 export const imgModalButtonClose = document.querySelector('.popup__close.popup_img');
 // Окно добавления карточки
 export const placeModalCloseButton = document.querySelector('.popup__close.popup_place');

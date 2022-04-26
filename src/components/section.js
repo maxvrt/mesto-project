@@ -5,11 +5,7 @@ export default class Section{
   constructor ({cardListData, renderer}, selector){ //,userId, delCardById
     this._renderedItems = cardListData;
     this._renderer = renderer;
-    console.log(selector);
-    console.log(document);
-    //todo разобраться с ошибкой - селектор selector определяется как объект
-    this._container = document.querySelector('.photos-grid');
-    console.log(cardListData);
+    this._container = document.querySelector(selector);
   }
   renderItems() {
     this._renderedItems.forEach(item => this._renderer(item))
