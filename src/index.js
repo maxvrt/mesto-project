@@ -3,7 +3,7 @@ import { enableValidation } from './components/validate.js';
 import { validConfig } from './components/validConfig.js';
 import { closeModal, openModal, fillModalImg, openModalProfile, addCardFromForm, handleFormProfileSubmit, closeModalOverlay, avatarSubmit } from './components/modal.js';
 import { imgPopup, profileFormElement, profilePopup, photosGrid, imgModalButtonClose, profileModalCloseButton, profileModalOpenButton, placeFormElement, placePopup, placeModalOpenButton, placeModalCloseButton, profileName, avatar, profileDesc, avatarFormElement, avatarModalOpenButton, avatarModalCloseButton, avatarPopup, apiConfig} from './components/constants.js'
-import { Section } from './components/section.js'; //import { renderCard } from './components/cards.js';
+import Section from './components/section'; //import { renderCard } from './components/cards.js';
 import { Card } from './components/card.js';
 import { Api } from './components/api.js';
 
@@ -21,18 +21,16 @@ api.getUser().then((user) => {
   // Вывод карточек
   api.getCards().then((data) => {
     const cardsList = new Section({
-      data: data,
+      cardListData: data,
       renderer: (item) => {
-
-        const card = new Card({item}, userId, '#card-template');
+        const card = new Card(item, userId, '#card-template');
         const cardElement = card.generate();
-        cardsList.setItem(cardElement);
         // Есть ли лайк пользователя
         const isLike = card.checkUserLike();
         if(isLike) card.querySelector('.photos-grid__heart').classList.add('photos-grid__heart_active');
-
+        console.log();
         // Слушатели удаления, лайка и открытия картинки у карточки
-        const cardId = card.getId();
+        const cardId = item._id;
         const cardImg = card.getImg();
         const heartButton = cardElement.querySelector('.photos-grid__heart');
         const delButton = cardElement.querySelector('.photos-grid__delete');
@@ -60,11 +58,11 @@ api.getUser().then((user) => {
           fillModalImg(imgSrc, imgAlt);
           openModal(imgPopup);
         });
-
+        //console.log(cardElement);
+        cardsList.setItem(cardElement);
       },
-      // Селектор контейнера всех карточек нужен для метода Section - setItem
-      cardListSection
-    });
+    }, photosGrid);
+    cardsList.renderItems();
   }
   ).catch(err => api.catchError(err));
 

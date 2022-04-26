@@ -17,6 +17,10 @@ module.exports = {
     port: 8080,
     open: true
   },
+  watch: true,
+  watchOptions: {
+    aggregateTimeout: 600,
+  },
   module: {
     rules: [ // rules — это массив правил
       // добавим в него объект правил для бабеля
