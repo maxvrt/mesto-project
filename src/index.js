@@ -13,24 +13,26 @@ api.getUser().then((user) => {
   profileName.textContent = user.name;
   profileDesc.textContent = user.about;
   avatar.setAttribute("src", user.avatar);
-  //console.log(user._id + ' - user._id');
+  console.log(user._id + ' - user._id');
   const userId = user._id;
   return userId
 }).then((userId)=>{
-  //console.log(userId+ ' - userId после назначения');
+  console.log(userId+ ' - userId после назначения');
+
   // Вывод карточек
   api.getCards().then((data) => {
     const cardsList = new Section({
       cardListData: data,
-      renderer: (item) => {
-        const card = new Card(item, userId, '#card-template');
+      renderer: (cardItem) => {
+        // Тут просто объект с данными
+        const card = new Card(cardItem, userId, '#card-template');
+        // Сам элемент верстки
         const cardElement = card.generate();
         // Есть ли лайк пользователя
         const isLike = card.checkUserLike();
-        if(isLike) card.querySelector('.photos-grid__heart').classList.add('photos-grid__heart_active');
-        console.log();
+        if(isLike) cardElement.querySelector('.photos-grid__heart').classList.add('photos-grid__heart_active');
         // Слушатели удаления, лайка и открытия картинки у карточки
-        const cardId = item._id;
+        const cardId = card.getId();
         const cardImg = card.getImg();
         const heartButton = cardElement.querySelector('.photos-grid__heart');
         const delButton = cardElement.querySelector('.photos-grid__delete');
@@ -59,6 +61,7 @@ api.getUser().then((user) => {
           openModal(imgPopup);
         });
         //console.log(cardElement);
+        //! Вывод карточек
         cardsList.setItem(cardElement);
       },
     }, photosGrid);

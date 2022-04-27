@@ -18,7 +18,6 @@ export class Card{
     // кнопка лайка
     //this._likeElement = heartButton.parentNode.querySelector('.photos-grid__heart-counter');
   }
-
   // создание карточки
   generate() {
     this._element = this._getElement();
@@ -51,14 +50,9 @@ export class Card{
     //const template = document.querySelector('#card-template').content;
     return cardElement;
   }
-
-  // окрашивание лайка
-  // isUserLike = checkLikes(likes, userId)
-  // setColorLike(isUserLike){
-  //   newCard.querySelector('.photos-grid__heart').classList.add('photos-grid__heart_active');
-  // }
   // проверка лайкал ли юзер
   checkUserLike() {
+    console.log(this._userId);
     if (this._userId !== 1 && this._likes.length > 0){
       return this._likes.some(element => { return element._id === this._userId; });
     }
