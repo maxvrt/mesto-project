@@ -1,5 +1,8 @@
 import './pages/index.css';
-import { enableValidation } from './components/validate.js';
+
+//import { enableValidation } from './components/validate.js';
+import Validation from './components/validate.js';
+
 import { renderCard } from './components/cards.js';
 import { validConfig } from './components/validConfig.js';
 import { closeModal, openModal, openModalProfile, addCardFromForm, handleFormProfileSubmit, closeModalOverlay, avatarSubmit } from './components/modal.js';
@@ -21,7 +24,7 @@ getUser().then(res => getResponse(res)).then((user) => {
 }).catch(err => catchError(err));
 
 // Инициализация валидации
-enableValidation(validConfig);
+//enableValidation(validConfig);
 
 // Слушатели
 // Профиль
@@ -42,3 +45,17 @@ imgModalButtonClose.addEventListener('click', () => { closeModal(imgPopup) });
 profilePopup.addEventListener('click', evt => {closeModalOverlay(evt, profilePopup)});
 placePopup.addEventListener('click', evt => {closeModalOverlay(evt, placePopup)});
 imgPopup.addEventListener('click', evt => {closeModalOverlay(evt, imgPopup)});
+
+
+
+
+//New OOP validation
+
+const formList = Array.from(document.querySelectorAll(validConfig.formSelector));
+formList.forEach((formElement) => {
+  formElement.addEventListener('submit', (evt) => {
+    evt.preventDefault();
+  });
+  const validation = new Validation(validConfig, formElement);
+  validation.enableValidation();
+});
