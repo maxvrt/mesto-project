@@ -43,7 +43,7 @@ function addCardFromForm(evt) {
   //! api
   postCard(imgInput.value, placeInput.value).then(res => getResponse(res)).then((data) => {
     //передать delCardById как параметр
-    photosGrid.prepend(createCard(data.link, data.name, [], data._id, 1, 1, delCardById));
+    photosGrid2.prepend(createCard(data.link, data.name, [], data._id, 1, 1, delCardById));
     closeModal(placePopup);
   })
   .catch(err => catchError(err))
