@@ -20,6 +20,11 @@ export const avatarFormElement = document.querySelector('.form_avatar');
 export const avatarInput = document.querySelector('.form__item_el_avatar');
 export const avatarPopup = document.querySelector('.popup_avatar');
 
+export const cardTemplate = '#card-template';
+export const cardLike = '.photos-grid__heart';
+export const cardLikeActiveClass = 'photos-grid__heart_active';
+export const cardDel = '.photos-grid__delete';
+export const likeElement = '.photos-grid__heart-counter';
 export const photosGrid = '.photos-grid';
 export const photosGrid2 = document.querySelector('.photos-grid');
 export const imgModalButtonClose = document.querySelector('.popup__close.popup_img');

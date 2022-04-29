@@ -4,11 +4,11 @@ export class Api {
     this._headers = headers;
   }
   getUser() {
-    return fetch(`${this._url}/users/me`, {headers: this._headers}).then(res => getResponse(res));
+    return fetch(`${this._url}/users/me`, {headers: this._headers}).then(res => this._getResponse(res));
   }
   getCards() {
     //console.log(`${this._url}/cards ${this._headers. authorization}`);
-    return fetch(`${this._url}/cards`, {headers: this._headers}).then(res => getResponse(res));
+    return fetch(`${this._url}/cards`, {headers: this._headers}).then(res => this._getResponse(res));
   }
   patchUser(userName, userDesc) {
     return fetch(`${this._url}/users/me`, {method: 'PATCH', headers: this._headers,
@@ -16,7 +16,7 @@ export class Api {
         name: userName,
         about: userDesc
       })
-    }).then(res => getResponse(res))
+    }).then(res => this._getResponse(res))
   }
   postCard(cardImg, cardName) {
     return fetch(`${this._url}/cards`, {method: 'POST', headers: this._headers,

@@ -1,5 +1,5 @@
 import { openModal, fillModalImg } from './modal.js'
-import { imgPopup, template } from './constants.js'
+import { imgPopup, template, cardLike, cardDel, likeElement } from './constants.js'
 import { getResponse, catchError, delLikeCardById, likeCardById } from './api.js';
 
 // в конструкторе данные типа текста, изображения и селектор темплейта,
@@ -43,6 +43,15 @@ export class Card{
   }
   getId() {
     return this._cardId;
+  }
+  getLikeButton(cardElement) {
+    return cardElement.querySelector(cardLike);
+  }
+  getDelButton(cardElement) {
+    return cardElement.querySelector(cardDel);
+  }
+  getLikeElement(heartButton) {
+    return heartButton.parentNode.querySelector(likeElement);
   }
   // клонирование темплейта
   _getElement() {

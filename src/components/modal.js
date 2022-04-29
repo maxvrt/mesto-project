@@ -1,4 +1,4 @@
-import {imgDescElement, imgElement, profileName, profileDesc, avatarInput, avatar, nameInput, jobInput, profilePopup, imgInput, placeInput, placePopup, photosGrid, avatarPopup} from './constants.js';
+import {imgDescElement, imgElement, profileName, profileDesc, avatarInput, avatar, nameInput, jobInput, profilePopup, imgInput, placeInput, placePopup, photosGrid2, avatarPopup} from './constants.js';
 import { createCard } from './card.js';
 import { validConfig } from './validConfig.js';
 import { disableButton } from './validate.js';
