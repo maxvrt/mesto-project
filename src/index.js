@@ -1,3 +1,6 @@
+import '../node_modules/core-js/stable';
+import '../node_modules/regenerator-runtime/runtime'
+
 import './pages/index.css';
 
 //import { enableValidation } from './components/validate.js';
@@ -59,3 +62,12 @@ formList.forEach((formElement) => {
   const validation = new Validation(validConfig, formElement);
   validation.enableValidation();
 });
+
+
+
+import {userInfoSelectors} from './components/constants.js';
+import UserInfo from './components/userInfo';
+
+const user = new UserInfo(userInfoSelectors);
+
+console.log(user.getUserInfo());

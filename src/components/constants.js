@@ -31,3 +31,11 @@ export const placeInput = document.querySelector('.form__item_el_place');
 export const imgInput = document.querySelector('.form__item_el_img-place');
 
 
+//Selectors for UserInfo class
+
+export const userInfoSelectors = {
+    nameSelector: '.profile__name',
+    aboutSelector: '.profile__desc'
+}
+
+
