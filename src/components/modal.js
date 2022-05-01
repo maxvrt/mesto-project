@@ -4,6 +4,10 @@ import { validConfig } from './validConfig.js';
 //import { disableButton } from './validate.js';
 import { getUser, getResponse, catchError, patchUser, postCard, patchAvatar, delCardById } from './api.js';
 
+
+
+
+
 // Функции открытия и закрытия модального окна
 function openModal(popup) {
   popup.classList.add('popup_opened');
@@ -43,7 +47,7 @@ function addCardFromForm(evt) {
   //! api
   postCard(imgInput.value, placeInput.value).then(res => getResponse(res)).then((data) => {
     //передать delCardById как параметр
-    photosGrid.prepend(createCard(data.link, data.name, [], data._id, 1, 1, delCardById));
+    photosGrid2.prepend(createCard(data.link, data.name, [], data._id, 1, 1, delCardById));
     closeModal(placePopup);
   })
   .catch(err => catchError(err))
@@ -63,13 +67,15 @@ function fillModalImg(imgValue, altValue) {
 }
 
 // Обновление профиля
+
+
 function handleFormProfileSubmit(evt) {
   evt.preventDefault();
   renderButtonLoading(true, profilePopup);
   const nameValue = nameInput.value;
   const jobValue = jobInput.value;
   //! api
-  patchUser(nameValue, jobValue).then(res => getResponse(res)).then((data) => {
+  patchUser(nameValue, jobValue).then((data) => {
     profileName.textContent = data.name;
     profileDesc.textContent = data.about;
     closeModal(profilePopup);
@@ -78,7 +84,7 @@ function handleFormProfileSubmit(evt) {
   .finally(() => {
     renderButtonLoading(false, profilePopup);
   });
-}
+} 
 
 // Обновление аватара
 function avatarSubmit(evt) {
@@ -95,7 +101,7 @@ function avatarSubmit(evt) {
     renderButtonLoading(false, avatarPopup);
   });
   //disableButton(buttonElement, validConfig.inactiveButtonClass);
-}
+} 
 
 function renderButtonLoading(isLoading, popup) {
   const button = popup.querySelector('.form__button')
@@ -106,4 +112,4 @@ function renderButtonLoading(isLoading, popup) {
   }
 }
 
-export {fillModalImg, openModal, openModalProfile, closeModal, closeModalEsc, closeModalOverlay, handleFormProfileSubmit, addCardFromForm, avatarSubmit};
+export {fillModalImg, openModal, openModalProfile, closeModal, closeModalEsc, closeModalOverlay, handleFormProfileSubmit, addCardFromForm, avatarSubmit, renderButtonLoading};

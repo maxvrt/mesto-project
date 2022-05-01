@@ -1,40 +1,41 @@
-import {avatar} from './constants.js';
-//import { Api } from './components/api.js';
+import { nameInput, jobInput } from "./constants.js";
 
-
-
-class UserInfo extends Api{
-    constructor(userSelectors) {
-        this._nameElement = document.querySelector(userSelectors.nameSelector);
-        this._aboutElement = document.querySelector(userSelectors.aboutSelector);
+export default class UserInfo {
+    constructor({data, apiGetUser, apiSetUser, apiSetAvatar}, avatarEl) {
+        this._nameEl = document.querySelector(data.nameSelector);
+        this._aboutEl = document.querySelector(data.aboutSelector);
+        this._avatarEl = avatarEl;
+        this._apiGetUser = apiGetUser;
+        this._apiSetUser = apiSetUser;
+        this._apiSetAvatar = apiSetAvatar;
     }
 
-    //rename to 'getUserInfo' here and in api.js
-    getUser() {
-        super.getUser().then(res => {
-            this._nameElement.textContent = res.name;
-            this._aboutElement.textContent = res.about;
-            avatar.setAttribute("src", user.avatar);
+
+    getUserInfo() {
+        this._apiGetUser()
+        .then(user => {
+            this._nameEl.textContent = user.name;
+            this._aboutEl.textContent = user.about;
+            this._avatarEl.setAttribute("src", user.avatar);
+          
         })
+
     }
 
-    //ver1 
-    //rename to 'setUserInfo' here and in api.js
-    /*
-    patchUser(name, about) {
-        super.patchUser(name, about);
-        this._nameElement.textContent = name;
-        this._aboutElement = about;
+    setUserInfo(name, about, avatarLink) {
+        if (name && about) {
+            this._apiSetUser(name, about, false).then(data => {
+                this._nameEl.textContent = data.name;
+                this._aboutEl.textContent = data.about;
+            })
+          } else if (avatarLink) {
+            this._apiSetAvatar(avatarLink).then(data => {
+                this._avatarEl.setAttribute("src", data.avatar);
+            })
+          }
         
-    } */
 
-    //ver2
-    // Call this @ Api patchUser method from popupwithform class item
-    setUserInfo(name, about) {
-        this._nameElement.textContent = name;
-        this._aboutElement = about;
+
     }
-
 }
 
-export default UserInfo;
