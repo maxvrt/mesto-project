@@ -1,5 +1,7 @@
 import { nameInput, jobInput } from "./constants.js";
 
+
+//Первая версия. В ближайшие дни попробую переписать с одним колбеком и асинхронными методами
 export default class UserInfo {
     constructor({data, apiGetUser, apiSetUser, apiSetAvatar}, avatarEl) {
         this._nameEl = document.querySelector(data.nameSelector);
