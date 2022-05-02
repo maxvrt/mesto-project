@@ -1,18 +1,12 @@
 import '../node_modules/core-js/stable';
 import '../node_modules/regenerator-runtime/runtime'
-
 import './pages/index.css';
-
 //import { enableValidation } from './components/validate.js';
 import Validation from './components/validate.js';
 
 //Userinfo
 import {jobInput, userInfoSelectors} from './components/constants.js';
 import UserInfo from './components/userInfo.js';
-
-
-
-
 
 import { renderCard } from './components/cards.js';
 import { validConfig } from './components/validConfig.js';
@@ -27,39 +21,23 @@ import Api from './components/api.js';
 
 const api = new Api(apiConfig);
 
-
 const user = new UserInfo({
-  data: userInfoSelectors, 
+  data: userInfoSelectors,
   apiGetUser: () => {
-
-    const userApiGet = new Api(apiConfig);  
-    
-    
-    return userApiGet.getUser()
-
-    
+    const userApiGet = new Api(apiConfig);
+    return userApiGet.getUser();
   },
   apiSetUser: (name, about) => {
-
     const userApiSet = new Api(apiConfig);
-
-    
-      return userApiSet.patchUser(name, about);
-  
-      
-    
+    return userApiSet.patchUser(name, about);
   },
-
-  
   apiSetAvatar: (avatarLink) => {
     const userApiAvatar = new Api(apiConfig);
-
     return userApiAvatar.patchAvatar(avatarLink);
-
-  }}, avatar);
+  }
+}, avatar);
 
 // Пользователь
-
 user.getUserInfo();
 
 api.getUser().then((user) => {
@@ -70,10 +48,10 @@ api.getUser().then((user) => {
   */
   console.log(user._id + ' - user._id');
   const userId = user._id;
-  return userId 
+  return userId
 //user.setUserInfo()
 }).then((userId)=>{
-  console.log(userId+ ' - userId после назначения'); 
+  console.log(userId+ ' - userId после назначения');
 
   // Вывод карточек
   api.getCards().then((data) => {

@@ -40,7 +40,6 @@ export const apiConfig = {
 }
 
 //Selectors for UserInfo class
-
 export const userInfoSelectors = {
     nameSelector: '.profile__name',
     aboutSelector: '.profile__desc',
