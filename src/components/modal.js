@@ -1,4 +1,4 @@
-import {imgDescElement, imgElement, profileName, profileDesc, avatarInput, avatar, nameInput, jobInput, profilePopup, imgInput, placeInput, placePopup, photosGrid, avatarPopup} from './constants.js';
+import {imgDescElement, imgElement, profileName, profileDesc, avatarInput, avatar, nameInput, jobInput, profilePopup, imgInput, placeInput, placePopup, photosGrid2, avatarPopup} from './constants.js';
 import { createCard } from './card.js';
 import { validConfig } from './validConfig.js';
 //import { disableButton } from './validate.js';
@@ -84,7 +84,7 @@ function handleFormProfileSubmit(evt) {
   .finally(() => {
     renderButtonLoading(false, profilePopup);
   });
-} 
+}
 
 // Обновление аватара
 function avatarSubmit(evt) {
@@ -101,7 +101,7 @@ function avatarSubmit(evt) {
     renderButtonLoading(false, avatarPopup);
   });
   //disableButton(buttonElement, validConfig.inactiveButtonClass);
-} 
+}
 
 function renderButtonLoading(isLoading, popup) {
   const button = popup.querySelector('.form__button')
