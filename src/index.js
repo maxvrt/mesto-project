@@ -93,3 +93,4 @@ constants.imgModalButtonClose.addEventListener('click', () => { closeModal(const
 constants.profilePopup.addEventListener('click', evt => {closeModalOverlay(evt, constants.profilePopup)});
 constants.placePopup.addEventListener('click', evt => {closeModalOverlay(evt, constants.placePopup)});
 constants.imgPopup.addEventListener('click', evt => {closeModalOverlay(evt, constants.imgPopup)});
+constants.avatarPopup.addEventListener('click', evt => {closeModalOverlay(evt, constants.avatarPopup)});
