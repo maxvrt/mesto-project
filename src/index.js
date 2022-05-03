@@ -1,7 +1,7 @@
 import '../node_modules/core-js/stable';
 import '../node_modules/regenerator-runtime/runtime'
 import './pages/index.css';
-//import { enableValidation } from './components/validate.js';
+
 import Validation from './components/validate.js';
 
 //Userinfo
@@ -23,19 +23,47 @@ const api = new Api(apiConfig);
 
 const user = new UserInfo({
   data: userInfoSelectors,
-  apiGetUser: () => {
-    const userApiGet = new Api(apiConfig);
-    return userApiGet.getUser();
-  },
-  apiSetUser: (name, about) => {
-    const userApiSet = new Api(apiConfig);
-    return userApiSet.patchUser(name, about);
-  },
-  apiSetAvatar: (avatarLink) => {
-    const userApiAvatar = new Api(apiConfig);
-    return userApiAvatar.patchAvatar(avatarLink);
+  apiCallBack: (name, about, avatarLink) => {
+    if (name && about) {
+      return api.patchUser(name, about)
+    } else if (avatarLink) {
+      return api.patchAvatar(avatarLink)
+        
+    } else {
+      return api.getUser()
+    }
   }
 }, avatar);
+
+user.setUserInfo();
+
+/*
+  apiCallBack: ({name, about, avatarLInk}) => {
+    if (name && about) {
+      return api.getUser();
+    } else if (avatar) {
+      return api.patchUser();
+    } else {
+      return api.getUser()
+    }
+  }
+
+
+const user = new UserInfo({
+  data: userInfoSelectors,
+  apiGetUser: () => {
+    return api.getUser();
+  },
+  apiSetUser: (name, about) => {
+    return api.patchUser(name, about);
+  },
+  apiSetAvatar: (avatarLink) => {
+    return api.patchAvatar(avatarLink);
+  }
+}, avatar);
+
+
+*/
 
 // Пользователь
 
@@ -96,6 +124,9 @@ user.getUserInfo().then((user) => {
   ).catch(err => api.catchError(err));
 
 }).catch(err => api.catchError(err));
+
+
+
 
 
 
