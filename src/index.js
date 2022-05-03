@@ -38,29 +38,21 @@ const user = new UserInfo({
 }, avatar);
 
 // Пользователь
-user.getUserInfo();
 
-api.getUser().then((user) => {
-  /*
-  profileName.textContent = user.name;
-  profileDesc.textContent = user.about;
-  avatar.setAttribute("src", user.avatar);
-  */
-  console.log(user._id + ' - user._id');
+user.getUserInfo().then((user) => {
+  console.log(user + ' - user._id');
   const userId = user._id;
   return userId
 //user.setUserInfo()
 }).then((userId)=>{
   console.log(userId+ ' - userId после назначения');
-
   // Вывод карточек
   api.getCards().then((data) => {
     const cardsList = new Section({
       cardListData: data,
       renderer: (cardItem) => {
-        // Тут просто объект с данными
         const card = new Card(cardItem, userId, '#card-template');
-        // Сам элемент верстки
+        // Элемент верстки
         const cardElement = card.generate();
         // Есть ли лайк пользователя
         const isLike = card.checkUserLike();

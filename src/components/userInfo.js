@@ -11,19 +11,15 @@ export default class UserInfo {
         this._apiSetUser = apiSetUser;
         this._apiSetAvatar = apiSetAvatar;
     }
-
-
     getUserInfo() {
-        this._apiGetUser()
+       return this._apiGetUser()
         .then(user => {
             this._nameEl.textContent = user.name;
             this._aboutEl.textContent = user.about;
             this._avatarEl.setAttribute("src", user.avatar);
-
+            return user;
         })
-
     }
-
     setUserInfo(name, about, avatarLink) {
         if (name && about) {
             this._apiSetUser(name, about, false).then(data => {
@@ -35,9 +31,6 @@ export default class UserInfo {
                 this._avatarEl.setAttribute("src", data.avatar);
             })
           }
-
-
-
     }
 }
 
