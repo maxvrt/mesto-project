@@ -1,32 +1,58 @@
+import '../node_modules/core-js/stable';
+import '../node_modules/regenerator-runtime/runtime'
 import './pages/index.css';
-import { enableValidation } from './components/validate.js';
+//import { enableValidation } from './components/validate.js';
+import Validation from './components/validate.js';
+
+//Userinfo
+import {jobInput, userInfoSelectors} from './components/constants.js';
+import UserInfo from './components/userInfo.js';
+
+import { renderCard } from './components/cards.js';
 import { validConfig } from './components/validConfig.js';
-import { closeModal, openModal, fillModalImg, openModalProfile, addCardFromForm, handleFormProfileSubmit, closeModalOverlay, avatarSubmit } from './components/modal.js';
-import { imgPopup, profileFormElement, profilePopup, photosGrid, imgModalButtonClose, profileModalCloseButton, profileModalOpenButton, placeFormElement, placePopup, placeModalOpenButton, placeModalCloseButton, profileName, avatar, profileDesc, avatarFormElement, avatarModalOpenButton, avatarModalCloseButton, avatarPopup, apiConfig} from './components/constants.js'
+import { closeModal, openModal, fillModalImg, openModalProfile, addCardFromForm, handleFormProfileSubmit, closeModalOverlay, avatarSubmit, renderButtonLoading } from './components/modal.js';
+import { avatarInput, imgPopup, profileFormElement, profilePopup, photosGrid, imgModalButtonClose, profileModalCloseButton, profileModalOpenButton, placeFormElement, placePopup, placeModalOpenButton, placeModalCloseButton, profileName, avatar, profileDesc, avatarFormElement, avatarModalOpenButton, avatarModalCloseButton, avatarPopup, apiConfig, nameInput, JobInput} from './components/constants.js'
 import Section from './components/section'; //import { renderCard } from './components/cards.js';
 import { Card } from './components/card.js';
-import { Api } from './components/api.js';
+import Api from './components/api.js';
+
+
+
 
 const api = new Api(apiConfig);
+
+const user = new UserInfo({
+  data: userInfoSelectors,
+  apiGetUser: () => {
+    const userApiGet = new Api(apiConfig);
+    return userApiGet.getUser();
+  },
+  apiSetUser: (name, about) => {
+    const userApiSet = new Api(apiConfig);
+    return userApiSet.patchUser(name, about);
+  },
+  apiSetAvatar: (avatarLink) => {
+    const userApiAvatar = new Api(apiConfig);
+    return userApiAvatar.patchAvatar(avatarLink);
+  }
+}, avatar);
+
 // Пользователь
-api.getUser().then((user) => {
-  profileName.textContent = user.name;
-  profileDesc.textContent = user.about;
-  avatar.setAttribute("src", user.avatar);
-  console.log(user._id + ' - user._id');
+
+user.getUserInfo().then((user) => {
+  console.log(user + ' - user._id');
   const userId = user._id;
   return userId
+//user.setUserInfo()
 }).then((userId)=>{
   console.log(userId+ ' - userId после назначения');
-
   // Вывод карточек
   api.getCards().then((data) => {
     const cardsList = new Section({
       cardListData: data,
       renderer: (cardItem) => {
-        // Тут просто объект с данными
         const card = new Card(cardItem, userId, '#card-template');
-        // Сам элемент верстки
+        // Элемент верстки
         const cardElement = card.generate();
         // Есть ли лайк пользователя
         const isLike = card.checkUserLike();
@@ -71,18 +97,28 @@ api.getUser().then((user) => {
 
 }).catch(err => api.catchError(err));
 
-// Инициализация валидации
-enableValidation(validConfig);
+
 
 // Слушатели
 // Профиль
 profileModalCloseButton.addEventListener('click', () => {closeModal(profilePopup)});
 profileModalOpenButton.addEventListener('click', () => {openModalProfile(profilePopup)});
-profileFormElement.addEventListener('submit', handleFormProfileSubmit);
+//profileFormElement.addEventListener('submit', handleFormProfileSubmit);
+profileFormElement.addEventListener('submit', (evt) => {
+  evt.preventDefault()
+  renderButtonLoading(true, profilePopup);
+  user.setUserInfo(nameInput.value, jobInput.value, false);
+  closeModal(profilePopup);
+});
 // Окно добавления аватара
 avatarModalCloseButton.addEventListener('click', () => {closeModal(avatarPopup)});
 avatarModalOpenButton.addEventListener('click', () => {openModal(avatarPopup)});
-avatarFormElement.addEventListener('submit', avatarSubmit);
+avatarFormElement.addEventListener('submit', (evt) => {
+  evt.preventDefault()
+  renderButtonLoading(true, avatarPopup);
+  user.setUserInfo(false, false, avatarInput.value);
+  closeModal(avatarPopup);
+});
 // Окно добавления карточки
 placeModalCloseButton.addEventListener('click', () => {closeModal(placePopup)});
 placeModalOpenButton.addEventListener('click', () => {openModal(placePopup)});
@@ -93,3 +129,22 @@ imgModalButtonClose.addEventListener('click', () => { closeModal(imgPopup) });
 profilePopup.addEventListener('click', evt => {closeModalOverlay(evt, profilePopup)});
 placePopup.addEventListener('click', evt => {closeModalOverlay(evt, placePopup)});
 imgPopup.addEventListener('click', evt => {closeModalOverlay(evt, imgPopup)});
+avatarPopup.addEventListener('click', evt => {closeModalOverlay(evt, avatarPopup)});
+
+
+
+//New OOP validation
+
+const formList = Array.from(document.querySelectorAll(validConfig.formSelector));
+formList.forEach((formElement) => {
+  formElement.addEventListener('submit', (evt) => {
+    evt.preventDefault();
+  });
+  const validation = new Validation(validConfig, formElement);
+  validation.enableValidation();
+});
+
+
+
+
+

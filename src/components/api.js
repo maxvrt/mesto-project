@@ -1,4 +1,4 @@
-export class Api {
+export default class Api {
   constructor({baseUrl, headers}) {
     this._url = baseUrl;
     this._headers = headers;
@@ -39,8 +39,9 @@ export class Api {
   }
   patchAvatar(userAvatar) {
     return fetch(`${this._url}/users/me/avatar`, {method: 'PATCH', headers: this._headers,
-    body: JSON.stringify({avatar: userAvatar}).then(res => this._getResponse(res))
+    body: JSON.stringify({avatar: userAvatar})
     })
+    .then(res => this._getResponse(res))
   }
   _getResponse(res) {
     if (res.ok) {
@@ -52,6 +53,7 @@ export class Api {
     console.log('Ошибка. Запрос не выполнен (класс): ', err);
   }
 }
+
 
 
 
@@ -118,4 +120,6 @@ export function getResponse(res) {
 }
 export function catchError(err) {
   console.log('Ошибка. Запрос не выполнен: ', err);
-}
+} 
+
+

@@ -1,8 +1,12 @@
-import {imgDescElement, imgElement, profileName, profileDesc, avatarInput, avatar, nameInput, jobInput, profilePopup, imgInput, placeInput, placePopup, photosGrid, avatarPopup} from './constants.js';
+import {imgDescElement, imgElement, profileName, profileDesc, avatarInput, avatar, nameInput, jobInput, profilePopup, imgInput, placeInput, placePopup, photosGrid2, avatarPopup} from './constants.js';
 import { createCard } from './card.js';
 import { validConfig } from './validConfig.js';
-import { disableButton } from './validate.js';
+//import { disableButton } from './validate.js';
 import { getUser, getResponse, catchError, patchUser, postCard, patchAvatar, delCardById } from './api.js';
+
+
+
+
 
 // Функции открытия и закрытия модального окна
 function openModal(popup) {
@@ -63,13 +67,15 @@ function fillModalImg(imgValue, altValue) {
 }
 
 // Обновление профиля
+
+
 function handleFormProfileSubmit(evt) {
   evt.preventDefault();
   renderButtonLoading(true, profilePopup);
   const nameValue = nameInput.value;
   const jobValue = jobInput.value;
   //! api
-  patchUser(nameValue, jobValue).then(res => getResponse(res)).then((data) => {
+  patchUser(nameValue, jobValue).then((data) => {
     profileName.textContent = data.name;
     profileDesc.textContent = data.about;
     closeModal(profilePopup);
@@ -106,4 +112,4 @@ function renderButtonLoading(isLoading, popup) {
   }
 }
 
-export {fillModalImg, openModal, openModalProfile, closeModal, closeModalEsc, closeModalOverlay, handleFormProfileSubmit, addCardFromForm, avatarSubmit};
+export {fillModalImg, openModal, openModalProfile, closeModal, closeModalEsc, closeModalOverlay, handleFormProfileSubmit, addCardFromForm, avatarSubmit, renderButtonLoading};

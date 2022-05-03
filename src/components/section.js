@@ -8,7 +8,7 @@ export default class Section{
     this._container = document.querySelector(selector);
   }
   renderItems() {
-    //! Основной метод рендера куда передается карточка
+    //! Основной метод рендера куда передается карточка, внутри _renderer вызывается setItem
     this._renderedItems.forEach(cardItem => this._renderer(cardItem))
   }
   // вставка карточки в сетку
