@@ -17,7 +17,7 @@ export default class Popup {
         document.addEventListener('keydown', this._handleEscClose.bind(this));
         this._closeButton.addEventListener('click', this.close.bind(this));
         this._popup.addEventListener('click', (e) => {
-            if (!e.target.classList.contains('popup__popup-box')) {
+            if (!e.target.classList.contains('popup__popup-box') && e.target.classList.contains('popup')) {
                 this.close();
             }
         });

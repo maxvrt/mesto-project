@@ -153,10 +153,10 @@ placeFormElement.addEventListener('submit', addCardFromForm);
 // Открытие-закрытие модального окна картинки
 imgModalButtonClose.addEventListener('click', () => { closeModal(imgPopup) });
 // Закрытие модальных окон
-//dprofilePopup.addEventListener('click', evt => {closeModalOverlay(evt, profilePopup)});
-placePopup.addEventListener('click', evt => {closeModalOverlay(evt, placePopup)});
-imgPopup.addEventListener('click', evt => {closeModalOverlay(evt, imgPopup)});
-avatarPopup.addEventListener('click', evt => {closeModalOverlay(evt, avatarPopup)});
+//profilePopup.addEventListener('click', evt => {closeModalOverlay(evt, profilePopup)});
+//placePopup.addEventListener('click', evt => {closeModalOverlay(evt, placePopup)});
+//imgPopup.addEventListener('click', evt => {closeModalOverlay(evt, imgPopup)});
+//avatarPopup.addEventListener('click', evt => {closeModalOverlay(evt, avatarPopup)});
 
 
 
