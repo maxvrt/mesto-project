@@ -6,14 +6,16 @@ export default class Popup {
     }
     open() {
         this._popup.classList.add('popup_opened');
+        this.setEventListeners();
     }
     setEventListeners() {
         document.addEventListener('keydown', this._handleEscClose.bind(this));
         this._closeButton.addEventListener('click', this.close.bind(this));
         this._popup.addEventListener('click', (e) => {
-            if (!e.target.classList.contains('popup__popup-box')) {
-                this.close();
-            }
+          console.log(e.target.classList.closest);
+          if (!e.target.classList.contains('popup__popup-box') && e.target.classList.contains('popup')) {
+            this.close();
+          }
         });
     }
 
