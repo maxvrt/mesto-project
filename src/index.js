@@ -17,6 +17,9 @@ import { Card } from './components/card.js';
 import Api from './components/api.js';
 
 
+import Popup from './components/popup.js';
+
+
 
 
 const api = new Api(apiConfig);
@@ -37,33 +40,7 @@ const user = new UserInfo({
 
 user.setUserInfo();
 
-/*
-  apiCallBack: ({name, about, avatarLInk}) => {
-    if (name && about) {
-      return api.getUser();
-    } else if (avatar) {
-      return api.patchUser();
-    } else {
-      return api.getUser()
-    }
-  }
 
-
-const user = new UserInfo({
-  data: userInfoSelectors,
-  apiGetUser: () => {
-    return api.getUser();
-  },
-  apiSetUser: (name, about) => {
-    return api.patchUser(name, about);
-  },
-  apiSetAvatar: (avatarLink) => {
-    return api.patchAvatar(avatarLink);
-  }
-}, avatar);
-
-
-*/
 
 // Пользователь
 
@@ -128,13 +105,21 @@ user.getUserInfo().then((user) => {
 
 
 
-
+console.log(profilePopup);
 
 // Слушатели
 // Профиль
-profileModalCloseButton.addEventListener('click', () => {closeModal(profilePopup)});
-profileModalOpenButton.addEventListener('click', () => {openModalProfile(profilePopup)});
-//profileFormElement.addEventListener('submit', handleFormProfileSubmit);
+//profileModalCloseButton.addEventListener('click', () => {closeModal(profilePopup)});
+profileModalOpenButton.addEventListener('click', () => {
+  
+  
+  const profilePopupEl = new Popup(profilePopup);
+  profilePopupEl.open();
+  profilePopupEl.setEventListeners();
+
+
+});
+
 profileFormElement.addEventListener('submit', (evt) => {
   evt.preventDefault()
   renderButtonLoading(true, profilePopup);
@@ -142,22 +127,33 @@ profileFormElement.addEventListener('submit', (evt) => {
   closeModal(profilePopup);
 });
 // Окно добавления аватара
-avatarModalCloseButton.addEventListener('click', () => {closeModal(avatarPopup)});
-avatarModalOpenButton.addEventListener('click', () => {openModal(avatarPopup)});
+//avatarModalCloseButton.addEventListener('click', () => {closeModal(avatarPopup)});
+avatarModalOpenButton.addEventListener('click', () => {
+  const avatarPopupEl = new Popup(avatarPopup);
+  avatarPopupEl.open();
+  avatarPopupEl.setEventListeners();
+});
+
+
 avatarFormElement.addEventListener('submit', (evt) => {
   evt.preventDefault()
   renderButtonLoading(true, avatarPopup);
   user.setUserInfo(false, false, avatarInput.value);
   closeModal(avatarPopup);
 });
+
 // Окно добавления карточки
-placeModalCloseButton.addEventListener('click', () => {closeModal(placePopup)});
-placeModalOpenButton.addEventListener('click', () => {openModal(placePopup)});
+//placeModalCloseButton.addEventListener('click', () => {closeModal(placePopup)});
+placeModalOpenButton.addEventListener('click', () => {
+  const placePopupEl = new Popup(placePopup);
+  placePopupEl.open();
+  placePopupEl.setEventListeners();
+});
 placeFormElement.addEventListener('submit', addCardFromForm);
 // Открытие-закрытие модального окна картинки
 imgModalButtonClose.addEventListener('click', () => { closeModal(imgPopup) });
 // Закрытие модальных окон
-profilePopup.addEventListener('click', evt => {closeModalOverlay(evt, profilePopup)});
+//dprofilePopup.addEventListener('click', evt => {closeModalOverlay(evt, profilePopup)});
 placePopup.addEventListener('click', evt => {closeModalOverlay(evt, placePopup)});
 imgPopup.addEventListener('click', evt => {closeModalOverlay(evt, imgPopup)});
 avatarPopup.addEventListener('click', evt => {closeModalOverlay(evt, avatarPopup)});
