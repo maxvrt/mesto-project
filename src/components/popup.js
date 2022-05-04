@@ -1,4 +1,3 @@
-import { electron } from "webpack";
 
 export default class Popup {
     constructor(popup) {
@@ -26,6 +25,5 @@ export default class Popup {
         if (evt.key === 'Escape' && this._popup.classList.contains('popup_opened')){
               this.close();
         }
-          
     }
 }

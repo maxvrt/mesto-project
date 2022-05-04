@@ -79,8 +79,9 @@ user.getUserInfo().then((user) => {
           }
         });
         cardImg.addEventListener('click', () => {
+          console.log(cardImg.getAttribute('alt'));
           const imgPopupObj = new PopupWithImage(cardImg.getAttribute('src'), cardImg.getAttribute('alt'), imgPopup);
-          imgPopupObj.fillModalImg(imgElement, imgDescElement);
+          imgPopupObj.fillPopupImg(imgElement, imgDescElement);
           imgPopupObj.open();
         });
         //console.log(cardElement);

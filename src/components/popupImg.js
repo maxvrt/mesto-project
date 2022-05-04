@@ -1,4 +1,4 @@
-import Popup from "./popup";
+import Popup from './popup.js'
 
 export default class PopupWithImage extends Popup {
   constructor(imgValue, altValue, popup) {
@@ -9,7 +9,7 @@ export default class PopupWithImage extends Popup {
   fillPopupImg(imgElement, imgDescElement) {
     imgElement.setAttribute('src', this._imgValue);
     imgElement.setAttribute('alt', this._altValue);
-    imgDescElement.textContent = altValue;
+    imgDescElement.textContent = this._altValue;
   }
 }
 

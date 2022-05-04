@@ -4,12 +4,13 @@
   line-height: 22px;
   text-overflow: ellipsis;
   max-width: 293px;
+  min-width: 150px;
   overflow: hidden;
-  white-space: nowrap; 
+  white-space: nowrap;
 }
 
 @media (max-width: 711px) {
-  .profile__desc {   
+  .profile__desc {
     margin-left: 20%;
     max-width: 252px;
   }
