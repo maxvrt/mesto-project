@@ -4,19 +4,18 @@ import './pages/index.css';
 
 import Validation from './components/validate.js';
 
-//Userinfo
+//UserInfo
 import {jobInput, userInfoSelectors} from './components/constants.js';
 import UserInfo from './components/userInfo.js';
 
 import { renderCard } from './components/cards.js';
 import { validConfig } from './components/validConfig.js';
 import { closeModal, openModal, fillModalImg, openModalProfile, addCardFromForm, handleFormProfileSubmit, closeModalOverlay, avatarSubmit, renderButtonLoading } from './components/modal.js';
-import { avatarInput, imgPopup, profileFormElement, profilePopup, photosGrid, imgModalButtonClose, profileModalCloseButton, profileModalOpenButton, placeFormElement, placePopup, placeModalOpenButton, placeModalCloseButton, profileName, avatar, profileDesc, avatarFormElement, avatarModalOpenButton, avatarModalCloseButton, avatarPopup, apiConfig, nameInput, JobInput} from './components/constants.js'
+import { avatarInput, imgPopup, profileFormElement, profilePopup, photosGrid, imgModalButtonClose, profileModalCloseButton, profileModalOpenButton, placeFormElement, placePopup, placeModalOpenButton, placeModalCloseButton, profileName, avatar, profileDesc, avatarFormElement, avatarModalOpenButton, avatarModalCloseButton, avatarPopup, apiConfig, nameInput, JobInput, imgDescElement, imgElement,} from './components/constants.js'
 import Section from './components/section'; //import { renderCard } from './components/cards.js';
-import { Card } from './components/card.js';
+import {Card} from './components/card.js';
 import Api from './components/api.js';
-
-
+import PopupWithImage from './components/popupImg.js';
 import Popup from './components/popup.js';
 
 
@@ -31,7 +30,7 @@ const user = new UserInfo({
       return api.patchUser(name, about)
     } else if (avatarLink) {
       return api.patchAvatar(avatarLink)
-        
+
     } else {
       return api.getUser()
     }
@@ -86,10 +85,10 @@ user.getUserInfo().then((user) => {
           }
         });
         cardImg.addEventListener('click', () => {
-          const imgSrc = cardImg.getAttribute('src');
-          const imgAlt = cardImg.getAttribute('alt');
-          fillModalImg(imgSrc, imgAlt);
-          openModal(imgPopup);
+          console.log(cardImg.getAttribute('alt'));
+          const imgPopupObj = new PopupWithImage(cardImg.getAttribute('src'), cardImg.getAttribute('alt'), imgPopup);
+          imgPopupObj.fillPopupImg(imgElement, imgDescElement);
+          imgPopupObj.open();
         });
         //console.log(cardElement);
         //! Вывод карточек
@@ -111,8 +110,8 @@ console.log(profilePopup);
 // Профиль
 //profileModalCloseButton.addEventListener('click', () => {closeModal(profilePopup)});
 profileModalOpenButton.addEventListener('click', () => {
-  
-  
+
+
   const profilePopupEl = new Popup(profilePopup);
   profilePopupEl.open();
   profilePopupEl.setEventListeners();
@@ -151,11 +150,11 @@ placeModalOpenButton.addEventListener('click', () => {
 });
 placeFormElement.addEventListener('submit', addCardFromForm);
 // Открытие-закрытие модального окна картинки
-imgModalButtonClose.addEventListener('click', () => { closeModal(imgPopup) });
+//imgModalButtonClose.addEventListener('click', () => { closeModal(imgPopup) });
 // Закрытие модальных окон
 //dprofilePopup.addEventListener('click', evt => {closeModalOverlay(evt, profilePopup)});
 placePopup.addEventListener('click', evt => {closeModalOverlay(evt, placePopup)});
-imgPopup.addEventListener('click', evt => {closeModalOverlay(evt, imgPopup)});
+//imgPopup.addEventListener('click', evt => {closeModalOverlay(evt, imgPopup)});
 avatarPopup.addEventListener('click', evt => {closeModalOverlay(evt, avatarPopup)});
 
 
