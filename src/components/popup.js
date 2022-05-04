@@ -5,7 +5,10 @@ export default class Popup {
     }
 
     setEventListeners() {
-        document.addEventListener('keydown', this._handleEscClose);
+        // привязываем через анонимную ф-цию контекст
+        document.addEventListener('keydown',  (evt)=>{
+          this._handleEscClose(evt);
+        });
         this._popup.addEventListener('click', this.close);
     }
 
@@ -14,16 +17,18 @@ export default class Popup {
         this._popup.classList.add('popup_opened');
     }
 
-    close(evt) {
-        if (evt.target.classlist.contains('popup__popup-box') || evt.target.classlist.contains('popup__close')) {
-            this._popup.classList.remove('popup_opened');
+    close(popup) {
+      console.log(popup.classList);
+        if (popup.classList.contains('popup_opened') && !popup.classList.contains('popup__popup-box')) {
+          popup.classList.remove('popup_opened');
         }
         document.removeEventListener('keydown', this._handleEscClose);
     }
 
-    _handleEscClose() {
+    _handleEscClose(evt) {
         if (evt.key === 'Escape' && this._popup.classList.contains('popup_opened')){
-              this.close();
+          console.log(this._popup);
+          this.close(this._popup);
         }
     }
 }

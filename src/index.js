@@ -4,7 +4,7 @@ import './pages/index.css';
 //import { enableValidation } from './components/validate.js';
 import Validation from './components/validate.js';
 
-//Userinfo
+//UserInfo
 import {jobInput, userInfoSelectors} from './components/constants.js';
 import UserInfo from './components/userInfo.js';
 
@@ -122,11 +122,11 @@ placeModalCloseButton.addEventListener('click', () => {closeModal(placePopup)});
 placeModalOpenButton.addEventListener('click', () => {openModal(placePopup)});
 placeFormElement.addEventListener('submit', addCardFromForm);
 // Открытие-закрытие модального окна картинки
-imgModalButtonClose.addEventListener('click', () => { closeModal(imgPopup) });
+//imgModalButtonClose.addEventListener('click', () => { closeModal(imgPopup) });
 // Закрытие модальных окон
 profilePopup.addEventListener('click', evt => {closeModalOverlay(evt, profilePopup)});
 placePopup.addEventListener('click', evt => {closeModalOverlay(evt, placePopup)});
-imgPopup.addEventListener('click', evt => {closeModalOverlay(evt, imgPopup)});
+//imgPopup.addEventListener('click', evt => {closeModalOverlay(evt, imgPopup)});
 avatarPopup.addEventListener('click', evt => {closeModalOverlay(evt, avatarPopup)});
 
 
