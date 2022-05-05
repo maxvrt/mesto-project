@@ -12,25 +12,27 @@ export default class UserInfo {
     }
     getUserInfo() {
 
-        return this._apiCallBack(false, false, false);
+        this._apiCallBack(false, false, false)
+        .then(user => {
+
+            this.setUserInfo(user.name, user.about, user.avatar);
+        })
     }
     setUserInfo(name, about, avatarLink) {
-        if (name && about) {
-            this._apiCallBack(name, about, false).then(data => {
-                this._nameEl.textContent = data.name;
-                this._aboutEl.textContent = data.about;
-            })
-          } else if (avatarLink) {
-            this._apiCallBack(false, false, avatarLink).then(data => {
-                this._avatarEl.setAttribute("src", data.avatar);
-            })
-          } else {
-              this.getUserInfo()
-              .then(user => {
-                this._nameEl.textContent = user.name;
-                this._aboutEl.textContent = user.about;
-                this._avatarEl.setAttribute("src", user.avatar);
-              })
+        
+        if (name && about && !avatarLink) {
+            
+                this._nameEl.textContent = name;
+                this._aboutEl.textContent = about;
+            
+          } else if (avatarLink && !name || !about) {
+            
+                this._avatarEl.setAttribute("src", avatarLink);
+            
+          } else if (name && about && avatarLink) {
+                this._nameEl.textContent = name;
+                this._aboutEl.textContent = about;
+                this._avatarEl.setAttribute("src", avatarLink);
           }
     }
 }

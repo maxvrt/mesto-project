@@ -4,6 +4,7 @@ export default class PopupWithForm extends Popup {
     constructor(popup, {apiCallBack}) {
         super(popup);
         this._form = this._popup.querySelector('.form');
+        this._inputs = Array.from(this._form.querySelectorAll('.form__item'));
         this._apiCallBack = apiCallBack;
     }
 
@@ -16,41 +17,20 @@ export default class PopupWithForm extends Popup {
 
         this._form.addEventListener('submit', (e) => {
             e.preventDefault();
-            
-            this._apiCallBack(this._getInputValues().bind(this));
+            const data = this._getInputValues();
+            this._apiCallBack(data);
             this.close();
         });
 
     }
 
     _getInputValues() {
-        
-
-        if (this._form.name === 'profile-info') {
-            const profileData = {
-                formName: 'profile-info',
-                userName: this._form.elements.name.value,
-                about: this._form.elements.desc.value,
-            }
-
-            return profileData;
-
-        } else if (this._form.name === 'place-info') {
-            const placeData = {
-                formName: 'place-info',
-                placeName: this._form.elements.place.value,
-                placeLink: this._form.elements.img-place.value,
-            }
-
-            return placeData;
-        } else if (this._form.name === 'avatar-info') {
-            const avatarData = {
-                formName: 'avatar-info',
-                avatarLink: this._form.elements.avatar.value,
-            }
-
-            return avatarData;
+        const formData = {
+            formName: this._form.getAttribute('name'),
+            data: this._inputs,
         }
+
+        return formData;
     }
 
 
