@@ -16,7 +16,6 @@ import Section from './components/section'; //import { renderCard } from './comp
 import {Card} from './components/card.js';
 import Api from './components/api.js';
 import PopupWithImage from './components/popupImg.js';
-import Popup from './components/popup.js';
 import PopupWithForm from './components/popupwithform.js';
 
 
@@ -102,7 +101,7 @@ api.getUser().then((user) => {
 
 
 
-console.log(profilePopup);
+
 
 // Слушатели
 // Профиль
@@ -114,6 +113,7 @@ profileModalOpenButton.addEventListener('click', () => {
   const profilePopupEl = new PopupWithForm(profilePopup, {apiCallBack: (data) => {
 
     if (data.formName === 'profile-info') {
+      
       api.patchUser(data.data[0].value, data.data[1].value).then(data => {
         user.setUserInfo(data.name, data.about, false);
     })
@@ -130,15 +130,23 @@ profileModalOpenButton.addEventListener('click', () => {
 
 avatarModalOpenButton.addEventListener('click', () => {
   const avatarPopupEl = new PopupWithForm(avatarPopup, {apiCallBack: (data) => {
+
+    //console.log(data);
     if (data.formName === 'avatar-info') {
-      api.patchAvatar(data.data[0].value).then(data => {
-        //console.log(data);
-        user.setUserInfo(false, false, data.avatar);
-      })
+      
+      
+      
+      api.patchAvatar(data.data[0].value).then(res => {
+        api.getUser().then(res => {
+          //console.log(res);
+          user.setUserInfo(false, false, res.avatar);
+        })
+        
+      }) 
     }
   }});
   avatarPopupEl.open();
-  avatarPopupEl.setEventListeners();
+  //avatarPopupEl.setEventListeners();
 });
 
 
@@ -157,7 +165,7 @@ placeModalOpenButton.addEventListener('click', () => {
     }
   } });
   placePopupEl.open();
-  placePopupEl.setEventListeners();
+  //placePopupEl.setEventListeners();
 });
 
 

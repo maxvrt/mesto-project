@@ -17,23 +17,27 @@ export default class UserInfo {
 
             this.setUserInfo(user.name, user.about, user.avatar);
         })
+
+        return this._apiCallBack(false, false, false);
     }
     setUserInfo(name, about, avatarLink) {
         
-        if (name && about && !avatarLink) {
+        if (name) {
             
-                this._nameEl.textContent = name;
-                this._aboutEl.textContent = about;
+            this._nameEl.textContent = name;
+                
             
-          } else if (avatarLink && !name || !about) {
+        } 
+
+        if (about) {
+            this._aboutEl.textContent = about;
+        }
+        if (avatarLink) {
+           
+            this._avatarEl.setAttribute("src", avatarLink);
+        }
             
-                this._avatarEl.setAttribute("src", avatarLink);
-            
-          } else if (name && about && avatarLink) {
-                this._nameEl.textContent = name;
-                this._aboutEl.textContent = about;
-                this._avatarEl.setAttribute("src", avatarLink);
-          }
+         
     }
 }
 
