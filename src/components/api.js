@@ -39,9 +39,9 @@ export default class Api {
   }
   patchAvatar(userAvatar) {
     return fetch(`${this._url}/users/me/avatar`, {method: 'PATCH', headers: this._headers,
-    body: JSON.stringify({avatar: userAvatar})
+      body: JSON.stringify({avatar: userAvatar})
     })
-    .then(res => this._getResponse(res))
+    //.then(res => this._getResponse(res))
   }
   _getResponse(res) {
     if (res.ok) {

@@ -80,7 +80,7 @@ function handleFormProfileSubmit(evt) {
     renderButtonLoading(false, profilePopup);
   });
 }
-
+/*
 // Обновление аватара
 function avatarSubmit(evt) {
   evt.preventDefault();
@@ -96,7 +96,7 @@ function avatarSubmit(evt) {
     renderButtonLoading(false, avatarPopup);
   });
   //disableButton(buttonElement, validConfig.inactiveButtonClass);
-}
+} */
 
 function renderButtonLoading(isLoading, popup) {
   const button = popup.querySelector('.form__button')
@@ -107,4 +107,4 @@ function renderButtonLoading(isLoading, popup) {
   }
 }
 
-export {fillModalImg, openModal, openModalProfile, closeModal, closeModalEsc, closeModalOverlay, handleFormProfileSubmit, addCardFromForm, avatarSubmit, renderButtonLoading};
+export {fillModalImg, openModal, openModalProfile, closeModal, closeModalEsc, closeModalOverlay, handleFormProfileSubmit, addCardFromForm, renderButtonLoading};
