@@ -111,12 +111,15 @@ profileModalOpenButton.addEventListener('click', () => {
   
   
   const profilePopupEl = new PopupWithForm(profilePopup, {apiCallBack: (data) => {
-
+    renderButtonLoading(true, profilePopup);
     if (data.formName === 'profile-info') {
       
       api.patchUser(data.data[0].value, data.data[1].value).then(data => {
         user.setUserInfo(data.name, data.about, false);
-    })
+      })
+      .finally(data => {
+        renderButtonLoading(false, profilePopup);
+      })
     }
   }});
 
@@ -131,18 +134,20 @@ profileModalOpenButton.addEventListener('click', () => {
 avatarModalOpenButton.addEventListener('click', () => {
   const avatarPopupEl = new PopupWithForm(avatarPopup, {apiCallBack: (data) => {
 
-    //console.log(data);
+    renderButtonLoading(true, avatarPopup);
     if (data.formName === 'avatar-info') {
       
       
       
       api.patchAvatar(data.data[0].value).then(res => {
         api.getUser().then(res => {
-          //console.log(res);
           user.setUserInfo(false, false, res.avatar);
         })
         
-      }) 
+      })
+      .finally(res => {
+        renderButtonLoading(false, avatarPopup);
+      })
     }
   }});
   avatarPopupEl.open();
