@@ -159,9 +159,7 @@ avatarModalOpenButton.addEventListener('click', () => {
 placeModalOpenButton.addEventListener('click', () => {
   const placePopupEl = new PopupWithForm(placePopup, {apiCallBack: (data) => {
     if (data.formName === 'place-info') {
-      api.postCard(data.data[0].value, data.data[1].value).then(data => {
-
-        console.log(data + ' объект карточки');
+      api.postCard(data.data[1].value, data.data[0].value).then(data => {
         const cardSection = new Section({
           cardData: data,
           renderer: () => {
