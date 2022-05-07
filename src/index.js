@@ -86,7 +86,7 @@ user.getUserInfo().then((user) => {
         });
         //console.log(cardElement);
         //! Вывод карточек
-        cardsList.setItem(cardElement);
+        cardsList.setItemAll(cardElement);
       },
     }, photosGrid);
     cardsList.renderItems();
