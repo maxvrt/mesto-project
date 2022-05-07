@@ -11,7 +11,7 @@ export class Card{
     this._nameCard = data.name;
     this._likes = data.likes;
     this._cardId = data._id;
-    this._ownerId = data.owner._id;
+    if (data.owner._id) this._ownerId = data.owner._id;
     this._userId = userId;
     this._selector = selector;
     this._isUserLike = false;
@@ -24,7 +24,7 @@ export class Card{
     //const heartButton = this._element.querySelector('.photos-grid__heart');
     const delButton = this._element.querySelector('.photos-grid__delete');
     this._cardImg = this._element.querySelector('.photos-grid__img');
-    if (this._userId !== '0' && this._userId === this._ownerId) {
+    if (this._ownerId && this._userId !== '0' && this._userId === this._ownerId) {
       delButton.classList.remove('photos-grid__delete_hide');
     }
     this._cardImg.setAttribute('src', this._imgCard);

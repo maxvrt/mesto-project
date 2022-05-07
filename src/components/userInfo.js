@@ -8,7 +8,7 @@ export default class UserInfo {
         this._aboutEl = document.querySelector(data.aboutSelector);
         this._avatarEl = avatarEl;
         this._apiCallBack = apiCallBack;
-       
+
     }
     getUserInfo() {
 
@@ -21,23 +21,23 @@ export default class UserInfo {
         return this._apiCallBack(false, false, false);
     }
     setUserInfo(name, about, avatarLink) {
-        
+
         if (name) {
-            
+
             this._nameEl.textContent = name;
-                
-            
-        } 
+
+
+        }
 
         if (about) {
             this._aboutEl.textContent = about;
         }
         if (avatarLink) {
-           
+
             this._avatarEl.setAttribute("src", avatarLink);
         }
-            
-         
+
+
     }
 }
 
