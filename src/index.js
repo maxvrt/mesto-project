@@ -97,19 +97,23 @@ user.getUserInfo().then((user) => {
 
 
 
-
-
-
 // Слушатели
 // Профиль
 
 profileModalOpenButton.addEventListener('click', () => {
 
-
+  
 
   const profilePopupEl = new PopupWithForm(profilePopup, {apiCallBack: (data) => {
-    renderButtonLoading(true, profilePopup);
-    if (data.formName === 'profile-info') {
+    
+
+    if (!data) {
+
+      return user.getUserInfo();
+
+    } else if (data.formName === 'profile-info') {
+      renderButtonLoading(true, profilePopup);
+    
 
       api.patchUser(data.data[0].value, data.data[1].value).then(data => {
         user.setUserInfo(data.name, data.about, false);
@@ -121,7 +125,7 @@ profileModalOpenButton.addEventListener('click', () => {
   }});
 
   profilePopupEl.open();
-  profilePopupEl.setEventListeners();
+  //profilePopupEl.setEventListeners();
 
 
 });
@@ -159,6 +163,7 @@ avatarModalOpenButton.addEventListener('click', () => {
 placeModalOpenButton.addEventListener('click', () => {
   const placePopupEl = new PopupWithForm(placePopup, {apiCallBack: (data) => {
     if (data.formName === 'place-info') {
+
       api.postCard(data.data[1].value, data.data[0].value).then(data => {
         const cardSection = new Section({
           cardData: data,
@@ -203,8 +208,10 @@ placeModalOpenButton.addEventListener('click', () => {
         cardSection.renderItems();
 
       }).catch(err => api.catchError(err))
+
     }
-  } });
+    
+  }});
   placePopupEl.open();
   //placePopupEl.setEventListeners();
 });
