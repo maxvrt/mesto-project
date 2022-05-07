@@ -23,8 +23,8 @@ export default class Api {
       body: JSON.stringify({
         name: cardName,
         link: cardImg
-      }).then(res => this._getResponse(res))
-    })
+      })
+    }).then(res => this._getResponse(res))
   }
   //todo передается по параметру в карточку
   delCardById(id) {
@@ -120,6 +120,6 @@ export function getResponse(res) {
 }
 export function catchError(err) {
   console.log('Ошибка. Запрос не выполнен: ', err);
-} 
+}
 
 

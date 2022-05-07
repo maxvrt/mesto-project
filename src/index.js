@@ -27,22 +27,19 @@ const user = new UserInfo({
   data: userInfoSelectors,
 
   apiCallBack: () => {
-   
 
       return api.getUser()
-    
+
   }
 }, avatar);
 
-user.getUserInfo();
-
+let userId = '';
 
 
 // Пользователь
-
-api.getUser().then((user) => {
+user.getUserInfo().then((user) => {
   console.log(user + ' - user._id');
-  const userId = user._id;
+  userId = user._id;
   return userId
 //user.setUserInfo()
 }).then((userId)=>{
@@ -50,7 +47,7 @@ api.getUser().then((user) => {
   // Вывод карточек
   api.getCards().then((data) => {
     const cardsList = new Section({
-      cardListData: data,
+      cardData: data,
       renderer: (cardItem) => {
         const card = new Card(cardItem, userId, '#card-template');
         // Элемент верстки
@@ -89,7 +86,7 @@ api.getUser().then((user) => {
         });
         //console.log(cardElement);
         //! Вывод карточек
-        cardsList.setItem(cardElement);
+        cardsList.setItemAll(cardElement);
       },
     }, photosGrid);
     cardsList.renderItems();
@@ -108,12 +105,12 @@ api.getUser().then((user) => {
 
 profileModalOpenButton.addEventListener('click', () => {
 
-  
-  
+
+
   const profilePopupEl = new PopupWithForm(profilePopup, {apiCallBack: (data) => {
     renderButtonLoading(true, profilePopup);
     if (data.formName === 'profile-info') {
-      
+
       api.patchUser(data.data[0].value, data.data[1].value).then(data => {
         user.setUserInfo(data.name, data.about, false);
       })
@@ -136,14 +133,14 @@ avatarModalOpenButton.addEventListener('click', () => {
 
     renderButtonLoading(true, avatarPopup);
     if (data.formName === 'avatar-info') {
-      
-      
-      
+
+
+
       api.patchAvatar(data.data[0].value).then(res => {
         api.getUser().then(res => {
           user.setUserInfo(false, false, res.avatar);
         })
-        
+
       })
       .finally(res => {
         renderButtonLoading(false, avatarPopup);
@@ -162,11 +159,50 @@ avatarModalOpenButton.addEventListener('click', () => {
 placeModalOpenButton.addEventListener('click', () => {
   const placePopupEl = new PopupWithForm(placePopup, {apiCallBack: (data) => {
     if (data.formName === 'place-info') {
-      api.postCard(data.data[0].value, data.data[1].value).then(data => {
-        
-        //Сюда вписать обращение к методу добавления карточки <----------------------------------------------------
-        
-      })
+      api.postCard(data.data[1].value, data.data[0].value).then(data => {
+        const cardSection = new Section({
+          cardData: data,
+          renderer: () => {
+            console.log(data);
+            const card = new Card(data, userId, '#card-template');
+            // Элемент верстки
+            const cardElement = card.generate();
+            // Слушатели удаления, лайка и открытия картинки у карточки
+            const cardId = card.getId();
+            const cardImg = card.getImg();
+            const heartButton = cardElement.querySelector('.photos-grid__heart');
+            const delButton = cardElement.querySelector('.photos-grid__delete');
+            const likeElement = heartButton.parentNode.querySelector('.photos-grid__heart-counter');
+            delButton.addEventListener('click',  () => {
+              api.delCardById(cardId).then(() => {
+                card.delCard(delButton);
+              }).catch(err => catchError(err));
+            });
+            heartButton.addEventListener('click',  () => {
+              heartButton.classList.toggle('photos-grid__heart_active');
+              if (heartButton.classList.contains('photos-grid__heart_active')){
+                api.likeCardById(cardId).then((data) => {
+                  card.addLike(likeElement, data.likes.length);
+                }).catch(err => catchError(err));
+              } else {
+                api.delLikeCardById(cardId).then((data) => {
+                  card.addLike(likeElement, data.likes.length);
+                }).catch(err => catchError(err));
+              }
+            });
+            cardImg.addEventListener('click', () => {
+              console.log(cardImg.getAttribute('alt'));
+              const imgPopupObj = new PopupWithImage(cardImg.getAttribute('src'), cardImg.getAttribute('alt'), imgPopup);
+              imgPopupObj.fillPopupImg(imgElement, imgDescElement);
+              imgPopupObj.open();
+            });
+            console.log(cardElement);
+            cardSection.setItem(cardElement);
+          },
+        }, photosGrid);
+        cardSection.renderItems();
+
+      }).catch(err => api.catchError(err))
     }
   } });
   placePopupEl.open();

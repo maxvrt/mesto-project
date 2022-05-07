@@ -2,17 +2,24 @@ import { photosGrid } from './constants.js';
 import { createCard } from './card.js';
 
 export default class Section{
-  constructor ({cardListData, renderer}, selector){
-    this._renderedItems = cardListData;
+  constructor ({cardData, renderer}, selector){
+    this._renderedItems = cardData;
     this._renderer = renderer;
     this._container = document.querySelector(selector);
   }
   renderItems() {
-    //! Основной метод рендера куда передается карточка, внутри _renderer вызывается setItem
-    this._renderedItems.forEach(cardItem => this._renderer(cardItem))
+    if (Array.isArray(this._renderedItems)){
+      // Основной метод рендера куда передается карточка, внутри _renderer вызывается setItem
+      this._renderedItems.forEach(cardItem => this._renderer(cardItem))
+    } else {
+      this._renderer(this._renderedItems)
+    }
   }
   // вставка карточки в сетку
   setItem(element) {
+    this._container.prepend(element);
+  }
+  setItemAll(element) {
     this._container.append(element);
   }
 }

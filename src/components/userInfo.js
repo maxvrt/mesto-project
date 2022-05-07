@@ -8,36 +8,36 @@ export default class UserInfo {
         this._aboutEl = document.querySelector(data.aboutSelector);
         this._avatarEl = avatarEl;
         this._apiCallBack = apiCallBack;
-       
+
     }
     getUserInfo() {
 
-        this._apiCallBack(false, false, false)
+        return this._apiCallBack(false, false, false)
         .then(user => {
-
-            this.setUserInfo(user.name, user.about, user.avatar);
+          this.setUserInfo(user.name, user.about, user.avatar);
+          return user;
         })
 
-        return this._apiCallBack(false, false, false);
+        //return this._apiCallBack(false, false, false);
     }
     setUserInfo(name, about, avatarLink) {
-        
+
         if (name) {
-            
+
             this._nameEl.textContent = name;
-                
-            
-        } 
+
+
+        }
 
         if (about) {
             this._aboutEl.textContent = about;
         }
         if (avatarLink) {
-           
+
             this._avatarEl.setAttribute("src", avatarLink);
         }
-            
-         
+
+
     }
 }
 

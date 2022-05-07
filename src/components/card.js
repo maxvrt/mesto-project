@@ -8,10 +8,11 @@ import { getResponse, catchError, delLikeCardById, likeCardById } from './api.js
 export class Card{
   constructor(data, userId = 1, selector) {
     this._imgCard = data.link;
+    console.log();
     this._nameCard = data.name;
     this._likes = data.likes;
     this._cardId = data._id;
-    this._ownerId = data.owner._id;
+    if (data.owner) this._ownerId = data.owner._id;
     this._userId = userId;
     this._selector = selector;
     this._isUserLike = false;
@@ -31,6 +32,7 @@ export class Card{
     this._cardImg.setAttribute('alt', this._nameCard);
     this._element.querySelector('.photos-grid__city').textContent = this._nameCard;
     // количество лайков
+    if (this._likes)
     this._element.querySelector('.photos-grid__heart-counter').textContent = this._likes.length;
 
     // this._element.querySelector('.message__avatar').src = this._image;
@@ -89,6 +91,9 @@ function openImg(cardImg) {
     openModal(imgPopup);
 });
 }
+
+
+
 //Создание карточки - передача функции delCardById по параметру _в месте вызова_
 function createCard(imgCard, nameCard, likes = [], cardId, ownerId = 1, userId = 1, delCardById) {
   const newCard = template.querySelector('.photos-grid__item').cloneNode(true);
