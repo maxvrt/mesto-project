@@ -86,7 +86,7 @@ user.getUserInfo().then((user) => {
         });
         //console.log(cardElement);
         //! Вывод карточек
-        cardsList.setItem(cardElement);
+        cardsList.setItemAll(cardElement);
       },
     }, photosGrid);
     cardsList.renderItems();
@@ -163,8 +163,52 @@ avatarModalOpenButton.addEventListener('click', () => {
 placeModalOpenButton.addEventListener('click', () => {
   const placePopupEl = new PopupWithForm(placePopup, {apiCallBack: (data) => {
     if (data.formName === 'place-info') {
-      console.log(api.postCard(data.data[1].value, data.data[0].value));
-     
+
+      api.postCard(data.data[1].value, data.data[0].value).then(data => {
+        const cardSection = new Section({
+          cardData: data,
+          renderer: () => {
+            console.log(data);
+            const card = new Card(data, userId, '#card-template');
+            // Элемент верстки
+            const cardElement = card.generate();
+            // Слушатели удаления, лайка и открытия картинки у карточки
+            const cardId = card.getId();
+            const cardImg = card.getImg();
+            const heartButton = cardElement.querySelector('.photos-grid__heart');
+            const delButton = cardElement.querySelector('.photos-grid__delete');
+            const likeElement = heartButton.parentNode.querySelector('.photos-grid__heart-counter');
+            delButton.addEventListener('click',  () => {
+              api.delCardById(cardId).then(() => {
+                card.delCard(delButton);
+              }).catch(err => catchError(err));
+            });
+            heartButton.addEventListener('click',  () => {
+              heartButton.classList.toggle('photos-grid__heart_active');
+              if (heartButton.classList.contains('photos-grid__heart_active')){
+                api.likeCardById(cardId).then((data) => {
+                  card.addLike(likeElement, data.likes.length);
+                }).catch(err => catchError(err));
+              } else {
+                api.delLikeCardById(cardId).then((data) => {
+                  card.addLike(likeElement, data.likes.length);
+                }).catch(err => catchError(err));
+              }
+            });
+            cardImg.addEventListener('click', () => {
+              console.log(cardImg.getAttribute('alt'));
+              const imgPopupObj = new PopupWithImage(cardImg.getAttribute('src'), cardImg.getAttribute('alt'), imgPopup);
+              imgPopupObj.fillPopupImg(imgElement, imgDescElement);
+              imgPopupObj.open();
+            });
+            console.log(cardElement);
+            cardSection.setItem(cardElement);
+          },
+        }, photosGrid);
+        cardSection.renderItems();
+
+      }).catch(err => api.catchError(err))
+
     }
     
   }});

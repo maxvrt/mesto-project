@@ -17,6 +17,9 @@ export default class Section{
   }
   // вставка карточки в сетку
   setItem(element) {
+    this._container.prepend(element);
+  }
+  setItemAll(element) {
     this._container.append(element);
   }
 }
