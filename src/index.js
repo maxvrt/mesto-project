@@ -28,21 +28,18 @@ const user = new UserInfo({
 
   apiCallBack: () => {
 
-
       return api.getUser()
 
   }
 }, avatar);
 
-user.getUserInfo();
-
+let userId = '';
 
 
 // Пользователь
-
-api.getUser().then((user) => {
+user.getUserInfo().then((user) => {
   console.log(user + ' - user._id');
-  const userId = user._id;
+  userId = user._id;
   return userId
 //user.setUserInfo()
 }).then((userId)=>{
@@ -50,7 +47,7 @@ api.getUser().then((user) => {
   // Вывод карточек
   api.getCards().then((data) => {
     const cardsList = new Section({
-      cardListData: data,
+      cardData: data,
       renderer: (cardItem) => {
         const card = new Card(cardItem, userId, '#card-template');
         // Элемент верстки
@@ -164,10 +161,11 @@ placeModalOpenButton.addEventListener('click', () => {
     if (data.formName === 'place-info') {
       api.postCard(data.data[0].value, data.data[1].value).then(data => {
 
-        console.log(data.link+' объект карточки');
+        console.log(data + ' объект карточки');
         const cardSection = new Section({
           cardData: data,
           renderer: () => {
+            console.log(data);
             const card = new Card(data, userId, '#card-template');
             // Элемент верстки
             const cardElement = card.generate();
@@ -200,12 +198,13 @@ placeModalOpenButton.addEventListener('click', () => {
               imgPopupObj.fillPopupImg(imgElement, imgDescElement);
               imgPopupObj.open();
             });
+            console.log(cardElement);
             cardSection.setItem(cardElement);
           },
         }, photosGrid);
         cardSection.renderItems();
 
-      })
+      }).catch(err => api.catchError(err))
     }
   } });
   placePopupEl.open();

@@ -24,7 +24,7 @@ export default class Api {
         name: cardName,
         link: cardImg
       })
-    })
+    }).then(res => this._getResponse(res))
   }
   //todo передается по параметру в карточку
   delCardById(id) {

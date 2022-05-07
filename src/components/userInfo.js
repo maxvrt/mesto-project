@@ -12,13 +12,13 @@ export default class UserInfo {
     }
     getUserInfo() {
 
-        this._apiCallBack(false, false, false)
+        return this._apiCallBack(false, false, false)
         .then(user => {
-
-            this.setUserInfo(user.name, user.about, user.avatar);
+          this.setUserInfo(user.name, user.about, user.avatar);
+          return user;
         })
 
-        return this._apiCallBack(false, false, false);
+        //return this._apiCallBack(false, false, false);
     }
     setUserInfo(name, about, avatarLink) {
 
