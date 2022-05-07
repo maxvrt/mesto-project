@@ -16,13 +16,17 @@ export default class Api {
         name: userName,
         about: userDesc
       })
-    }).then(res => getResponse(res))
+    }).then(res => this._getResponse(res))
   }
   postCard(cardImg, cardName) {
-    return fetch(`${this._url}/cards`, {method: 'POST', headers: this._headers,
+    console.log(this._url);
+    console.log(this._url);
+    return fetch(`${this._url}/cards`, {
+      method: 'POST',
+      headers: this._headers,
       body: JSON.stringify({
         name: cardName,
-        link: cardImg
+        link: cardImg,
       })
     }).then(res => this._getResponse(res))
   }
