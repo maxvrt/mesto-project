@@ -5,15 +5,13 @@ import './pages/index.css';
 import Validation from './components/validate.js';
 
 //UserInfo
-import {jobInput, userInfoSelectors} from './components/constants.js';
+import {userInfoSelectors} from './components/constants.js';
 import UserInfo from './components/userInfo.js';
-
-import { renderCard } from './components/cards.js';
 import { validConfig } from './components/validConfig.js';
-import { closeModal, openModal, fillModalImg, openModalProfile, addCardFromForm, handleFormProfileSubmit, closeModalOverlay, avatarSubmit, renderButtonLoading } from './components/modal.js';
-import { avatarInput, imgPopup, profileFormElement, profilePopup, photosGrid, imgModalButtonClose, profileModalCloseButton, profileModalOpenButton, placeFormElement, placePopup, placeModalOpenButton, placeModalCloseButton, profileName, avatar, profileDesc, avatarFormElement, avatarModalOpenButton, avatarModalCloseButton, avatarPopup, apiConfig, nameInput, JobInput, imgDescElement, imgElement,} from './components/constants.js'
-import Section from './components/section'; //import { renderCard } from './components/cards.js';
-import {Card} from './components/card.js';
+import { renderButtonLoading } from './components/modal.js';
+import { imgPopup, profilePopup, photosGrid, profileModalOpenButton, placePopup, placeModalOpenButton, avatar, avatarModalOpenButton,avatarPopup, apiConfig, imgDescElement, imgElement,} from './components/constants.js'
+import Section from './components/section';
+import { Card } from './components/card.js';
 import Api from './components/api.js';
 import PopupWithImage from './components/popupImg.js';
 import PopupWithForm from './components/popupwithform.js';
@@ -102,10 +100,7 @@ user.getUserInfo().then((user) => {
 
 profileModalOpenButton.addEventListener('click', () => {
 
-  
-
   const profilePopupEl = new PopupWithForm(profilePopup, {apiCallBack: (data) => {
-    
 
     if (!data) {
 
@@ -113,11 +108,11 @@ profileModalOpenButton.addEventListener('click', () => {
 
     } else if (data.formName === 'profile-info') {
       renderButtonLoading(true, profilePopup);
-    
 
       api.patchUser(data.data[0].value, data.data[1].value).then(data => {
         user.setUserInfo(data.name, data.about, false);
       })
+      .catch(err => api.catchError(err))
       .finally(data => {
         renderButtonLoading(false, profilePopup);
       })
@@ -125,7 +120,6 @@ profileModalOpenButton.addEventListener('click', () => {
   }});
 
   profilePopupEl.open();
-  //profilePopupEl.setEventListeners();
 
 
 });
@@ -134,32 +128,24 @@ profileModalOpenButton.addEventListener('click', () => {
 
 avatarModalOpenButton.addEventListener('click', () => {
   const avatarPopupEl = new PopupWithForm(avatarPopup, {apiCallBack: (data) => {
-
     renderButtonLoading(true, avatarPopup);
     if (data.formName === 'avatar-info') {
-
-
-
       api.patchAvatar(data.data[0].value).then(res => {
         api.getUser().then(res => {
           user.setUserInfo(false, false, res.avatar);
         })
 
       })
+      .catch(err => api.catchError(err))
       .finally(res => {
         renderButtonLoading(false, avatarPopup);
       })
     }
   }});
   avatarPopupEl.open();
-  //avatarPopupEl.setEventListeners();
 });
 
-
-
-
 // Окно добавления карточки
-
 placeModalOpenButton.addEventListener('click', () => {
   const placePopupEl = new PopupWithForm(placePopup, {apiCallBack: (data) => {
     if (data.formName === 'place-info') {
@@ -168,11 +154,10 @@ placeModalOpenButton.addEventListener('click', () => {
         const cardSection = new Section({
           cardData: data,
           renderer: () => {
+            renderButtonLoading(true, profilePopup);
             console.log(data);
             const card = new Card(data, userId, '#card-template');
-            // Элемент верстки
             const cardElement = card.generate();
-            // Слушатели удаления, лайка и открытия картинки у карточки
             const cardId = card.getId();
             const cardImg = card.getImg();
             const heartButton = cardElement.querySelector('.photos-grid__heart');
@@ -206,29 +191,18 @@ placeModalOpenButton.addEventListener('click', () => {
           },
         }, photosGrid);
         cardSection.renderItems();
-
-      }).catch(err => api.catchError(err))
-
+      })
+      .catch(err => api.catchError(err))
+      .finally(res => {
+        renderButtonLoading(false, avatarPopup);
+      })
     }
-    
+
   }});
   placePopupEl.open();
-  //placePopupEl.setEventListeners();
 });
 
-
-//placeFormElement.addEventListener('submit', addCardFromForm);
-
-
-// Открытие-закрытие модального окна картинки
-
-imgModalButtonClose.addEventListener('click', () => { closeModal(imgPopup) });
-
-
-
-
 //New OOP validation
-
 const formList = Array.from(document.querySelectorAll(validConfig.formSelector));
 formList.forEach((formElement) => {
   formElement.addEventListener('submit', (evt) => {
@@ -237,8 +211,3 @@ formList.forEach((formElement) => {
   const validation = new Validation(validConfig, formElement);
   validation.enableValidation();
 });
-
-
-
-
-

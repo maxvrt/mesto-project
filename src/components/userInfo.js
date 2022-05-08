@@ -1,7 +1,3 @@
-import { nameInput, jobInput } from "./constants.js";
-
-
-
 export default class UserInfo {
     constructor({data, apiCallBack}, avatarEl) {
         this._nameEl = document.querySelector(data.nameSelector);
@@ -40,6 +36,3 @@ export default class UserInfo {
 
     }
 }
-
-
-
