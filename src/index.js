@@ -104,7 +104,7 @@ user.getUserInfo().then((user) => {
 
 profileModalOpenButton.addEventListener('click', () => {
 
-  const profilePopupEl = new PopupWithForm(profilePopup, {apiCallBack: (data) => {
+ 
 
 
   const profilePopupEl = new PopupWithForm(profilePopup, {
@@ -128,7 +128,7 @@ profileModalOpenButton.addEventListener('click', () => {
           })
       }
 
-    }
+  }
   });
 
   profilePopupEl.open();
@@ -155,7 +155,7 @@ avatarModalOpenButton.addEventListener('click', () => {
       })
 
     }
-  });
+  }});
   avatarPopupEl.open();
 });
 
