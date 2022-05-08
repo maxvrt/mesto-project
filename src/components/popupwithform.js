@@ -14,11 +14,11 @@ export default class PopupWithForm extends Popup {
         super.open();
 
         if (this._form.getAttribute('name') === 'profile-info') {
-            this._apiCallBack().then(res => {
-                this._inputs[0].value = res.name;
-                this._inputs[1].value = res.about;
+            
+                this._inputs[0].value = this._apiCallBack().name;
+                this._inputs[1].value = this._apiCallBack().about;
 
-            })
+            
         }
         
     }

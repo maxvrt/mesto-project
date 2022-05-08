@@ -35,4 +35,13 @@ export default class UserInfo {
 
 
     }
+
+    getValues() {
+        const userData = {
+            name: this._nameEl.textContent,
+            about: this._aboutEl.textContent
+        }
+
+        return userData;
+    }
 }
