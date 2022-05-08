@@ -1,6 +1,3 @@
-import { photosGrid } from './constants.js';
-import { createCard } from './card.js';
-
 export default class Section{
   constructor ({cardData, renderer}, selector){
     this._renderedItems = cardData;
