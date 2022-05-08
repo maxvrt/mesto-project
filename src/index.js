@@ -148,13 +148,13 @@ avatarModalOpenButton.addEventListener('click', () => {
 // Окно добавления карточки
 placeModalOpenButton.addEventListener('click', () => {
   const placePopupEl = new PopupWithForm(placePopup, {apiCallBack: (data) => {
+    renderButtonLoading(true, placePopup);
     if (data.formName === 'place-info') {
-
       api.postCard(data.data[1].value, data.data[0].value).then(data => {
+
         const cardSection = new Section({
           cardData: data,
           renderer: () => {
-            renderButtonLoading(true, profilePopup);
             console.log(data);
             const card = new Card(data, userId, '#card-template');
             const cardElement = card.generate();
@@ -194,7 +194,7 @@ placeModalOpenButton.addEventListener('click', () => {
       })
       .catch(err => api.catchError(err))
       .finally(res => {
-        renderButtonLoading(false, avatarPopup);
+        renderButtonLoading(false, placePopup);
       })
     }
 
