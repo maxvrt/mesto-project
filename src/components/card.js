@@ -56,18 +56,18 @@ export class Card{
       if (this._element === this._delButton) {
         delCallback().then(() => {
           this.delCard(this._delButton);
-        }).catch(err => catchError(err));
+        }).catch(err => {console.log('Ошибка. Запрос не выполнен (класс): ', err);});
       }
       else if (this._element === this._heartButton){
         heartButton.classList.toggle('photos-grid__heart_active');
         if (!this.isLiked){
           likeCallback().then((data) => {
             this.addLike(this._likeElement, data.likes.length);
-          }).catch(err => catchError(err));
+          }).catch(err => {console.log('Ошибка. Запрос не выполнен (класс): ', err);});
         } else {
           likeCallback().then((data) => {
             card.delLike(this._likeElement, data.likes.length);
-          }).catch(err => catchError(err));
+          }).catch(err => {console.log('Ошибка. Запрос не выполнен (класс): ', err);});
         }
       }
       else if (this._element === this._cardImg) {
