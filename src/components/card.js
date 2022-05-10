@@ -61,17 +61,16 @@ export class Card{
 
     this._heartButton.addEventListener('click',  () => {
       this._heartButton.classList.toggle('photos-grid__heart_active');
-      console.log('есть лайк -'+this.isLiked);
-      if (!this.isLiked){
-        likeCallback().then((data) => {
-          this.addLike(this._likeElement, data.likes.length);
-          this.isLiked = true;
-        }).catch(err => {console.log('Ошибка. Запрос не выполнен (класс): ', err);});
-      } else {
-        likeCallback().then((data) => {
-          this.delLike(this._likeElement, data.likes.length);
-        }).catch(err => {console.log('Ошибка. Запрос не выполнен (класс): ', err);});
-      }
+      console.log('есть лайк -'+ this.isLiked);
+      // перед запросом проверяем лайки
+      this.isLiked = this.checkUserLike();
+      // if (!this.isLiked){
+      likeCallback().then((data) => {
+        this.addCount(this._likeElement, data.likes.length);
+      }).catch(err => {console.log('Ошибка. Запрос не выполнен (класс): ', err);});
+      // } else {
+
+      // }
     });
 
     this._cardImg.addEventListener('click',  () => {
@@ -92,13 +91,12 @@ export class Card{
   }
   // проверка лайкал ли юзер
   checkUserLike() {
-    console.log(this._userId);
     if (this._userId !== 1 && this._likes.length > 0){
       return this._likes.some(element => { return element._id === this._userId; });
     }
   }
   // Лайк
-  addLike(likeElement, likesCount) {
+  addCount(likeElement, likesCount) {
     likeElement.textContent = likesCount;
   }
   // Удаление карточки
