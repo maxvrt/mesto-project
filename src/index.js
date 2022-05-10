@@ -54,12 +54,13 @@ user.getUserInfo().then((user) => {
         // Слушатели в виде колбэков передаются после создания карточки
         card.create({
           delCallback: () => {
-            api.delCardById(cardId)
+            return api.delCardById(cardId)
           },
           likeCallback: () => {
-            api.toggleLikeCardById(cardId, card.isLiked)
+            return api.toggleLikeCardById(cardId, card.isLiked)
           },
           imgCallback: () => {
+            console.log(cardImg);
             const imgPopupObj = new PopupWithImage(cardImg.getAttribute('src'), cardImg.getAttribute('alt'), imgPopup);
             imgPopupObj.fillPopupImg(imgElement, imgDescElement);
             imgPopupObj.open();
@@ -139,7 +140,6 @@ placeModalOpenButton.addEventListener('click', () => {
             const cardImg = card.getImg();
             const cardId = card.getId();
             const cardElement = card.generate();
-            // Слушатели в виде колбэков передаются после создания карточки
             card.create({
               delCallback: () => {
                 api.delCardById(cardId)
@@ -148,6 +148,7 @@ placeModalOpenButton.addEventListener('click', () => {
                 api.toggleLikeCardById(cardId, card.isLiked)
               },
               imgCallback: () => {
+                console.log(cardImg);
                 const imgPopupObj = new PopupWithImage(cardImg.getAttribute('src'), cardImg.getAttribute('alt'), imgPopup);
                 imgPopupObj.fillPopupImg(imgElement, imgDescElement);
                 imgPopupObj.open();
@@ -163,7 +164,6 @@ placeModalOpenButton.addEventListener('click', () => {
         renderButtonLoading(false, placePopup);
       })
     }
-
   }});
   placePopupEl.open();
 });

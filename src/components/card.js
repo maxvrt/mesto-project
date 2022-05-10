@@ -23,7 +23,8 @@ export class Card{
   }
 
   create({delCallback, likeCallback, imgCallback}) {
-    this._setEventListeners(this._element, {delCallback:delCallback, likeCallback:likeCallback, imgCallback:imgCallback});
+    //console.log(delCallback);
+    this._setEventListeners({delCallback:delCallback, likeCallback:likeCallback, imgCallback:imgCallback});
   }
   // создание карточки
   generate() {
@@ -51,28 +52,30 @@ export class Card{
   	return this._element;
   }
 
-  _setEventListeners({delCallback:delCallback, likeCallback:likeCallback, imgCallback:imgCallback}) {
-    this._element.addEventListener('click',  () => {
-      if (this._element === this._delButton) {
-        delCallback().then(() => {
-          this.delCard(this._delButton);
+  _setEventListeners({delCallback, likeCallback, imgCallback}) {
+    this._delButton.addEventListener('click',  () => {
+      delCallback().then(() => {
+        this.delCard(this._delButton);
+      }).catch(err => {console.log('Ошибка. Запрос не выполнен (класс): ', err);});
+    });
+
+    this._heartButton.addEventListener('click',  () => {
+      this._heartButton.classList.toggle('photos-grid__heart_active');
+      console.log('есть лайк -'+this.isLiked);
+      if (!this.isLiked){
+        likeCallback().then((data) => {
+          this.addLike(this._likeElement, data.likes.length);
+          this.isLiked = true;
+        }).catch(err => {console.log('Ошибка. Запрос не выполнен (класс): ', err);});
+      } else {
+        likeCallback().then((data) => {
+          this.delLike(this._likeElement, data.likes.length);
         }).catch(err => {console.log('Ошибка. Запрос не выполнен (класс): ', err);});
       }
-      else if (this._element === this._heartButton){
-        heartButton.classList.toggle('photos-grid__heart_active');
-        if (!this.isLiked){
-          likeCallback().then((data) => {
-            this.addLike(this._likeElement, data.likes.length);
-          }).catch(err => {console.log('Ошибка. Запрос не выполнен (класс): ', err);});
-        } else {
-          likeCallback().then((data) => {
-            card.delLike(this._likeElement, data.likes.length);
-          }).catch(err => {console.log('Ошибка. Запрос не выполнен (класс): ', err);});
-        }
-      }
-      else if (this._element === this._cardImg) {
-        imgCallback();
-      }
+    });
+
+    this._cardImg.addEventListener('click',  () => {
+      imgCallback();
     });
   }
 
