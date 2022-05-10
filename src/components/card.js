@@ -12,26 +12,70 @@ export class Card{
     this._userId = userId;
     this._selector = selector;
     this._isUserLike = false;
+    this._element = '';
+    this._heartButton = '';
+    this._delButton = '';
+    this._cardImg = '';
+    this._likeElement = '';
+    this.isLiked = false;
     // кнопка лайка
     //this._likeElement = heartButton.parentNode.querySelector('.photos-grid__heart-counter');
+  }
+
+  create({delCallback, likeCallback, imgCallback}) {
+    this._setEventListeners(this._element, {delCallback:delCallback, likeCallback:likeCallback, imgCallback:imgCallback});
   }
   // создание карточки
   generate() {
     this._element = this._getElement();
-    //const heartButton = this._element.querySelector('.photos-grid__heart');
-    const delButton = this._element.querySelector('.photos-grid__delete');
+    this._heartButton = this._element.querySelector('.photos-grid__heart');
+    this._delButton = this._element.querySelector('.photos-grid__delete');
     this._cardImg = this._element.querySelector('.photos-grid__img');
-    if (this._userId !== '0' && this._userId === this._ownerId) {
-      delButton.classList.remove('photos-grid__delete_hide');
+    this._likeElement = this._heartButton.parentNode.querySelector('.photos-grid__heart-counter');
+    // если лайк установлен и будет удаляться
+    if (this._heartButton.classList.contains('photos-grid__heart_active')){
+      this.isLiked = true
     }
+    if (this._userId !== '0' && this._userId === this._ownerId) {
+      this._delButton.classList.remove('photos-grid__delete_hide');
+    }
+    //есть ли лайк пользователя
+    if(this.checkUserLike()) this._element.querySelector('.photos-grid__heart').classList.add('photos-grid__heart_active');
     this._cardImg.setAttribute('src', this._imgCard);
     this._cardImg.setAttribute('alt', this._nameCard);
     this._element.querySelector('.photos-grid__city').textContent = this._nameCard;
+
     // количество лайков
     if (this._likes)
     this._element.querySelector('.photos-grid__heart-counter').textContent = this._likes.length;
   	return this._element;
   }
+
+  _setEventListeners({delCallback:delCallback, likeCallback:likeCallback, imgCallback:imgCallback}) {
+    this._element.addEventListener('click',  () => {
+      if (this._element === this._delButton) {
+        delCallback().then(() => {
+          this.delCard(this._delButton);
+        }).catch(err => catchError(err));
+      }
+      else if (this._element === this._heartButton){
+        heartButton.classList.toggle('photos-grid__heart_active');
+        if (!this.isLiked){
+          likeCallback().then((data) => {
+            this.addLike(this._likeElement, data.likes.length);
+          }).catch(err => catchError(err));
+        } else {
+          likeCallback().then((data) => {
+            card.delLike(this._likeElement, data.likes.length);
+          }).catch(err => catchError(err));
+        }
+      }
+      else if (this._element === this._cardImg) {
+        imgCallback();
+      }
+    });
+  }
+
   getImg() {
     return this._cardImg;
   }

@@ -48,42 +48,23 @@ user.getUserInfo().then((user) => {
       cardData: data,
       renderer: (cardItem) => {
         const card = new Card(cardItem, userId, '#card-template');
-        // Элемент верстки
-        const cardElement = card.generate();
-        // Есть ли лайк пользователя
-        const isLike = card.checkUserLike();
-        if(isLike) cardElement.querySelector('.photos-grid__heart').classList.add('photos-grid__heart_active');
-        // Слушатели удаления, лайка и открытия картинки у карточки
-        const cardId = card.getId();
         const cardImg = card.getImg();
-        const heartButton = cardElement.querySelector('.photos-grid__heart');
-        const delButton = cardElement.querySelector('.photos-grid__delete');
-        const likeElement = heartButton.parentNode.querySelector('.photos-grid__heart-counter');
-        delButton.addEventListener('click',  () => {
-          api.delCardById(cardId).then(() => {
-            card.delCard(delButton);
-          }).catch(err => catchError(err));
-        });
-        heartButton.addEventListener('click',  () => {
-          heartButton.classList.toggle('photos-grid__heart_active');
-          if (heartButton.classList.contains('photos-grid__heart_active')){
-            api.likeCardById(cardId).then((data) => {
-              card.addLike(likeElement, data.likes.length);
-            }).catch(err => catchError(err));
-          } else {
-            api.delLikeCardById(cardId).then((data) => {
-              card.addLike(likeElement, data.likes.length);
-            }).catch(err => catchError(err));
+        const cardId = card.getId();
+        const cardElement = card.generate();
+        // Слушатели в виде колбэков передаются после создания карточки
+        card.create({
+          delCallback: () => {
+            api.delCardById(cardId)
+          },
+          likeCallback: () => {
+            api.toggleLikeCardById(cardId, card.isLiked)
+          },
+          imgCallback: () => {
+            const imgPopupObj = new PopupWithImage(cardImg.getAttribute('src'), cardImg.getAttribute('alt'), imgPopup);
+            imgPopupObj.fillPopupImg(imgElement, imgDescElement);
+            imgPopupObj.open();
           }
         });
-        cardImg.addEventListener('click', () => {
-          console.log(cardImg.getAttribute('alt'));
-          const imgPopupObj = new PopupWithImage(cardImg.getAttribute('src'), cardImg.getAttribute('alt'), imgPopup);
-          imgPopupObj.fillPopupImg(imgElement, imgDescElement);
-          imgPopupObj.open();
-        });
-        //console.log(cardElement);
-        //! Вывод карточек
         cardsList.setItemAll(cardElement);
       },
     }, photosGrid);
@@ -157,29 +138,8 @@ placeModalOpenButton.addEventListener('click', () => {
           renderer: () => {
             console.log(data);
             const card = new Card(data, userId, '#card-template');
-            const cardElement = card.generate();
-            const cardId = card.getId();
-            const cardImg = card.getImg();
-            const heartButton = cardElement.querySelector('.photos-grid__heart');
-            const delButton = cardElement.querySelector('.photos-grid__delete');
-            const likeElement = heartButton.parentNode.querySelector('.photos-grid__heart-counter');
-            delButton.addEventListener('click',  () => {
-              api.delCardById(cardId).then(() => {
-                card.delCard(delButton);
-              }).catch(err => catchError(err));
-            });
-            heartButton.addEventListener('click',  () => {
-              heartButton.classList.toggle('photos-grid__heart_active');
-              if (heartButton.classList.contains('photos-grid__heart_active')){
-                api.likeCardById(cardId).then((data) => {
-                  card.addLike(likeElement, data.likes.length);
-                }).catch(err => catchError(err));
-              } else {
-                api.delLikeCardById(cardId).then((data) => {
-                  card.addLike(likeElement, data.likes.length);
-                }).catch(err => catchError(err));
-              }
-            });
+            card.create();
+
             cardImg.addEventListener('click', () => {
               console.log(cardImg.getAttribute('alt'));
               const imgPopupObj = new PopupWithImage(cardImg.getAttribute('src'), cardImg.getAttribute('alt'), imgPopup);
