@@ -48,9 +48,9 @@ user.getUserInfo().then((user) => {
       cardData: data,
       renderer: (cardItem) => {
         const card = new Card(cardItem, userId, '#card-template');
+        const cardElement = card.generate();
         const cardImg = card.getImg();
         const cardId = card.getId();
-        const cardElement = card.generate();
         // Слушатели в виде колбэков передаются после создания карточки
         card.create({
           delCallback: () => {
