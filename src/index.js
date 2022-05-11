@@ -11,7 +11,7 @@ import {userInfoSelectors} from './components/constants.js';
 import UserInfo from './components/UserInfo.js';
 import { validConfig } from './components/validConfig.js';
 
-import { renderButtonLoading } from './components/utils.js';
+
 import { imgPopup, profilePopup, photosGrid, profileModalOpenButton, placePopup, placeModalOpenButton, avatar, avatarModalOpenButton,avatarPopup, apiConfig, imgDescElement, imgElement,} from './components/constants.js'
 import Section from './components/section';
 
@@ -110,15 +110,16 @@ profileModalOpenButton.addEventListener('click', () => {
   const profilePopupEl = new PopupWithForm(profilePopup, {
     apiCallBack: (data) => {
 
-        renderButtonLoading(true, profilePopup);
-
+        //renderButtonLoading(true, profilePopup);
+        profilePopupEl.renderLoading(true);
 
         api.patchUser(data.name, data.desc).then(data => {
           user.setUserInfo(data.name, data.about, false);
         })
         .catch(err => api.catchError(err))
         .finally(data => {
-            renderButtonLoading(false, profilePopup);
+            //renderButtonLoading(false, profilePopup);
+            profilePopupEl.renderLoading(false);
             profilePopupEl.close();
         })
       
@@ -136,22 +137,24 @@ profileModalOpenButton.addEventListener('click', () => {
 avatarModalOpenButton.addEventListener('click', () => {
 
   const avatarPopupEl = new PopupWithForm(avatarPopup, {apiCallBack: (data) => {
-    renderButtonLoading(true, avatarPopup);
+    avatarPopupEl.renderLoading(true);
+    //renderButtonLoading(true, avatarPopup);
     
       api.patchAvatar(data.avatar).then(res => {
         console.log(res)
 
-        user.setUserInfo(false, false, data.avatar);
+        //user.setUserInfo(false, false, data.avatar);
 
-        /*
+        
         api.getUser().then(res => {
           user.setUserInfo(false, false, res.avatar);
-        }) */
+        }) 
 
       })
       .catch(err => api.catchError(err))
       .finally(res => {
-        renderButtonLoading(false, avatarPopup);
+        avatarPopupEl.renderLoading(false);
+        //renderButtonLoading(false, avatarPopup);
         avatarPopupEl.close();
       })
 
@@ -164,7 +167,8 @@ avatarModalOpenButton.addEventListener('click', () => {
 placeModalOpenButton.addEventListener('click', () => {
 
   const placePopupEl = new PopupWithForm(placePopup, {apiCallBack: (data) => {
-    renderButtonLoading(true, placePopup);
+    placePopupEl.renderLoading(true);
+    //renderButtonLoading(true, placePopup);
     
       api.postCard(data.imgPlace, data.place).then(data => {
 
@@ -210,7 +214,8 @@ placeModalOpenButton.addEventListener('click', () => {
       })
       .catch(err => api.catchError(err))
       .finally(res => {
-        renderButtonLoading(false, placePopup);
+        placePopupEl.renderLoading(false);
+        //renderButtonLoading(false, placePopup);
         placePopupEl.close();
       })
     
