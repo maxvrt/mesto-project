@@ -1,4 +1,4 @@
-import Popup from './popup.js';
+import Popup from './Popup.js';
 
 export default class PopupWithForm extends Popup {
     constructor(popup, {apiCallBack}) {
@@ -10,32 +10,31 @@ export default class PopupWithForm extends Popup {
 
     }
 
+    setInputValues(userData) {
+        this._inputs[0].value = userData.name;
+        this._inputs[1].value = userData.about;
+    }
+
     open() {
-        super.open();
-
-        if (this._form.getAttribute('name') === 'profile-info') {
-            
-                this._inputs[0].value = this._apiCallBack().name;
-                this._inputs[1].value = this._apiCallBack().about;
-
-            
-        }
-        
+        super.open();        
     }
 
 
 
     setEventListeners() {
         super.setEventListeners();
-        this._form.addEventListener('submit',  this._submitHandler);
+        this._form.addEventListener('submit', this._submitHandler);
 
     }
 
     _getInputValues() {
-        const formData = {
-            formName: this._form.getAttribute('name'),
-            data: this._inputs,
-        }
+        const formData = {};
+
+        this._inputs.forEach((input) => {
+            console.log(input.name);
+            console.log(input.value);
+            formData[input.name] = input.value;
+        })
 
         return formData;
     }
@@ -44,7 +43,6 @@ export default class PopupWithForm extends Popup {
         event.preventDefault();
         const data = this._getInputValues();
         this._apiCallBack(data);
-        this.close();
 
 
     }
