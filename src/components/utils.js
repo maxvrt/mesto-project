@@ -1,5 +1,5 @@
 import { imgDescElement, imgElement,} from './constants'
-import { Card } from './card.js';
+import { Card } from './Card.js';
 
 export function createCard(cardItem, userId, selector, imgPopupObj, api) {
   const card = new Card(cardItem, userId, selector);
@@ -12,7 +12,6 @@ export function createCard(cardItem, userId, selector, imgPopupObj, api) {
       return api.delCardById(cardId)
     },
     likeCallback: () => {
-      
       return api.toggleLikeCardById(cardId, card.isLiked)
     },
     imgCallback: () => {
