@@ -69,7 +69,7 @@ export class Card{
       this._heartButton.classList.toggle('photos-grid__heart_active');
       console.log('есть лайк -'+ this.isLiked);
       // перед запросом проверяем лайки
-      this.isLiked = this.checkUserLike();
+      this.isLiked = !this._heartButton.classList.contains('photos-grid__heart_active');
       likeCallback().then((data) => {
         console.log(data.likes.length);
         this.addCount(this._elementHeartCounter, data.likes.length);
