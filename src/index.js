@@ -11,6 +11,14 @@ import {userInfoSelectors} from './components/constants.js';
 import UserInfo from './components/UserInfo.js';
 import { validConfig } from './components/validConfig.js';
 
+import { imgPopup, profilePopup, photosGrid, profileModalOpenButton, placePopup, placeModalOpenButton, avatar, avatarModalOpenButton,avatarPopup, apiConfig, imgDescElement, imgElement,} from './components/constants.js'
+import Section from './components/Section';
+
+import { Card } from './components/Card.js';
+import Api from './components/Api.js';
+import PopupWithImage from './components/PopupImg.js';
+import PopupWithForm from './components/PopupWithForm.js';
+
 
 import { imgPopup, profilePopup, photosGrid, profileModalOpenButton, placePopup, placeModalOpenButton, avatar, avatarModalOpenButton,avatarPopup, apiConfig, cardTemplate} from './components/constants.js'
 import Section from './components/Section';
@@ -68,9 +76,14 @@ user.getUserInfo().then((user) => {
 
 
 
+
 // Профиль попап
 
 profileModalOpenButton.addEventListener('click', () => {
+
+
+
+
   const profilePopupEl = new PopupWithForm(profilePopup, {
     apiCallBack: (data) => {
 
@@ -86,6 +99,7 @@ profileModalOpenButton.addEventListener('click', () => {
             profilePopupEl.renderLoading(false);
             profilePopupEl.close();
         })
+
   }
   });
   profilePopupEl.setInputValues(user.getValues());
@@ -104,6 +118,7 @@ avatarModalOpenButton.addEventListener('click', () => {
 
       api.patchAvatar(data.avatar).then(res => {
         console.log(res)
+
 
         api.getUser().then(res => {
           user.setUserInfo(false, false, res.avatar);
