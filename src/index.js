@@ -2,23 +2,23 @@ import '../node_modules/core-js/stable';
 import '../node_modules/regenerator-runtime/runtime'
 import './pages/index.css';
 
-import Validation from './components/validate.js';
+import FormValidator from './components/FormValidator.js';
 
 //UserInfo
 
 import {userInfoSelectors} from './components/constants.js';
 
-import UserInfo from './components/userInfo.js';
+import UserInfo from './components/UserInfo.js';
 import { validConfig } from './components/validConfig.js';
 
-import { renderButtonLoading } from './components/modal.js';
+
 import { imgPopup, profilePopup, photosGrid, profileModalOpenButton, placePopup, placeModalOpenButton, avatar, avatarModalOpenButton,avatarPopup, apiConfig, imgDescElement, imgElement,} from './components/constants.js'
 import Section from './components/section';
 
 import { Card } from './components/card.js';
 import Api from './components/api.js';
 import PopupWithImage from './components/popupImg.js';
-import PopupWithForm from './components/popupwithform.js';
+import PopupWithForm from './components/PopupWithForm.js';
 
 
 
@@ -99,8 +99,8 @@ user.getUserInfo().then((user) => {
 
 
 
-// Слушатели
-// Профиль
+
+// Профиль попап
 
 profileModalOpenButton.addEventListener('click', () => {
 
@@ -110,27 +110,23 @@ profileModalOpenButton.addEventListener('click', () => {
   const profilePopupEl = new PopupWithForm(profilePopup, {
     apiCallBack: (data) => {
 
+        //renderButtonLoading(true, profilePopup);
+        profilePopupEl.renderLoading(true);
 
-
-      if (!data) {
-
-        return user.getValues();
-
-      } else if (data.formName === 'profile-info') {
-        renderButtonLoading(true, profilePopup);
-
-
-        api.patchUser(data.data[0].value, data.data[1].value).then(data => {
+        api.patchUser(data.name, data.desc).then(data => {
           user.setUserInfo(data.name, data.about, false);
         })
-          .finally(data => {
-            renderButtonLoading(false, profilePopup);
-          })
-      }
+        .catch(err => api.catchError(err))
+        .finally(data => {
+            //renderButtonLoading(false, profilePopup);
+            profilePopupEl.renderLoading(false);
+            profilePopupEl.close();
+        })
+      
 
   }
   });
-
+  profilePopupEl.setInputValues(user.getValues());
   profilePopupEl.open();
 
 
@@ -141,20 +137,28 @@ profileModalOpenButton.addEventListener('click', () => {
 avatarModalOpenButton.addEventListener('click', () => {
 
   const avatarPopupEl = new PopupWithForm(avatarPopup, {apiCallBack: (data) => {
-    renderButtonLoading(true, avatarPopup);
-    if (data.formName === 'avatar-info') {
-      api.patchAvatar(data.data[0].value).then(res => {
+    avatarPopupEl.renderLoading(true);
+    //renderButtonLoading(true, avatarPopup);
+    
+      api.patchAvatar(data.avatar).then(res => {
+        console.log(res)
+
+        //user.setUserInfo(false, false, data.avatar);
+
+        
         api.getUser().then(res => {
           user.setUserInfo(false, false, res.avatar);
-        })
+        }) 
 
       })
       .catch(err => api.catchError(err))
       .finally(res => {
-        renderButtonLoading(false, avatarPopup);
+        avatarPopupEl.renderLoading(false);
+        //renderButtonLoading(false, avatarPopup);
+        avatarPopupEl.close();
       })
 
-    }
+    
   }});
   avatarPopupEl.open();
 });
@@ -163,9 +167,10 @@ avatarModalOpenButton.addEventListener('click', () => {
 placeModalOpenButton.addEventListener('click', () => {
 
   const placePopupEl = new PopupWithForm(placePopup, {apiCallBack: (data) => {
-    renderButtonLoading(true, placePopup);
-    if (data.formName === 'place-info') {
-      api.postCard(data.data[1].value, data.data[0].value).then(data => {
+    placePopupEl.renderLoading(true);
+    //renderButtonLoading(true, placePopup);
+    
+      api.postCard(data.imgPlace, data.place).then(data => {
 
         const cardSection = new Section({
           cardData: data,
@@ -209,9 +214,11 @@ placeModalOpenButton.addEventListener('click', () => {
       })
       .catch(err => api.catchError(err))
       .finally(res => {
-        renderButtonLoading(false, placePopup);
+        placePopupEl.renderLoading(false);
+        //renderButtonLoading(false, placePopup);
+        placePopupEl.close();
       })
-    }
+    
 
   }});
 
@@ -224,6 +231,6 @@ formList.forEach((formElement) => {
   formElement.addEventListener('submit', (evt) => {
     evt.preventDefault();
   });
-  const validation = new Validation(validConfig, formElement);
-  validation.enableValidation();
+  const validator = new FormValidator(validConfig, formElement);
+  validator.enableValidation();
 });
