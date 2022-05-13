@@ -9,13 +9,13 @@ import {userInfoSelectors} from './components/constants.js';
 import UserInfo from './components/userInfo.js';
 import { validConfig } from './components/validConfig.js';
 import { renderButtonLoading } from './components/modal.js';
-import { imgPopup, profilePopup, photosGrid, profileModalOpenButton, placePopup, placeModalOpenButton, avatar, avatarModalOpenButton,avatarPopup, apiConfig, imgDescElement, imgElement,} from './components/constants.js'
+import { imgPopup, profilePopup, photosGrid, profileModalOpenButton, placePopup, placeModalOpenButton, avatar, avatarModalOpenButton,avatarPopup, apiConfig, imgDescElement, imgElement, cardTemplate} from './components/constants.js'
 import Section from './components/section';
 import { Card } from './components/card.js';
 import Api from './components/api.js';
 import PopupWithImage from './components/popupImg.js';
 import PopupWithForm from './components/popupwithform.js';
-
+import { createCard } from './components/utils.js'
 
 
 
@@ -33,6 +33,9 @@ const user = new UserInfo({
 
 let userId = '';
 
+const imgPopupObj = new PopupWithImage(imgPopup);
+const cardSection = new Section();
+
 
 // Пользователь
 user.getUserInfo().then((user) => {
@@ -44,32 +47,15 @@ user.getUserInfo().then((user) => {
   console.log(userId+ ' - userId после назначения');
   // Вывод карточек
   api.getCards().then((data) => {
-    const cardsList = new Section({
+    cardSection.create({
       cardData: data,
       renderer: (cardItem) => {
-        const card = new Card(cardItem, userId, '#card-template');
+        const card = createCard(cardItem, userId, cardTemplate, imgPopupObj);
         const cardElement = card.generate();
-        const cardImg = card.getImg();
-        const cardId = card.getId();
-        // Слушатели в виде колбэков передаются после создания карточки
-        card.create({
-          delCallback: () => {
-            return api.delCardById(cardId)
-          },
-          likeCallback: () => {
-            return api.toggleLikeCardById(cardId, card.isLiked)
-          },
-          imgCallback: () => {
-            console.log(cardImg);
-            const imgPopupObj = new PopupWithImage(cardImg.getAttribute('src'), cardImg.getAttribute('alt'), imgPopup);
-            imgPopupObj.fillPopupImg(imgElement, imgDescElement);
-            imgPopupObj.open();
-          }
-        });
         cardsList.setItemAll(cardElement);
       },
     }, photosGrid);
-    cardsList.renderItems();
+    cardSection.renderItems();
   }
   ).catch(err => api.catchError(err));
 
@@ -133,27 +119,24 @@ placeModalOpenButton.addEventListener('click', () => {
     renderButtonLoading(true, placePopup);
     if (data.formName === 'place-info') {
       api.postCard(data.data[1].value, data.data[0].value).then(data => {
-        const cardSection = new Section({
+        cardSection.create({
           cardData: data,
           renderer: () => {
-            const card = new Card(data, userId, '#card-template');
-            const cardImg = card.getImg();
-            const cardId = card.getId();
+            const card = createCard(data, userId, cardTemplate, imgPopupObj);
+            // const card = new Card(data, userId, cardTemplate);
+            // card.create({
+            //   delCallback: () => {
+            //     api.delCardById(cardId)
+            //   },
+            //   likeCallback: () => {
+            //     api.toggleLikeCardById(cardId, card.isLiked)
+            //   },
+            //   imgCallback: () => {
+            //     console.log(cardImg);
+            //     imgPopupObj.open(imgElement, imgDescElement, cardImg.getAttribute('src'), cardImg.getAttribute('alt'));
+            //   }
+            // });
             const cardElement = card.generate();
-            card.create({
-              delCallback: () => {
-                api.delCardById(cardId)
-              },
-              likeCallback: () => {
-                api.toggleLikeCardById(cardId, card.isLiked)
-              },
-              imgCallback: () => {
-                console.log(cardImg);
-                const imgPopupObj = new PopupWithImage(cardImg.getAttribute('src'), cardImg.getAttribute('alt'), imgPopup);
-                imgPopupObj.fillPopupImg(imgElement, imgDescElement);
-                imgPopupObj.open();
-              }
-            });
             cardSection.setItem(cardElement);
           },
         }, photosGrid);
