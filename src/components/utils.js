@@ -2,11 +2,11 @@ import { imgDescElement, imgElement,} from './constants'
 import { Card } from './card.js';
 
 export function createCard(cardItem, userId, selector, imgPopupObj) {
-  console.log('data ', {cardItem});
   const card = new Card(cardItem, userId, selector);
-  const cardImg = card.getImg();
+  const cardImg = card.imgCard;
   const cardId = card.getId();
   // Слушатели в виде колбэков передаются после создания карточки
+  const cardElement = card.generate();
   card.create({
     delCallback: () => {
       return api.delCardById(cardId)
@@ -19,5 +19,5 @@ export function createCard(cardItem, userId, selector, imgPopupObj) {
       imgPopupObj.open(imgElement, imgDescElement, cardImg.getAttribute('src'), cardImg.getAttribute('alt'));
     }
   });
-  return card;
+  return cardElement;
 }

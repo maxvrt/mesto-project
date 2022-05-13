@@ -6,6 +6,7 @@ export default class Section{
   }
   renderItems() {
     if (Array.isArray(this._renderedItems)){
+      console.log('обрабатываем массив карточек');
       // Основной метод рендера куда передается карточка, внутри _renderer вызывается setItem
       this._renderedItems.forEach(cardItem => this._renderer(cardItem))
     } else {

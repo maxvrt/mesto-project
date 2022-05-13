@@ -50,9 +50,9 @@ user.getUserInfo().then((user) => {
     cardSection.create({
       cardData: data,
       renderer: (cardItem) => {
-        const card = createCard(cardItem, userId, cardTemplate, imgPopupObj);
-        const cardElement = card.generate();
-        cardsList.setItemAll(cardElement);
+        const cardEl = createCard(cardItem, userId, cardTemplate, imgPopupObj);
+        //const cardElement = card.generate();
+        cardSection.setItemAll(cardEl);
       },
     }, photosGrid);
     cardSection.renderItems();
@@ -122,22 +122,9 @@ placeModalOpenButton.addEventListener('click', () => {
         cardSection.create({
           cardData: data,
           renderer: () => {
-            const card = createCard(data, userId, cardTemplate, imgPopupObj);
-            // const card = new Card(data, userId, cardTemplate);
-            // card.create({
-            //   delCallback: () => {
-            //     api.delCardById(cardId)
-            //   },
-            //   likeCallback: () => {
-            //     api.toggleLikeCardById(cardId, card.isLiked)
-            //   },
-            //   imgCallback: () => {
-            //     console.log(cardImg);
-            //     imgPopupObj.open(imgElement, imgDescElement, cardImg.getAttribute('src'), cardImg.getAttribute('alt'));
-            //   }
-            // });
-            const cardElement = card.generate();
-            cardSection.setItem(cardElement);
+            const cardEl = createCard(data, userId, cardTemplate, imgPopupObj);
+            
+            cardSection.setItem(cardEl);
           },
         }, photosGrid);
         cardSection.renderItems();

@@ -3,8 +3,8 @@
 // в generate вставка данных в темплейт и возврат элемента с данными
 export class Card{
   constructor(data, userId = 1, selector) {
-    this._imgCard = data.link;
-    console.log();
+    //console.log('data2', data.link);
+    if (data) this.imgCard = data.link;
     this._nameCard = data.name;
     this._likes = data.likes;
     this._cardId = data._id;
@@ -23,14 +23,14 @@ export class Card{
     //this._likeElement = heartButton.parentNode.querySelector('.photos-grid__heart-counter');
   }
 
-  create({delCallback, likeCallback, imgCallback}, data, userId, selector) {
-    const card = new Card(data, userId, selector);
-    const cardElement = this.generate();
+  create({delCallback, likeCallback, imgCallback}) {
+    //const card = new Card(data, userId, selector);
+    //const cardElement = this.generate();
     // const cardImg = card.getImg();
     // const cardId = card.getId();
     // const cardElement = card.generate();
     this._setEventListeners({delCallback:delCallback, likeCallback:likeCallback, imgCallback:imgCallback});
-    return card;
+    //return this;
   }
   // создание карточки
   generate() {
@@ -48,7 +48,7 @@ export class Card{
     }
     //есть ли лайк пользователя
     if(this.checkUserLike()) this._element.querySelector('.photos-grid__heart').classList.add('photos-grid__heart_active');
-    this._cardImg.setAttribute('src', this._imgCard);
+    this._cardImg.setAttribute('src', this.imgCard);
     this._cardImg.setAttribute('alt', this._nameCard);
     this._element.querySelector('.photos-grid__city').textContent = this._nameCard;
 
