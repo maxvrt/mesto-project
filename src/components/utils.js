@@ -1,17 +1,18 @@
 import { imgDescElement, imgElement,} from './constants'
 import { Card } from './card.js';
 
-export function createCard(cardItem, userId, selector, imgPopupObj) {
+export function createCard(cardItem, userId, selector, imgPopupObj, api) {
   const card = new Card(cardItem, userId, selector);
-  const cardImg = card.imgCard;
-  const cardId = card.getId();
   // Слушатели в виде колбэков передаются после создания карточки
   const cardElement = card.generate();
+  const cardImg = card.cardImg;
+  const cardId = card.getId();
   card.create({
     delCallback: () => {
       return api.delCardById(cardId)
     },
     likeCallback: () => {
+      
       return api.toggleLikeCardById(cardId, card.isLiked)
     },
     imgCallback: () => {

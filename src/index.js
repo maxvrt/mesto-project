@@ -50,7 +50,7 @@ user.getUserInfo().then((user) => {
     cardSection.create({
       cardData: data,
       renderer: (cardItem) => {
-        const cardEl = createCard(cardItem, userId, cardTemplate, imgPopupObj);
+        const cardEl = createCard(cardItem, userId, cardTemplate, imgPopupObj, api);
         //const cardElement = card.generate();
         cardSection.setItemAll(cardEl);
       },
@@ -122,8 +122,8 @@ placeModalOpenButton.addEventListener('click', () => {
         cardSection.create({
           cardData: data,
           renderer: () => {
-            const cardEl = createCard(data, userId, cardTemplate, imgPopupObj);
-            
+            const cardEl = createCard(data, userId, cardTemplate, imgPopupObj, api);
+
             cardSection.setItem(cardEl);
           },
         }, photosGrid);
