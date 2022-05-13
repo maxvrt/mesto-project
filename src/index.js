@@ -131,7 +131,7 @@ placeModalOpenButton.addEventListener('click', () => {
 
       api.postCard(data.imgPlace, data.place).then(data => {
 
-        const cardSection = new Section({
+        cardSection.create({
           cardData: data,
           renderer: () => {
             const cardEl = createCard(data, userId, cardTemplate, imgPopupObj, api);
