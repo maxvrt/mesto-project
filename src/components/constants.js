@@ -29,6 +29,7 @@ export const placePopup = document.querySelector('.popup_place');
 export const placeFormElement = document.querySelector('.form_place');
 export const placeInput = document.querySelector('.form__item_el_place');
 export const imgInput = document.querySelector('.form__item_el_img-place');
+export const cardTemplate = '#card-template';
 // настройки api
 export const apiConfig = {
   baseUrl: 'https://nomoreparties.co/v1/plus-cohort-8',

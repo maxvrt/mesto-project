@@ -12,7 +12,6 @@ export function createCard(cardItem, userId, selector, imgPopupObj, api) {
       return api.delCardById(cardId)
     },
     likeCallback: () => {
-
       return api.toggleLikeCardById(cardId, card.isLiked)
     },
     imgCallback: () => {
