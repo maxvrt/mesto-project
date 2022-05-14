@@ -10,16 +10,6 @@ import {userInfoSelectors} from './components/constants.js';
 
 import UserInfo from './components/UserInfo.js';
 import { validConfig } from './components/validConfig.js';
-
-import { imgPopup, profilePopup, photosGrid, profileModalOpenButton, placePopup, placeModalOpenButton, avatar, avatarModalOpenButton,avatarPopup, apiConfig, imgDescElement, imgElement,} from './components/constants.js'
-import Section from './components/Section';
-
-import { Card } from './components/Card.js';
-import Api from './components/Api.js';
-import PopupWithImage from './components/PopupImg.js';
-import PopupWithForm from './components/PopupWithForm.js';
-
-
 import { imgPopup, profilePopup, photosGrid, profileModalOpenButton, placePopup, placeModalOpenButton, avatar, avatarModalOpenButton,avatarPopup, apiConfig, cardTemplate} from './components/constants.js'
 import Section from './components/Section';
 
