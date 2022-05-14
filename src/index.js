@@ -11,7 +11,7 @@ import Section from './components/Section';
 import Api from './components/Api.js';
 import PopupWithImage from './components/PopupImg.js';
 import PopupWithForm from './components/PopupWithForm.js';
-import { Card } from './Card.js';
+import { Card } from './components/Card.js';
 
 
 const api = new Api(apiConfig);
@@ -112,8 +112,6 @@ avatarModalOpenButton.addEventListener('click', () => {
 
       api.patchAvatar(data.avatar).then(res => {
         console.log(res)
-
-
         api.getUser().then(res => {
           user.setUserInfo(false, false, res.avatar);
         })
