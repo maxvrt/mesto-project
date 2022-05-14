@@ -6,13 +6,12 @@ import FormValidator from './components/FormValidator.js';
 //UserInfo
 import UserInfo from './components/UserInfo.js';
 import { validConfig } from './components/validConfig.js';
-import { imgPopup, profilePopup, photosGrid, profileModalOpenButton, placePopup, placeModalOpenButton, avatar, avatarModalOpenButton,avatarPopup, apiConfig, cardTemplate, userInfoSelectors} from './components/constants.js'
+import { imgPopup, profilePopup, photosGrid, profileModalOpenButton, placePopup, placeModalOpenButton, avatar, avatarModalOpenButton,avatarPopup, apiConfig, cardTemplate, userInfoSelectors, imgDescElement, imgElement} from './components/constants.js'
 import Section from './components/Section';
 import Api from './components/Api.js';
 import PopupWithImage from './components/PopupImg.js';
 import PopupWithForm from './components/PopupWithForm.js';
-import { createCard } from './components/utils.js'
-
+import { Card } from './Card.js';
 
 
 const api = new Api(apiConfig);
@@ -28,6 +27,28 @@ let userId = '';
 
 const imgPopupObj = new PopupWithImage(imgPopup);
 const cardSection = new Section();
+
+// Функция создания карточки
+function createCard(cardItem, userId, selector, imgPopupObj, api) {
+  const card = new Card(cardItem, userId, selector);
+  // Слушатели в виде колбэков передаются после создания карточки
+  const cardElement = card.generate();
+  const cardImg = card.cardImg;
+  const cardId = card.getId();
+  card.create({
+    delCallback: () => {
+      return api.delCardById(cardId)
+    },
+    likeCallback: () => {
+      return api.toggleLikeCardById(cardId, card.isLiked)
+    },
+    imgCallback: () => {
+      console.log(cardImg);
+      imgPopupObj.open(imgElement, imgDescElement, cardImg.getAttribute('src'), cardImg.getAttribute('alt'));
+    }
+  });
+  return cardElement;
+}
 
 
 // Пользователь
@@ -53,8 +74,6 @@ user.getUserInfo().then((user) => {
   ).catch(err => api.catchError(err));
 
 }).catch(err => api.catchError(err));
-
-
 
 
 
@@ -153,3 +172,4 @@ formList.forEach((formElement) => {
   const validator = new FormValidator(validConfig, formElement);
   validator.enableValidation();
 });
+
