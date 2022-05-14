@@ -19,11 +19,8 @@ const api = new Api(apiConfig);
 
 const user = new UserInfo({
   data: userInfoSelectors,
-
   apiCallBack: () => {
-
     return api.getUser()
-
   }
 }, avatar);
 
@@ -62,15 +59,10 @@ user.getUserInfo().then((user) => {
 
 
 // Профиль попап
-
 profileModalOpenButton.addEventListener('click', () => {
-
-
-
 
   const profilePopupEl = new PopupWithForm(profilePopup, {
     apiCallBack: (data) => {
-
         //renderButtonLoading(true, profilePopup);
         profilePopupEl.renderLoading(true);
 
@@ -83,7 +75,6 @@ profileModalOpenButton.addEventListener('click', () => {
             profilePopupEl.renderLoading(false);
             profilePopupEl.close();
         })
-
   }
   });
   profilePopupEl.setInputValues(user.getValues());
