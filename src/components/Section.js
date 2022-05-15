@@ -1,8 +1,8 @@
 export default class Section{
-  constructor (){
-    // this._renderedItems = cardData;
-    // this._renderer = renderer;
-    // this._container = document.querySelector(selector);
+  constructor ({cardData, renderer}, selector){
+    this._renderedItems = cardData;
+    this._renderer = renderer;
+    this._container = document.querySelector(selector);
   }
   renderItems() {
     if (Array.isArray(this._renderedItems)){
@@ -14,16 +14,17 @@ export default class Section{
     }
   }
   // вставка карточки в сетку
-  setItem(element) {
-    this._container.prepend(element);
+  setItem(element, justOne) {
+    if (justOne) this._container.prepend(element)
+    else this._container.append(element);
   }
-  setItemAll(element) {
-    this._container.append(element);
-  }
-  create({cardData, renderer}, selector) {
-    this._renderedItems = cardData;
-    this._renderer = renderer;
-    this._container = document.querySelector(selector);
-  }
+  // setItemAll(element) {
+  //   this._container.append(element);
+  // }
+  // create({cardData, renderer}, selector) {
+  //   this._renderedItems = cardData;
+  //   this._renderer = renderer;
+  //   this._container = document.querySelector(selector);
+  // }
 
 }
