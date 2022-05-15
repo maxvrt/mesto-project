@@ -32,13 +32,13 @@ export default class Api {
     return fetch(`${this._url}/cards/${id}`, {method: 'DELETE', headers: this._headers}).then(res => this._getResponse(res))
   }
 
-  toggleLikeCardById(id, isLiked) {
-    if (isLiked) {
-      return fetch(`${this._url}/cards/likes/${id}`, {method: 'DELETE', headers: this._headers}).then(res => this._getResponse(res))
-    } else {
-      return fetch(`${this._url}/cards/likes/${id}`, {method: 'PUT', headers: this._headers}).then(res => this._getResponse(res))
-    }
+  likeCardById(id) {
+    return fetch(`${this._url}/cards/likes/${id}`, {method: 'PUT', headers: this._headers}).then(res => this._getResponse(res))
   }
+  delLikeById(id){
+      return fetch(`${this._url}/cards/likes/${id}`, {method: 'DELETE', headers: this._headers}).then(res => this._getResponse(res))
+  }
+
 
   // delLikeCardById(id) {
   //   return fetch(`${this._url}/cards/likes/${id}`, {method: 'DELETE', headers: this._headers}).then(res => this._getResponse(res))
