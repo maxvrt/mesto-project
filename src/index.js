@@ -30,26 +30,45 @@ const cardSection = new Section();
 
 // Функция создания карточки
 function createCard(cardItem, userId, selector, imgPopupObj, api) {
-  const card = new Card(cardItem, userId, selector);
+  const cardId = cardItem.id;
+
+  // колбэки из метода create перенес в конструктор
+  const card = new Card(cardItem, userId, selector,
+    {
+      delCallback: () => {
+        return api.delCardById(cardId)
+      },
+      likeCallback: () => {
+        likeCard(card, cardItem)
+      },
+      imgCallback: () => {
+        console.log(this.cardImg);
+        imgPopupObj.open(imgElement, imgDescElement, this.cardImg.getAttribute('src'), this.cardImg.getAttribute('alt'));
+      }
+    }
+    );
   // Слушатели в виде колбэков передаются после создания карточки
   const cardElement = card.generate();
-  const cardImg = card.cardImg;
-  const cardId = card.getId();
-  card.create({
-    delCallback: () => {
-      return api.delCardById(cardId)
-    },
-    likeCallback: () => {
-      return api.toggleLikeCardById(cardId, card.isLiked)
-    },
-    imgCallback: () => {
-      console.log(cardImg);
-      imgPopupObj.open(imgElement, imgDescElement, cardImg.getAttribute('src'), cardImg.getAttribute('alt'));
-    }
-  });
   return cardElement;
 }
 
+function likeCard(card, data) {
+  console.log('проверка лайка ' + card.isLiked);
+  if (card.isLiked) {
+    console.log(data.likes = 'ОТВЕТ УДАЛЕНИЯ ЛАЙКА');
+    api.delLikeById(data._id).then((data) => {
+      console.log(data.likes = 'ОТВЕТ УДАЛЕНИЯ ЛАЙКА');
+      card.toggleLike(data);
+    }).catch(err => {console.log('Ошибка. Запрос не выполнен (класс): ', err)});
+  } else {
+    console.log(data.likes = 'ОТВЕТ УСТАНОВКИ ЛАЙКА');
+    api.likeCardById(data._id).then((data) => {
+      console.log(data.likes.length);
+      card.toggleLike(data);
+    }).catch(err => {console.log('Ошибка. Запрос не выполнен (класс): ', err)});
+  }
+
+}
 
 // Пользователь
 user.getUserInfo().then((user) => {
