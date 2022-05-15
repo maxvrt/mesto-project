@@ -12,13 +12,14 @@ export default class PopupWithForm extends Popup {
     }
 
     setInputValues(userData) {
-        this._inputs[0].value = userData.name;
-        this._inputs[1].value = userData.about;
+        this._inputs.forEach((input) => {
+            input.value = userData[input.name];
+        })
     }
 
-    open() {
-        super.open();        
-    }
+    
+         
+    
 
 
 

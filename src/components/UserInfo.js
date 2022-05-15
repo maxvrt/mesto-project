@@ -39,7 +39,7 @@ export default class UserInfo {
     getValues() {
         const userData = {
             name: this._nameEl.textContent,
-            about: this._aboutEl.textContent
+            desc: this._aboutEl.textContent
         }
 
         return userData;
