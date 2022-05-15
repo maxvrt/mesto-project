@@ -97,9 +97,10 @@ export class Card{
   }
   // Лайк
   toggleLike(data) {
-    if (data._likes.length) {
-      this.isLiked = data._likes.some(element => { return element._id === this._userId; });
-      this._elementHeartCounter.textContent = data._likes.length;
+    if (data.likes.length>0) {
+      console.log(data.likes + 'Внутри card1');
+      this.isLiked = data.likes.some(element => { return element._id === this._userId; });
+      this._elementHeartCounter.textContent = data.likes.length;
     } else {
       this._elementHeartCounter.textContent = '0';
       this.isLiked = false;
