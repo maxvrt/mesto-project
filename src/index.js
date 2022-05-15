@@ -25,31 +25,36 @@ const user = new UserInfo({
 
 let userId = '';
 
-const imgPopupObj = new PopupWithImage(imgPopup);
+const imgPopupObj = new PopupWithImage(imgPopup, imgElement, imgDescElement);
 const cardSection = new Section();
 
 // Функция создания карточки
-function createCard(cardItem, userId, selector, imgPopupObj, api) {
+function createCard(cardItem, userId, selector, imgPopupObj) {
   const cardId = cardItem.id;
   // колбэки из метода create перенес в конструктор
   const card = new Card(cardItem, userId, selector,
     {
       delCallback: () => {
-        console.log(card._cardId);
-        return api.delCardById(card._cardId)
+        deleteCard(card);
       },
       likeCallback: () => {
         likeCard(card, cardItem)
       },
       imgCallback: () => {
-        console.log(card.cardImg);
-        imgPopupObj.open(imgElement, imgDescElement, card.cardImg.getAttribute('src'), card.cardImg.getAttribute('alt'));
+        //console.log(card.cardImg);
+        imgPopupObj.open(card.cardImg.getAttribute('src'), card.cardImg.getAttribute('alt'));
       }
     }
     );
   // Слушатели в виде колбэков передаются после создания карточки
   const cardElement = card.generate();
   return cardElement;
+}
+
+function deleteCard(card) {
+  api.delCardById(card._cardId).then((data) => {
+    card.delCard();
+  }).catch(err => {console.log('Ошибка. Запрос не выполнен (класс): ', err)});
 }
 
 function likeCard(card, data) {
@@ -78,7 +83,7 @@ user.getUserInfo().then((user) => {
     cardSection.create({
       cardData: data,
       renderer: (cardItem) => {
-        const cardEl = createCard(cardItem, userId, cardTemplate, imgPopupObj, api);
+        const cardEl = createCard(cardItem, userId, cardTemplate, imgPopupObj);
         //const cardElement = card.generate();
         cardSection.setItemAll(cardEl);
       },
@@ -155,7 +160,7 @@ placeModalOpenButton.addEventListener('click', () => {
         cardSection.create({
           cardData: data,
           renderer: () => {
-            const cardEl = createCard(data, userId, cardTemplate, imgPopupObj, api);
+            const cardEl = createCard(data, userId, cardTemplate, imgPopupObj);
 
             cardSection.setItem(cardEl);
           },

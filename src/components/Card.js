@@ -43,14 +43,14 @@ export class Card{
     }
     //есть ли лайк пользователя
     if(this.checkUserLike()) {
-      this._element.querySelector('.photos-grid__heart').classList.add('photos-grid__heart_active');
+      this._heartButton.classList.add('photos-grid__heart_active');
       this.isLiked = true;
     }
     this.cardImg.setAttribute('src', this.imgCard);
     this.cardImg.setAttribute('alt', this._nameCard);
     this._element.querySelector('.photos-grid__city').textContent = this._nameCard;
     // количество лайков
-    if (this._likes) this._element.querySelector('.photos-grid__heart-counter').textContent = this._likes.length;
+    if (this._likes) this._elementHeartCounter.textContent = this._likes.length;
 
   	return this._element;
   }
@@ -78,12 +78,6 @@ export class Card{
     });
   }
 
-  getImg() {
-    return this.cardImg;
-  }
-  getId() {
-    return this._cardId;
-  }
   // клонирование темплейта
   _getElement() {
     const cardElement = document.querySelector(this._selector).content.querySelector('.photos-grid__item').cloneNode(true);
