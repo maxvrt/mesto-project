@@ -4,7 +4,7 @@
 export class Card{
   constructor(data, userId = 1, selector, {delCallback, likeCallback, imgCallback}) {
     //console.log('data2', data.link);
-    if (data) this.imgCard = data.link;
+    if (data) this._imgCard = data.link;
     this._nameCard = data.name;
     this._likes = data.likes;
     this._cardId = data._id;
@@ -46,7 +46,7 @@ export class Card{
       this._heartButton.classList.add('photos-grid__heart_active');
       this.isLiked = true;
     }
-    this.cardImg.setAttribute('src', this.imgCard);
+    this.cardImg.setAttribute('src', this._imgCard);
     this.cardImg.setAttribute('alt', this._nameCard);
     this._element.querySelector('.photos-grid__city').textContent = this._nameCard;
     // количество лайков
