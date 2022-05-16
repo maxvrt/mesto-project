@@ -27,6 +27,13 @@ let userId = '';
 
 const imgPopupObj = new PopupWithImage(imgPopup, imgElement, imgDescElement);
 
+const cardSection = new Section({
+  renderer: (cardItem) => {
+    const cardEl = createCard(cardItem, userId, cardTemplate, imgPopupObj);
+    cardSection.setItem(cardEl);
+  },
+}, photosGrid);
+
 // Функция создания карточки
 function createCard(cardItem, userId, selector, imgPopupObj) {
   // колбэки из метода create перенес в конструктор
@@ -67,16 +74,6 @@ function likeCard(card, data) {
   }
 }
 
-function makeCards(items, justOne = false) {
-  const cardSection = new Section({
-        cardData: items,
-        renderer: (cardItem) => {
-          const cardEl = createCard(cardItem, userId, cardTemplate, imgPopupObj);
-          cardSection.setItem(cardEl, justOne);
-        },
-      }, photosGrid);
-  cardSection.renderItems();
-}
 
 // Пользователь
 user.getUserInfo().then((user) => {
@@ -88,7 +85,8 @@ user.getUserInfo().then((user) => {
   console.log(userId + ' - userId после назначения');
   // Вывод карточек
   api.getCards().then((data) => {
-    makeCards(data);
+    cardSection.renderItems(data);
+    //makeCards(data);
   }
   ).catch(err => api.catchError(err));
 
@@ -152,8 +150,7 @@ placeModalOpenButton.addEventListener('click', () => {
     //renderButtonLoading(true, placePopup);
 
       api.postCard(data.imgPlace, data.place).then(data => {
-        makeCards(data, true);
-        cardSection.renderItems();
+        cardSection.setItemOne(data);
       })
       .catch(err => api.catchError(err))
       .finally(res => {
