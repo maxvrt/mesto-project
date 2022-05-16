@@ -42,7 +42,7 @@ export class Card{
       this._delButton.classList.remove('photos-grid__delete_hide');
     }
     //есть ли лайк пользователя
-    if(this.checkUserLike()) {
+    if(this._checkUserLike()) {
       this._heartButton.classList.add('photos-grid__heart_active');
       this.isLiked = true;
     }
@@ -84,7 +84,7 @@ export class Card{
     return cardElement;
   }
   // проверка лайкал ли юзер
-  checkUserLike(data = this) {
+  _checkUserLike(data = this) {
     if (this._userId !== 1 && this._likes.length > 0){
       return data._likes.some(element => { return element._id === this._userId; });
     }
