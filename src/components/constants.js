@@ -3,7 +3,6 @@ export const template = document.querySelector('#card-template').content;
 export const imgDescElement = imgPopup.querySelector('.popup__desc');
 export const imgElement = imgPopup.querySelector('.popup__photo');
 // Профиль
-export let userId = '0';
 export const profileModalCloseButton = document.querySelector('.popup__close.popup_profile');
 export const profileModalOpenButton = document.querySelector('.profile__edit');
 export const profilePopup = document.querySelector('.popup_profile');
@@ -20,7 +19,8 @@ export const avatarFormElement = document.querySelector('.form_avatar');
 export const avatarInput = document.querySelector('.form__item_el_avatar');
 export const avatarPopup = document.querySelector('.popup_avatar');
 
-export const photosGrid = document.querySelector('.photos-grid');
+export const photosGrid = '.photos-grid';
+export const photosGrid2 = document.querySelector('.photos-grid');
 export const imgModalButtonClose = document.querySelector('.popup__close.popup_img');
 // Окно добавления карточки
 export const placeModalCloseButton = document.querySelector('.popup__close.popup_place');
@@ -29,5 +29,20 @@ export const placePopup = document.querySelector('.popup_place');
 export const placeFormElement = document.querySelector('.form_place');
 export const placeInput = document.querySelector('.form__item_el_place');
 export const imgInput = document.querySelector('.form__item_el_img-place');
+export const cardTemplate = '#card-template';
+// настройки api
+export const apiConfig = {
+  baseUrl: 'https://nomoreparties.co/v1/plus-cohort-8',
+  headers: {
+    authorization: '22ea861c-3f58-49dd-8e52-eb0909a1b5c2',
+    'Content-Type': 'application/json'
+  }
+}
+
+//Selectors for UserInfo class
+export const userInfoSelectors = {
+    nameSelector: '.profile__name',
+    aboutSelector: '.profile__desc',
+}
 
 

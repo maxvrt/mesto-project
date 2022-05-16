@@ -14,8 +14,12 @@ module.exports = {
   devServer: {
     static: path.resolve(__dirname, './dist'),
     compress: true,
-    port: 8080,
+    port: 8082,
     open: true
+  },
+  watch: true,
+  watchOptions: {
+    aggregateTimeout: 600,
   },
   module: {
     rules: [ // rules — это массив правил
