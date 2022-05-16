@@ -94,78 +94,98 @@ user.getUserInfo().then((user) => {
 
 
 // Профиль попап
+
+const profilePopupEl = new PopupWithForm(profilePopup, {
+  apiCallBack: (data) => {
+      //renderButtonLoading(true, profilePopup);
+      profilePopupEl.renderLoading(true);
+
+      api.patchUser(data.name, data.desc).then(data => {
+        user.setUserInfo(data.name, data.about, false);
+        profilePopupEl.close();
+      })
+      .catch(err => api.catchError(err))
+      .finally(data => {
+
+          profilePopupEl.renderLoading(false);
+
+      })
+}
+});
+
+// Аватар попап
+
+const avatarPopupEl = new PopupWithForm(avatarPopup, {apiCallBack: (data) => {
+  avatarPopupEl.renderLoading(true);
+  //renderButtonLoading(true, avatarPopup);
+
+    api.patchAvatar(data.avatar).then(res => {
+      user.setUserInfo(false, false, res.avatar);
+      avatarPopupEl.close();
+
+    })
+    .catch(err => api.catchError(err))
+    .finally(res => {
+      avatarPopupEl.renderLoading(false);
+
+    })
+
+
+}});
+
+
+// Попап карточки
+
+const placePopupEl = new PopupWithForm(placePopup, {apiCallBack: (data) => {
+  placePopupEl.renderLoading(true);
+  //renderButtonLoading(true, placePopup);
+    api.postCard(data.imgPlace, data.place).then(data => {
+      const cardEl = createCard(data, userId, cardTemplate, imgPopupObj);
+      cardSection.setItemOne(cardEl);
+      placePopupEl.close();
+    })
+    .catch(err => api.catchError(err))
+    .finally(res => {
+      placePopupEl.renderLoading(false);
+
+    })
+
+}});
+
+// Открытие профайл попапа
+
 profileModalOpenButton.addEventListener('click', () => {
 
-  const profilePopupEl = new PopupWithForm(profilePopup, {
-    apiCallBack: (data) => {
-        //renderButtonLoading(true, profilePopup);
-        profilePopupEl.renderLoading(true);
 
-        api.patchUser(data.name, data.desc).then(data => {
-          user.setUserInfo(data.name, data.about, false);
-        })
-        .catch(err => api.catchError(err))
-        .finally(data => {
-            //renderButtonLoading(false, profilePopup);
-            profilePopupEl.renderLoading(false);
-            profilePopupEl.close();
-        })
-  }
-  });
   profilePopupEl.setInputValues(user.getValues());
   profilePopupEl.open();
 
 
 });
 
-// Окно добавления аватара
+
+// Открытие аватар попапа
+
 avatarModalOpenButton.addEventListener('click', () => {
-  const avatarPopupEl = new PopupWithForm(avatarPopup, {apiCallBack: (data) => {
-    avatarPopupEl.renderLoading(true);
-    //renderButtonLoading(true, avatarPopup);
-      api.patchAvatar(data.avatar).then(res => {
-        console.log(res)
-        api.getUser().then(res => {
-          user.setUserInfo(false, false, res.avatar);
-        })
-
-      })
-      .catch(err => api.catchError(err))
-      .finally(res => {
-        avatarPopupEl.renderLoading(false);
-        //renderButtonLoading(false, avatarPopup);
-        avatarPopupEl.close();
-      })
 
 
-  }});
   avatarPopupEl.open();
 });
 
-// Окно добавления карточки
+// Открытие попапа карточки
+
 placeModalOpenButton.addEventListener('click', () => {
-  const placePopupEl = new PopupWithForm(placePopup, {apiCallBack: (data) => {
-    placePopupEl.renderLoading(true);
-    //renderButtonLoading(true, placePopup);
 
-      api.postCard(data.imgPlace, data.place).then(data => {
-        const cardEl = createCard(data, userId, cardTemplate, imgPopupObj);
-        cardSection.setItemOne(cardEl);
-      })
-      .catch(err => api.catchError(err))
-      .finally(res => {
-        placePopupEl.renderLoading(false);
-        //renderButtonLoading(false, placePopup);
-        placePopupEl.close();
-      })
-
-
-  }});
 
   placePopupEl.open();
 });
 
-//New OOP validation
+
+
+
+//Валидация
+
+
 const formList = Array.from(document.querySelectorAll(validConfig.formSelector));
 formList.forEach((formElement) => {
   formElement.addEventListener('submit', (evt) => {
