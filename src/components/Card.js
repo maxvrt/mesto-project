@@ -56,25 +56,16 @@ export class Card{
   }
 
   _setEventListeners() { //{delCallback, likeCallback, imgCallback}
-    this._element.querySelector('.photos-grid__delete').addEventListener('click',  () => {
+    this._delButton.addEventListener('click',  () => {
       this._delCallback();
-      // delCallback().then(() => {
-      //   this.delCard(this._delButton);
-      // }).catch(err => {console.log('Ошибка. Запрос не выполнен (класс): ', err);});
     });
-    this._element.querySelector('.photos-grid__heart').addEventListener('click',  () => {
+    this._heartButton.addEventListener('click',  () => {
       this._likeCallback();
-      // console.log('есть лайк -'+ this.isLiked);
-      // if (checkUserLike())
-      // likeCallback().then((data) => {
-      //   console.log(data.likes.length);
-      //   this.toggleLike(data.likes.length);
-      // }).catch(err => {console.log('Ошибка. Запрос не выполнен (класс): ', err);});
+
     });
 
-    this._element.querySelector('.photos-grid__img').addEventListener('click',  () => {
+    this.cardImg.addEventListener('click',  () => {
       this._imgCallback();
-      //imgCallback();
     });
   }
 
