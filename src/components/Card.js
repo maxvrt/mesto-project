@@ -56,15 +56,15 @@ export class Card{
   }
 
   _setEventListeners() { //{delCallback, likeCallback, imgCallback}
-    this._delButton.addEventListener('click',  () => {
+    this._element.querySelector('.photos-grid__delete').addEventListener('click',  () => {
       this._delCallback();
     });
-    this._heartButton.addEventListener('click',  () => {
+    this._element.querySelector('.photos-grid__heart').addEventListener('click',  () => {
       this._likeCallback();
 
     });
 
-    this.cardImg.addEventListener('click',  () => {
+    this._element.querySelector('.photos-grid__img').addEventListener('click',  () => {
       this._imgCallback();
     });
   }
