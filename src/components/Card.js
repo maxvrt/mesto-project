@@ -32,11 +32,11 @@ export class Card{
   // создание карточки
   generate() {
     this._element = this._getElement();
-    this._setEventListeners();
     this._heartButton = this._element.querySelector('.photos-grid__heart');
     this._delButton = this._element.querySelector('.photos-grid__delete');
     this.cardImg = this._element.querySelector('.photos-grid__img');
     this._elementHeartCounter = this._element.querySelector('.photos-grid__heart-counter');
+    this._setEventListeners();
     // если лайк установлен и будет удаляться
     if (this._userId !== '0' && this._userId === this._ownerId) {
       this._delButton.classList.remove('photos-grid__delete_hide');
@@ -56,15 +56,14 @@ export class Card{
   }
 
   _setEventListeners() { //{delCallback, likeCallback, imgCallback}
-    this._element.querySelector('.photos-grid__delete').addEventListener('click',  () => {
+    this._delButton.addEventListener('click',  () => {
       this._delCallback();
     });
-    this._element.querySelector('.photos-grid__heart').addEventListener('click',  () => {
+    this._heartButton.addEventListener('click',  () => {
       this._likeCallback();
-
     });
 
-    this._element.querySelector('.photos-grid__img').addEventListener('click',  () => {
+    this.cardImg.addEventListener('click',  () => {
       this._imgCallback();
     });
   }
