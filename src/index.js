@@ -150,7 +150,8 @@ placeModalOpenButton.addEventListener('click', () => {
     //renderButtonLoading(true, placePopup);
 
       api.postCard(data.imgPlace, data.place).then(data => {
-        cardSection.setItemOne(data);
+        const cardEl = createCard(data, userId, cardTemplate, imgPopupObj);
+        cardSection.setItemOne(cardEl);
       })
       .catch(err => api.catchError(err))
       .finally(res => {
