@@ -27,6 +27,13 @@ let userId = '';
 
 const imgPopupObj = new PopupWithImage(imgPopup, imgElement, imgDescElement);
 
+const cardSection = new Section({
+  renderer: (cardItem) => {
+    const cardEl = createCard(cardItem, userId, cardTemplate, imgPopupObj);
+    cardSection.setItem(cardEl);
+  },
+}, photosGrid);
+
 // Функция создания карточки
 function createCard(cardItem, userId, selector, imgPopupObj) {
   // колбэки из метода create перенес в конструктор
@@ -67,16 +74,6 @@ function likeCard(card, data) {
   }
 }
 
-function makeCards(items, justOne = false) {
-  const cardSection = new Section({
-        cardData: items,
-        renderer: (cardItem) => {
-          const cardEl = createCard(cardItem, userId, cardTemplate, imgPopupObj);
-          cardSection.setItem(cardEl, justOne);
-        },
-      }, photosGrid);
-  cardSection.renderItems();
-}
 
 // Пользователь
 user.getUserInfo().then((user) => {
@@ -88,7 +85,7 @@ user.getUserInfo().then((user) => {
   console.log(userId + ' - userId после назначения');
   // Вывод карточек
   api.getCards().then((data) => {
-    makeCards(data);
+    cardSection.renderItems(data);
   }
   ).catch(err => api.catchError(err));
 
@@ -109,9 +106,9 @@ const profilePopupEl = new PopupWithForm(profilePopup, {
       })
       .catch(err => api.catchError(err))
       .finally(data => {
-          
+
           profilePopupEl.renderLoading(false);
-          
+
       })
 }
 });
@@ -122,7 +119,7 @@ const avatarPopupEl = new PopupWithForm(avatarPopup, {apiCallBack: (data) => {
   avatarPopupEl.renderLoading(true);
   //renderButtonLoading(true, avatarPopup);
 
-    api.patchAvatar(data.avatar).then(res => {  
+    api.patchAvatar(data.avatar).then(res => {
       user.setUserInfo(false, false, res.avatar);
       avatarPopupEl.close();
 
@@ -130,7 +127,7 @@ const avatarPopupEl = new PopupWithForm(avatarPopup, {apiCallBack: (data) => {
     .catch(err => api.catchError(err))
     .finally(res => {
       avatarPopupEl.renderLoading(false);
-      
+
     })
 
 
@@ -142,26 +139,16 @@ const avatarPopupEl = new PopupWithForm(avatarPopup, {apiCallBack: (data) => {
 const placePopupEl = new PopupWithForm(placePopup, {apiCallBack: (data) => {
   placePopupEl.renderLoading(true);
   //renderButtonLoading(true, placePopup);
-
     api.postCard(data.imgPlace, data.place).then(data => {
-
-      cardSection.create({
-        cardData: data,
-        renderer: () => {
-          const cardEl = createCard(data, userId, cardTemplate, imgPopupObj, api);
-
-          cardSection.setItem(cardEl);
-        },
-      }, photosGrid);
-      cardSection.renderItems();
+      const cardEl = createCard(data, userId, cardTemplate, imgPopupObj);
+      cardSection.setItemOne(cardEl);
       placePopupEl.close();
     })
     .catch(err => api.catchError(err))
     .finally(res => {
       placePopupEl.renderLoading(false);
-     
-    })
 
+    })
 
 }});
 
@@ -169,7 +156,7 @@ const placePopupEl = new PopupWithForm(placePopup, {apiCallBack: (data) => {
 
 profileModalOpenButton.addEventListener('click', () => {
 
-  
+
   profilePopupEl.setInputValues(user.getValues());
   profilePopupEl.open();
 
@@ -181,7 +168,7 @@ profileModalOpenButton.addEventListener('click', () => {
 
 avatarModalOpenButton.addEventListener('click', () => {
 
-  
+
   avatarPopupEl.open();
 });
 
@@ -189,7 +176,6 @@ avatarModalOpenButton.addEventListener('click', () => {
 
 placeModalOpenButton.addEventListener('click', () => {
 
-  
 
   placePopupEl.open();
 });
