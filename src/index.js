@@ -86,7 +86,6 @@ user.getUserInfo().then((user) => {
   // Вывод карточек
   api.getCards().then((data) => {
     cardSection.renderItems(data);
-    //makeCards(data);
   }
   ).catch(err => api.catchError(err));
 
